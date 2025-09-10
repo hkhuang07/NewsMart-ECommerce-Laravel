@@ -13,6 +13,11 @@ Sử dụng các thao tác quản lý mã nguồn trên Github.
 		git remote add origin https://github.com/hkhuang07/FriendMart-Laravel-Website.git
 		git push -u origin main
 		
+		+ Remote từ dự án có sẵn
+		git remote add origin https://github.com/hkhuang07/FriendMart-Laravel-Website.git
+		git branch -M main
+		git push -u origin main
+		
 		+ Để cập nhật dùng tập câu lệnh sau:
 		git pull origin main
 		git add .
