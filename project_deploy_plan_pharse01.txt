@@ -1,0 +1,106 @@
+Tiến hành triển khai dự án:
+	I. Tổng quan về triển khai dự án
+		Đầu tiên, xác định tầm nhìn dự án (project vision) và các mục tiêu của sản phẩm. 
+		Sau đó, chia dự án thành các giai đoạn phát triển lặp lại (iterations), thường được gọi là Sprint, kéo dài khoảng 2-4 tuần. 
+		Trong mỗi Sprint, nhóm sẽ tập trung vào việc hoàn thành một nhóm chức năng cụ thể.
+		
+		I. Giai đoạn lập kế hoạch (Planning)
+			Đây là giai đoạn cực kỳ quan trọng, nơi cả nhóm xác định hướng đi cho dự án.
+			1. Xác định tầm nhìn và mục tiêu dự án
+				Xác định rõ tại sao chúng ta xây dựng FriendMart: Hoàn thiện đồ án Quản Lý Dự Án Phần Mềm
+				Tầm nhìn dự án: "Trở thành một nền tảng thương mại điện tử nơi mua sắm không chỉ là giao dịch mà còn là một trải nghiệm xã hội, kết nối mọi người, đa dịch vụ vận chuyển, thuê xe."
+				Mục tiêu SMART:
+					Specific (Cụ thể): Xây dựng một website bán hàng tích hợp mạng xã hội vận chuyển book xe
+					Measurable (Đo lường được): Hoàn thành dự án trước khi báo cáo đồ án môn học, hoàn thiện đầy đủ các chức năng cơ bản chạy trơn tru, không lỗi
+					Achievable (Khả thi): Với 5 thành viên, đây là mục tiêu hợp lý.
+					Relevant (Liên quan): Trực tiếp phục vụ mục tiêu học tập và thực tế.
+					Time-bound (Có thời hạn): Hoàn thành dự án trong 6-8 tuần.
+
+			2. Xây dựng danh sách yêu cầu và câu hỏi
+				Cần tập trung vào việc thu thập các yêu cầu từ nhiều khía cạnh của dự án.
+				* Yêu cầu người dùng (User Requirements):
+					Làm thế nào để người dùng đăng ký và đăng nhập? 
+						- Người dùng đăng ký tài khoản trên trang website, có thể đăng nhập bằng email Google
+					Họ muốn xem và tìm kiếm sản phẩm như thế nào?
+						- Người dùng tìm kiếm sản phẩm, shop, người dùng, bài viết ... trên thanh tìm kiếm. Kết quả đưa người dùng đến trang kết quả tìm kiếm
+						- Trang chủ là trang kết hợp bài viết của người dùng và các sản phẩm bán chạy.
+						- Trang shopping chứa các hàng hóa đang bán, shop, quảng cáo, voucher ...
+						- Trang social chứa các post, người dùng, các người dùng có thể kết bạn, thông báo tương tác, tin nhắn, chia sẻ, thích, bình luận ...
+						- Trang chủ điều hướng được đến các trang shopping và trang social
+					Quá trình thêm sản phẩm vào giỏ hàng và thanh toán diễn ra ra sao?
+						- Cách 1: - người dùng chọn mua ngay trên sản phẩm
+								  -	chuyển đến trang checkout, tại đây người dùng chỉnh sửa các thông tin (sản phẩm, số lượng, loại, size...địa chỉ, sđt,tên người nhận,...) trước khi bấm Place Order.
+								  - sau khi placeorder chuyển đến trang cảm ơn.
+								  - order của người dùng được shop xem xét và giao hàng
+								  - trong quá trình giao shopp cập nhật tình trạng đơn hàng
+								  - Sau khi thanh toán trả trước hoặc thanh toán online thì đơn hàng được cập nhật đã thanh toán ...
+						- Cách 2: -	Người dùng thêm sản phẩm vào giỏ hàng
+								  -	Người dùng chọn các sản phẩm,số lượng cần mua trong giỏ hàng và click mua hàng
+								  -	Chuyển người dùng đến trang checkout, tại đây người dùng chỉnh sửa các thông tin (sản phẩm, số lượng, loại, size...địa chỉ, sđt,tên người nhận,...) trước khi bấm Place Order.
+								  - sau khi placeorder chuyển đến trang cảm ơn.
+								  - order của người dùng được shop xem xét và giao hàng
+								  - trong quá trình giao shopp cập nhật tình trạng đơn hàng
+								  - Sau khi thanh toán trả trước hoặc thanh toán online thì đơn hàng được cập nhật đã thanh toán ...
+					Họ có thể tương tác với sản phẩm (thích, bình luận) và với người dùng khác như thế nào?
+						- Họ có thể thích 1 lần, bình luận nhiều lần, chia sẻ bài viết người dùng của họ và người dùng khác
+						- Họ có thể kết bạn, nhắn tin, xem profile người dùng khác
+						- Họ có thể xem chi tiết sản phẩm, thích sản phẩm, mua, thêm vào giỏ hàng...
+					Hồ sơ cá nhân của họ sẽ bao gồm những thông tin gì?
+						- Avartar, ảnh bìa, tên người dùng, trường học, công ty, job , email+sđt(ẩn/không), description, liên kết khác,...
+					
+				* Yêu cầu nghiệp vụ (Business Requirements):
+					Làm thế nào để quản lý các sản phẩm, danh mục?
+						- admin quản lý (CRUD)toàn bộ các bảng csdl bao gồm account
+						- manager quản lý (xem ,chỉnh sửa, xóa,thêm) các sản phẩm, danh mục, đơn hàng, kiểm duyệt bài viết) không có account
+						- saler quản lý các sản phẩm của họ,đơn hàng về sản phẩm của họ, thuê shipper...
+						- shipper quản lý đơn hàng được saler đặt,
+						- users người dùng thường có thể đăng ký buôn bán, tạo bài viết, bình luận, thích, chia sẻ nhắn tin kết bạn, mua hàng, xem bài viết
+					Hệ thống xử lý đơn hàng và thanh toán như thế nào?
+						Đơn hàng được người dùng đặt -> saler kiểm duyệt -> cập nhật tình trạng hàng-> book shipper -> giao hàng ->Thanh toán ->Cập nhật tình trạng->(thanh toán/hủy) 
+					Có những báo cáo nào cần thiết cho người quản lý (doanh thu, số lượng bán...)?
+						- Báo các số lượng bán sản phẩm
+						- Báo các doanh thu theo nhân viên, hàng hóa, ngày...
+				* Yêu cầu kỹ thuật (Technical Requirements):
+					Chúng ta sẽ sử dụng framework và công nghệ gì? 
+						- Laravel Framwork - PHP Language
+					Cần xây dựng API cho các tính năng tương tác không?
+						- Có xây dựng các API backend để gọi từ frontend
+					Hệ thống có thể mở rộng như thế nào trong tương lai?
+						- Thêm tính năng booking xe, trang tin, ...
+
+			3. Phân chia công việc và phân công thành viên
+				Dựa trên kiến thức của từng thành viên, bạn có thể phân chia các vai trò và trách nhiệm chính.
+				-	Team Leader / Scrum Master: Quản lý chung, đảm bảo quy trình Agile, giải quyết các trở ngại, phát triển phần mềm
+					Product Owner: Chịu trách nhiệm về yêu cầu sản phẩm, quản lý Product Backlog.
+				(Các thành viên thuộc các task khác nhau có thể hỗ trợ đóng góp cho nhau)
+				-	Thành viên 1 & 2: Phát triển phần Frontend (giao diện người dùng) bằng HTML, CSS, JavaScript (hoặc Vue.js/React nếu có kiến thức). B.N.M.Huy, N.V.Kha, H.Q.Huy
+				-	Thành viên 3: Phát triển phần Backend và API (xử lý logic, cơ sở dữ liệu) bằng Laravel. -> N.P.Huy, H.Q.Huy, 
+				-	Thành viên 4: Thiết kế cơ sở dữ liệu và kiểm thử (tester). -> P.C.Hải
+				Lưu ý: Trong mô hình Agile, các thành viên thường làm việc chéo (cross-functional) nên mọi người đều có thể đóng góp vào nhiều phần khác nhau.
+
+		II. Giai đoạn thực thi (Execution)
+			1. Bắt đầu Sprint đầu tiên
+				-	Kế hoạch được lên trước buổi 4 môn Công nghệ Web PHP
+					Sau khi đã có kế hoạch - Sau khi học buổi 4 Công nghệ Web PHP cả nhóm sẽ bắt đầu code từ các kiến thức trong 4 buổi - 4 tuần học Công nghệ Web PHP.
+				-	Tạo User Stories và Tasks: Chuyển các yêu cầu đã xác định thành các User Stories cụ thể trên Jira. Ví dụ: "Với tư cách là người dùng, tôi muốn đăng ký tài khoản để có thể sử dụng các tính năng của website."
+				-	Chia nhỏ Tasks: Chia nhỏ các User Story thành các công việc nhỏ hơn (tasks). Ví dụ: "Thiết kế form đăng ký", "Viết API đăng ký", "Viết migration cho bảng users".
+				-	Họp Daily Scrum: Mỗi ngày, các thành viên sẽ họp nhanh 15 phút để:
+					Nói những gì đã làm hôm qua.		
+					Nói những gì sẽ làm hôm nay.
+					Nói những khó khăn đang gặp phải.
+			2. Sử dụng công cụ
+				Jira: Di chuyển các tasks từ cột "To Do" sang "In Progress" khi bắt đầu làm, và sang "Done" khi hoàn thành. Điều này giúp cả nhóm theo dõi tiến độ một cách trực quan.
+				Git: Mỗi thành viên sẽ tạo một nhánh riêng để làm việc và tạo Pull Request (PR) khi hoàn thành. Bạn (Scrum Master) sẽ review code trước khi gộp vào nhánh chính.
+
+		III. Giai đoạn xem xét và cải tiến (Review & Retrospective)
+			Sau khi Sprint kết thúc, cả nhóm sẽ đánh giá kết quả.
+			Sprint Review: Thuyết trình các tính năng đã hoàn thành trong Sprint này cho "khách hàng" (có thể là giảng viên hoặc chính bạn).
+			Mục tiêu: Nhận phản hồi và xác nhận rằng sản phẩm đang đi đúng hướng.
+				Sprint Retrospective: Đây là cuộc họp nội bộ của nhóm để cùng nhau cải thiện.
+				Câu hỏi thảo luận:
+				Điều gì đã diễn ra tốt trong Sprint này?
+				Điều gì cần cải thiện?
+				Có những trở ngại nào đã gặp phải?
+				Chúng ta sẽ cam kết thay đổi gì trong Sprint tiếp theo?
+			Áp dụng: Các quyết định từ cuộc họp này sẽ được áp dụng vào Sprint tiếp theo để nâng cao hiệu suất làm việc.
+

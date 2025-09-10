@@ -1,0 +1,261 @@
+Question 01: 
+	Tôi cần xây dựng 1 đồ án cho môn học Quản Lý Dự Án Phần Mềm:
+	- Cung cấp cho tôi 1 vài gợi ý website php laravel có thể áp dụng để quản lý dành cho đồ án này		
+	- Gợi ý thêm nhiều website đa tính năng khác có thể áp dụng
+Answer 01:
+	1. Nền tảng E-commerce tích hợp mạng xã hội (Social E-commerce Platform)
+	-	Đây là một ý tưởng kết hợp giữa website bán hàng và mạng xã hội, tạo ra một trải nghiệm mua sắm cộng đồng.
+		+ Bán hàng: Cung cấp đầy đủ các tính năng của một website bán hàng thông thường: quản lý sản phẩm, giỏ hàng, thanh toán, đơn hàng, và quản lý kho.
+		+ Mạng xã hội: Người dùng có thể tạo hồ sơ, theo dõi các shop yêu thích, chia sẻ sản phẩm, đánh giá và bình luận. Thậm chí có thể tạo các nhóm thảo luận về sản phẩm.
+		+ Quản lý: Hệ thống quản lý (backend) sẽ phức tạp hơn, bao gồm quản lý người dùng, quản lý shop, quản lý sản phẩm, quản lý kho, và cả quản lý các hoạt động trên mạng xã hội như bài đăng, bình luận.
+	Tại sao nên chọn: Dự án này đòi hỏi bạn phải quản lý một hệ thống có nhiều luồng dữ liệu phức tạp, từ bán hàng, quản lý kho đến tương tác người dùng. Đây là cơ hội tuyệt vời để bạn áp dụng các kỹ thuật như phân tích yêu cầu đa luồng, thiết kế cơ sở dữ liệu quan hệ phức tạp, và quản lý rủi ro liên quan đến việc xử lý dữ liệu người dùng.
+
+
+
+Tên đề tài: FriendMart: Where Shopping Meets Friendship 
+Tên repository: friendmart-laravel-website
+Description: FriendMart is a social e-commerce platform that fosters a friendly shopping environment. The system allows users to create friend lists, share product recommendations, and build a social network around their purchasing habits. It's a blend of a store and a social hub.
+Question 02: Dự án của tôi có 5 người, chúng tôi quản lý mã nguồn trong 1 repository của Github. Hãy giúp tôi sử dụng các thao tác quản lý mã nguồn trên github. Ngoài những thông tin cần thiết và tổng quát đến chi tiết, hãy cung cấp 1 thêm các thông tin sau:
+	-	Tôi là người quản lý repository này và là người quản lý đồ án
+	-	Tôi sử dụng tập câu lệnh sau sau khi tạo repository
+		Khởi tạo
+		git init
+		git add .
+		git commit -m "first commit"
+		git branch -M main
+		git remote add origin https://github.com/hkhuang07/FriendMart-Laravel-Website.git
+		git push -u origin main
+	- 	Để cập nhật tôi dùng tập câu lệnh sau:
+		git pull origin main
+		git add .
+		git commit -m "Update Project"
+		git push origin main
+	Câu hỏi:
+		Các thao tác trên là dành cho tôi, người chủ của repo nên chúng khá đơn giản. Tuy nhiên, hãy trả lời:
+		-	Để các thành viên khác cập nhật mã nguồn trên repository này thì họ cần thực hiện các thao tác git như thế nào để đảm bảo an toàn mã nguồn và cập nhật dự án hiệu quả . Cho cụ thể các tập lệnh
+		- 	Cung cấp các kiến thức các mẹo cần thiết để quản lý mã nguồn trên github
+Answer 02:
+	1. Thao tác của các thành viên trong nhóm
+		Là người quản lý repository, bạn sẽ mời các thành viên khác vào dự án của mình. Các thành viên này không nên thao tác trực tiếp lên nhánh main để tránh xung đột mã nguồn. Thay vào đó, họ nên làm việc trên nhánh riêng của mình.
+		Bước 1: Clone Repository về máy
+			Thay vì dùng git init, các thành viên sẽ clone (nhân bản) repository về máy tính của họ. Đây là cách đúng đắn để bắt đầu làm việc trên một dự án đã có sẵn.
+			Bash: 
+				git clone https://github.com/hkhuang07/FriendMart-Laravel-Website.git
+			Câu lệnh này sẽ tải toàn bộ mã nguồn về máy và tự động thiết lập kết nối với repository từ xa (origin).
+
+		Bước 2: Tạo nhánh riêng để làm việc
+			Trước khi bắt đầu code, mỗi thành viên nên tạo một nhánh (branch) riêng. Tên nhánh nên tuân theo một quy tắc nhất định, ví dụ: feature/ten-tinh-nang hoặc fix/ten-loi.
+			Bash: # Di chuyển vào thư mục dự án vừa clone
+				  cd FriendMart-Laravel-Website
+				  # Tạo một nhánh mới và chuyển sang nhánh đó
+				  git checkout -b feature/user-profile
+		Bước 3: Cập nhật mã nguồn
+			Trong quá trình làm việc, có thể các thành viên khác đã đẩy code mới lên nhánh main. Để đảm bảo mã nguồn của mình luôn mới nhất trước khi làm việc, thành viên đó cần kéo mã nguồn mới nhất từ nhánh main về nhánh của mình.
+			Bash: 	# Chuyển về nhánh main để cập nhật
+					git checkout main
+					git pull origin main
+					# Quay lại nhánh làm việc
+					git checkout feature/user-profile
+					# Hợp nhất (merge) những thay đổi từ main vào nhánh hiện tại
+					git merge main
+			Trong trường hợp có xung đột mã nguồn (merge conflict), Git sẽ thông báo. Thành viên cần giải quyết xung đột bằng tay trước khi tiếp tục.
+
+		Bước 4: Đẩy code lên nhánh riêng
+			Sau khi hoàn thành công việc trên nhánh của mình, thành viên sẽ commit và push code lên repository.
+			Bash: 	# Thêm các file đã thay đổi vào staging area
+					git add .
+					# Ghi lại thay đổi với thông điệp rõ ràng
+					git commit -m "feat: Add user profile page with edit functionality"
+					# Đẩy code lên nhánh mới trên GitHub
+					git push origin feature/user-profile
+		Bước 5: Yêu cầu hợp nhất (Pull Request - PR)
+		Đây là bước quan trọng nhất để đảm bảo an toàn mã nguồn. Thay vì trực tiếp hợp nhất vào nhánh main, thành viên sẽ tạo một Pull Request (PR) trên GitHub. PR này là một yêu cầu để hợp nhất code từ nhánh của họ vào nhánh main.
+		Bạn, với tư cách là người quản lý dự án, sẽ xem lại (review) PR đó.
+		Bạn có thể kiểm tra xem code có lỗi hay không, có tuân thủ các quy tắc không.
+		Nếu mọi thứ ổn, bạn sẽ chấp nhận (approve) và hợp nhất (merge) PR đó vào nhánh main.
+		Thao tác này giúp kiểm soát chất lượng code trước khi nó được đưa vào nhánh chính của dự án.
+
+	2. Các mẹo cần thiết để quản lý mã nguồn trên GitHub
+		a. Thiết lập quy tắc cho nhánh main
+		Bạn nên thiết lập quy tắc bảo vệ nhánh (branch protection rules) cho nhánh main trên GitHub. Điều này sẽ ngăn cản bất kỳ ai, kể cả bạn, có thể trực tiếp đẩy code lên main. Mọi thay đổi đều phải thông qua Pull Request.
+		b. Sử dụng .gitignore
+		File .gitignore giúp bạn loại trừ các file và thư mục không cần thiết khỏi Git, như thư mục vendor (chứa các thư viện của Laravel), file .env, hoặc các file cache. Điều này giữ cho repository gọn gàng và an toàn.
+		c. Viết thông điệp Commit rõ ràng
+		Thống nhất một quy tắc viết thông điệp commit. Ví dụ:
+			feat: Thêm tính năng đăng nhập bằng Google
+			fix: Sửa lỗi hiển thị trên trang sản phẩm
+			refactor: Tối ưu hóa lại hàm xử lý đơn hàng
+
+		d. Sử dụng GitHub Projects và Issues
+			GitHub có các công cụ quản lý dự án tích hợp như Issues và Projects. Bạn có thể tạo các Issues để mô tả các công việc cần làm (ví dụ: "Thiết kế trang hồ sơ người dùng"). Sau đó, gán các Issues này cho từng thành viên. Khi một thành viên tạo PR, họ có thể liên kết PR đó với Issue, giúp việc theo dõi tiến độ dễ dàng hơn.
+
+		e. Giao tiếp hiệu quả
+			Việc quản lý một dự án nhóm không chỉ là về code mà còn là về giao tiếp. Sử dụng các kênh như Slack, Discord, hoặc thậm chí là chức năng bình luận trên GitHub để thảo luận về các vấn đề, giải quyết xung đột, và đưa ra quyết định.
+
+Question 03: 
+	Đồ án môn Quản lý dự án phần mềm - Đề tài: Quản lý dự án FriendMart-Social Commerce Website.
+	Số lượng thành viên 5 người.
+	Sản phẩm: FriendMart-Social Commerce Website Laravel PHP
+	Mô hình quản lý: Agiel
+	Để triển khai dự án chúng ta cần làm những gì hãy trình bày từ tổng quan đến chi tiết triển khai dự án
+	-	Triển khai dự án
+	-	Quản lý tích hợp
+	-	Quản lý phạm vi
+	-	Quản lý ước lượng
+	-	Kiểm soát dự án
+	-	Quản lý rủi ro
+	-	Quản lý nguồn nhân lực
+	
+	Hướng dẫn sử dụng các công cụ sau vào dự án cho hợp lý linh hoạt
+		- MS Visio 2010
+		- Jira Software
+		- Notion
+		- WBS
+		- Git 
+		- JUnit
+		- PHPUnit
+		- Apache Jmeter
+Answer 03:
+	Để triển khai dự án FriendMart-Social Commerce Website theo mô hình Agile với 5 thành viên, bạn cần một kế hoạch rõ ràng và linh hoạt. Dưới đây là trình bày chi tiết từ tổng quan đến các phần quản lý cụ thể, cùng với hướng dẫn sử dụng các công cụ mà bạn đã nêu.
+
+	I. Tổng quan về triển khai dự án
+		Đầu tiên, bạn cần xác định tầm nhìn dự án (project vision) và các mục tiêu của sản phẩm. Sau đó, chia dự án thành các giai đoạn phát triển lặp lại (iterations), thường được gọi là Sprint, kéo dài khoảng 2-4 tuần. Trong mỗi Sprint, nhóm sẽ tập trung vào việc hoàn thành một nhóm chức năng cụ thể.
+		Giai đoạn lập kế hoạch (Planning): Xác định các tính năng cần phát triển cho Sprint đầu tiên.
+		Giai đoạn thực thi (Execution): Nhóm tiến hành code, họp Daily Scrum, và giải quyết các vấn đề.
+		Giai đoạn xem xét (Review): Thuyết trình sản phẩm đã hoàn thành cho các bên liên quan.
+		Giai đoạn cải tiến (Retrospective): Nhóm cùng nhau rút kinh nghiệm để cải thiện quy trình làm việc cho các Sprint sau.
+
+	II. Triển khai các mặt quản lý dự án
+		1. Quản lý tích hợp (Integration Management)
+			Quản lý tích hợp đảm bảo rằng tất cả các phần của dự án được phối hợp ăn ý.
+			Lộ trình sản phẩm (Product Roadmap): Xây dựng lộ trình tổng thể cho dự án. Ví dụ:
+			Sprint 1: Các tính năng cơ bản (đăng nhập, đăng ký, hồ sơ cá nhân).
+			Sprint 2: Tính năng bán hàng (thêm sản phẩm, giỏ hàng, thanh toán).
+			Sprint 3: Tính năng mạng xã hội (theo dõi, bình luận, đánh giá).
+			Họp Daily Scrum: Tổ chức các cuộc họp ngắn (15 phút) mỗi ngày để các thành viên cập nhật công việc, những gì đã làm, sẽ làm và khó khăn đang gặp phải.
+			Tích hợp liên tục (Continuous Integration - CI): Đảm bảo mã nguồn được hợp nhất thường xuyên. Sử dụng Git với các nhánh tính năng (feature branches) và Pull Request để review code trước khi gộp vào nhánh chính.
+
+		2. Quản lý phạm vi (Scope Management)
+			Phạm vi dự án trong Agile rất linh hoạt. Bạn sử dụng Product Backlog để quản lý các yêu cầu.
+			Product Backlog: Đây là danh sách tất cả các yêu cầu và tính năng cần có của dự án. Mỗi mục trong backlog được gọi là User Story.
+			Sprint Backlog: Vào đầu mỗi Sprint, nhóm sẽ chọn các User Story từ Product Backlog để làm trong Sprint đó.
+			Sử dụng Jira Software: Tạo các Epic (nhóm các tính năng lớn) và các User Story tương ứng. Di chuyển các User Story vào Sprint Backlog và theo dõi trạng thái công việc (To-do, In Progress, Done) trên bảng Kanban hoặc Scrum.
+
+		3. Quản lý ước lượng (Estimation Management)
+			Ước lượng trong Agile thường không dùng giờ mà dùng Story Points.
+			Story Points: Là một đơn vị tương đối để ước tính độ phức tạp của một User Story. Nhóm sẽ sử dụng kỹ thuật Planning Poker để cùng nhau ước lượng.
+			Tốc độ phát triển (Velocity): Sau mỗi Sprint, nhóm sẽ đo lường số Story Points đã hoàn thành. Đây là chỉ số để ước tính khả năng hoàn thành công việc của nhóm trong các Sprint tiếp theo.
+
+		4. Kiểm soát dự án (Project Control)
+			Kiểm soát dự án để đảm bảo nó đi đúng hướng.
+			Biểu đồ Burndown: Sử dụng biểu đồ Burndown trong Jira Software để theo dõi tiến độ của Sprint, giúp nhóm biết còn bao nhiêu công việc phải làm.
+			JUnit và PHPUnit: Các lập trình viên sử dụng các công cụ này để viết unit tests cho code của mình. Việc kiểm thử tự động giúp đảm bảo chất lượng code và phát hiện lỗi sớm.
+			Apache JMeter: Sử dụng công cụ này để thực hiện kiểm thử hiệu năng (performance testing), đảm bảo website hoạt động ổn định khi có nhiều người dùng truy cập cùng lúc.
+
+		5. Quản lý rủi ro (Risk Management)
+			Quản lý rủi ro được thực hiện liên tục trong suốt dự án.
+			Họp Retrospective: Trong mỗi cuộc họp Retrospective, nhóm sẽ cùng nhau thảo luận về các rủi ro có thể xảy ra và đưa ra phương án giảm thiểu. Ví dụ: "rủi ro thiếu người có kinh nghiệm về API", giải pháp là "một thành viên sẽ dành thời gian học và chia sẻ lại".
+			Ma trận rủi ro: Lập một ma trận đơn giản để đánh giá mức độ ảnh hưởng và xác suất xảy ra của từng rủi ro.
+
+		6. Quản lý nguồn nhân lực (Human Resource Management)
+			Phân công vai trò:
+			Bạn (Project Manager): Đóng vai trò Scrum Master, chịu trách nhiệm hướng dẫn nhóm, loại bỏ các trở ngại và đảm bảo quy trình Agile được tuân thủ.
+			Product Owner (có thể là một thành viên): Chịu trách nhiệm quản lý Product Backlog và xác định các yêu cầu.
+			Developers (những người còn lại): Thực hiện công việc code.
+			Sử dụng Notion: Tạo một không gian làm việc trên Notion để lưu trữ các tài liệu quan trọng của dự án như kế hoạch, các quyết định, tài liệu thiết kế (được tạo bằng MS Visio 2010), và quy trình làm việc.
+		
+	III.	Hướng dẫn sử dụng các công cụ
+		Jira Software: Dùng để quản lý các Epic, User Story, Sprint, và theo dõi tiến độ bằng các biểu đồ.
+
+		Notion: Sử dụng để lưu trữ các tài liệu, ghi chú cuộc họp, và tạo các tài liệu thiết kế, bao gồm cả các bản vẽ từ Visio.
+
+		Git: Dùng để quản lý mã nguồn, tạo các nhánh để làm việc độc lập. Các thành viên nên tạo PR để được review code trước khi gộp vào nhánh chính (main).
+
+		MS Visio 2010: Dùng để vẽ các sơ đồ thiết kế như Sơ đồ cơ sở dữ liệu (ERD), Biểu đồ luồng dữ liệu (DFD) và Sơ đồ WBS. Các sơ đồ này sẽ được lưu trữ trên Notion.
+
+		WBS (Work Breakdown Structure): Mặc dù đây là một kỹ thuật của mô hình Waterfall, bạn vẫn có thể áp dụng nó ở cấp độ cao để chia nhỏ dự án thành các giai đoạn lớn (Ví dụ: Frontend, Backend, Database).
+
+		JUnit & PHPUnit: Các công cụ này được sử dụng để kiểm thử mã nguồn, đảm bảo chất lượng code.
+
+		Apache Jmeter: Sử dụng để kiểm tra khả năng chịu tải của hệ thống, giúp đảm bảo website hoạt động tốt ngay cả khi có nhiều người truy cập.
+
+
+Question 03: Chúng ta tiến hành triển khai dự án tại mục đầu tiên
+	Hãy hướng dẫn chi tiết cho tôi triển khai dự án: gợi ý các công việc cần làm danh sách câu hỏi cần xác định yêu cầu dự án, cách thức phân công các thành viên...
+	I. Tổng quan về triển khai dự án
+		Đầu tiên, bạn cần xác định tầm nhìn dự án (project vision) và các mục tiêu của sản phẩm. Sau đó, chia dự án thành các giai đoạn phát triển lặp lại (iterations), thường được gọi là Sprint, kéo dài khoảng 2-4 tuần. Trong mỗi Sprint, nhóm sẽ tập trung vào việc hoàn thành một nhóm chức năng cụ thể.
+		I. Giai đoạn lập kế hoạch (Planning)
+			Đây là giai đoạn cực kỳ quan trọng, nơi cả nhóm xác định hướng đi cho dự án.
+			1. Xác định tầm nhìn và mục tiêu dự án
+				Bạn cần xác định rõ tại sao chúng ta xây dựng FriendMart.
+				Tầm nhìn dự án: "Trở thành một nền tảng thương mại điện tử nơi mua sắm không chỉ là giao dịch mà còn là một trải nghiệm xã hội, kết nối mọi người thông qua sở thích và đánh giá sản phẩm."
+				Mục tiêu SMART:
+					Specific (Cụ thể): Xây dựng một website bán hàng tích hợp mạng xã hội.
+					Measurable (Đo lường được): Đạt 100 người dùng đăng ký và 20 đơn hàng thành công trong 3 tháng đầu.
+					Achievable (Khả thi): Với 5 thành viên, đây là mục tiêu hợp lý.
+					Relevant (Liên quan): Trực tiếp phục vụ mục tiêu học tập và thực tế.
+					Time-bound (Có thời hạn): Hoàn thành dự án trong 3 tháng.
+
+			2. Xây dựng danh sách yêu cầu và câu hỏi
+				Bạn cần tập trung vào việc thu thập các yêu cầu từ nhiều khía cạnh của dự án.
+				Yêu cầu người dùng (User Requirements):
+				Làm thế nào để người dùng đăng ký và đăng nhập?
+				Họ muốn xem và tìm kiếm sản phẩm như thế nào?
+				Quá trình thêm sản phẩm vào giỏ hàng và thanh toán diễn ra ra sao?
+				Họ có thể tương tác với sản phẩm (thích, bình luận) và với người dùng khác như thế nào?
+				Hồ sơ cá nhân của họ sẽ bao gồm những thông tin gì?
+				Yêu cầu nghiệp vụ (Business Requirements):
+				Làm thế nào để quản lý các sản phẩm, danh mục?
+				Hệ thống xử lý đơn hàng và thanh toán như thế nào?
+				Có những báo cáo nào cần thiết cho người quản lý (doanh thu, số lượng bán...)?
+				Yêu cầu kỹ thuật (Technical Requirements):
+				Chúng ta sẽ sử dụng framework và công nghệ gì? (Đã xác định là Laravel PHP).
+				Cần xây dựng API cho các tính năng tương tác không?
+				Hệ thống có thể mở rộng như thế nào trong tương lai?
+
+			3. Phân chia công việc và phân công thành viên
+				Dựa trên kiến thức của từng thành viên, bạn có thể phân chia các vai trò và trách nhiệm chính.
+				Team Leader / Scrum Master (Bạn): Quản lý chung, đảm bảo quy trình Agile, giải quyết các trở ngại.
+				Product Owner: Chịu trách nhiệm về yêu cầu sản phẩm, quản lý Product Backlog.
+				Thành viên 1: Phát triển phần Frontend (giao diện người dùng) bằng HTML, CSS, JavaScript (hoặc Vue.js/React nếu có kiến thức).
+				Thành viên 2 & 3: Phát triển phần Backend và API (xử lý logic, cơ sở dữ liệu) bằng Laravel.
+				Thành viên 4: Thiết kế cơ sở dữ liệu và kiểm thử (tester).
+				Lưu ý: Trong mô hình Agile, các thành viên thường làm việc chéo (cross-functional) nên mọi người đều có thể đóng góp vào nhiều phần khác nhau.
+
+		II. Giai đoạn thực thi (Execution)
+			1. Bắt đầu Sprint đầu tiên
+				Sau khi đã có kế hoạch, cả nhóm sẽ bắt đầu code.
+				Tạo User Stories và Tasks: Chuyển các yêu cầu đã xác định thành các User Stories cụ thể trên Jira. Ví dụ: "Với tư cách là người dùng, tôi muốn đăng ký tài khoản để có thể sử dụng các tính năng của website."
+				Chia nhỏ Tasks: Chia nhỏ các User Story thành các công việc nhỏ hơn (tasks). Ví dụ: "Thiết kế form đăng ký", "Viết API đăng ký", "Viết migration cho bảng users".
+				Họp Daily Scrum: Mỗi ngày, các thành viên sẽ họp nhanh 15 phút để:
+				Nói những gì đã làm hôm qua.
+				Nói những gì sẽ làm hôm nay.
+				Nói những khó khăn đang gặp phải.
+
+			2. Sử dụng công cụ
+				Jira: Di chuyển các tasks từ cột "To Do" sang "In Progress" khi bắt đầu làm, và sang "Done" khi hoàn thành. Điều này giúp cả nhóm theo dõi tiến độ một cách trực quan.
+				Git: Mỗi thành viên sẽ tạo một nhánh riêng để làm việc và tạo Pull Request (PR) khi hoàn thành. Bạn (Scrum Master) sẽ review code trước khi gộp vào nhánh chính.
+
+		III. Giai đoạn xem xét và cải tiến (Review & Retrospective)
+			Sau khi Sprint kết thúc, cả nhóm sẽ đánh giá kết quả.
+			Sprint Review: Thuyết trình các tính năng đã hoàn thành trong Sprint này cho "khách hàng" (có thể là giảng viên hoặc chính bạn).
+			Mục tiêu: Nhận phản hồi và xác nhận rằng sản phẩm đang đi đúng hướng.
+				Sprint Retrospective: Đây là cuộc họp nội bộ của nhóm để cùng nhau cải thiện.
+				Câu hỏi thảo luận:
+				Điều gì đã diễn ra tốt trong Sprint này?
+				Điều gì cần cải thiện?
+				Có những trở ngại nào đã gặp phải?
+				Chúng ta sẽ cam kết thay đổi gì trong Sprint tiếp theo?
+			Áp dụng: Các quyết định từ cuộc họp này sẽ được áp dụng vào Sprint tiếp theo để nâng cao hiệu suất làm việc.
+
+Answer 03:
+
+Question 04:
+Answer 04:
+ 
+Question 05:
+Answer 05:
+
+Question 06:
+Answer 06:
+
