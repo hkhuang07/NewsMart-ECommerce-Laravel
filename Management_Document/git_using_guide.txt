@@ -1,10 +1,8 @@
-Đồ án Quản Lý Dự Án Phần Mềm:
-Số thành viên: 5 thành viên
-Phương pháp quản lý mã nguồn: Github. 
+Đồ án Quản Lý Dự Án Phần Mềm - Hướng dẫn quản lý mã nguồn: Github.
+ 
 Sử dụng các thao tác quản lý mã nguồn trên Github. 
-	Những thông tin cần thiết và tổng quát đến chi tiết:
 	-	Leader: Người quản lý repository, quản lý đồ án
-	-	Sử dụng tập câu lệnh sau sau khi tạo repository (Dành cho leader)
+	-	Sử dụng tập câu lệnh khi tạo repository (Dành cho leader)
 		+ Khởi tạo repository
 		git init
 		git add .

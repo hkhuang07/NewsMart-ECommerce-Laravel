@@ -1,14 +1,12 @@
 Đồ án cho Quản Lý Dự Án Phần Mềm:
-	- Đề tài: website php laravel áp dụng để quản lý dự án phần mềm		
+	- Đề tài: Quản lý dự án phần mềm website php laravel 		
 	- Website đa tính năng có thể áp dụng:
-	
-		+	Nền tảng E-commerce tích hợp mạng xã hội (Social E-commerce Platform)
+	Đề tài: Nền tảng E-commerce tích hợp mạng xã hội (Social E-commerce Platform)
 			>	Đây là một ý tưởng kết hợp giữa website bán hàng và mạng xã hội, tạo ra một trải nghiệm mua sắm cộng đồng.
 			> 	Bán hàng: Cung cấp đầy đủ các tính năng của một website bán hàng thông thường: quản lý sản phẩm, giỏ hàng, thanh toán, đơn hàng, và quản lý kho.
 			> 	Mạng xã hội: Người dùng có thể tạo hồ sơ, theo dõi các shop yêu thích, chia sẻ sản phẩm, đánh giá và bình luận. Tương tác với người dùng khác,nhắn tin, thích, bình luận, chia sẻ bài viết. Thậm chí có thể tạo các nhóm thảo luận về sản phẩm.
 			> 	Quản lý: Hệ thống quản lý (backend) sẽ phức tạp hơn, bao gồm quản lý người dùng, quản lý shop, quản lý sản phẩm,quản lý danh mục, quản lý kho, và cả quản lý các hoạt động trên mạng xã hội như bài đăng, bình luận, chi sẻ nhắn tin,...
-	Lý do chọn đề tài: Dự án này đòi hỏi quản lý một hệ thống có nhiều luồng dữ liệu phức tạp, từ bán hàng, quản lý kho đến tương tác người dùng. Đây là lý do để bạn áp dụng các kỹ thuật như phân tích yêu cầu đa luồng, thiết kế cơ sở dữ liệu quan hệ phức tạp, và quản lý rủi ro liên quan đến việc xử lý dữ liệu người dùng. 
-					   Dự án tương đối nhiều tính năng phức tạp nên cần 1 phương pháp quản lý thích hợp logic đảm bảo tỉ lệ thành công cao.
+			> 	Lý do chọn đề tài: Dự án này đòi hỏi quản lý một hệ thống có nhiều luồng dữ liệu phức tạp, từ bán hàng, quản lý kho đến tương tác người dùng. Đây là lý do để bạn áp dụng các kỹ thuật như phân tích yêu cầu đa luồng, thiết kế cơ sở dữ liệu quan hệ phức tạp, và quản lý rủi ro liên quan đến việc xử lý dữ liệu người dùng. Dự án tương đối nhiều tính năng phức tạp nên cần 1 phương pháp quản lý thích hợp logic đảm bảo tỉ lệ thành công cao.
 Kết Quả:
 	Tên đề tài: FriendMart - Social Commerce Website: Where Shopping Meets Friendship 
 	Tên repository: https://github.com/hkhuang07/FriendMart-Laravel-Website.git

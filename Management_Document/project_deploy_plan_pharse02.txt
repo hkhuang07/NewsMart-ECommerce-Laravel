@@ -1,0 +1,108 @@
+Tiến hành triển khai dự án:
+II. Triển khai các mặt quản lý dự án
+
+	1. Quản lý tích hợp (Integration Management)
+		Mục tiêu của quản lý tích hợp là phối hợp tất cả các yếu tố của dự án lại với nhau một cách ăn ý. 
+	Làm điều này bằng cách tạo một lộ trình rõ ràng và duy trì sự giao tiếp liên tục.
+		- Các công việc cần làm:
+			+	Xây dựng Product Roadmap: Phác thảo các tính năng chính của dự án theo từng giai đoạn (Sprint).
+			+	Thiết lập quy trình làm việc nhóm: Đặt ra các quy tắc về cách mọi người sẽ làm việc cùng nhau.
+		Tích hợp code liên tục: Đảm bảo code được hợp nhất thường xuyên và an toàn.
+		- Gợi ý các câu hỏi cần trả lời:
+			+ Về lộ trình:
+				Chúng ta sẽ phát triển tính năng nào trước để mang lại giá trị cao nhất?
+				Các tính năng có phụ thuộc vào nhau không? (Ví dụ: tính năng giỏ hàng phụ thuộc vào tính năng sản phẩm).
+				Làm thế nào để các thành viên trong nhóm biết được họ đang làm việc trên phần nào của lộ trình?
+			+ Về quy trình làm việc:
+				Chúng ta sẽ họp vào thời gian nào mỗi ngày? Ai sẽ chủ trì?
+				Làm thế nào để mọi người cập nhật tiến độ cho nhau?
+				Chúng ta sẽ làm gì khi có thành viên gặp trở ngại?
+			+ Về tích hợp code:
+				Khi nào thì nên tạo một nhánh mới?
+				Ai sẽ là người duyệt Pull Request (PR)?
+				Làm thế nào để giải quyết xung đột code một cách hiệu quả?
+		- Sử dụng công cụ:
+			+ Jira Software: Dùng để tạo và hiển thị Product Roadmap. Tạo các Epic (nhóm tính năng lớn) như "User Profile Management", "E-commerce System", "Social Features" và đặt chúng vào các Sprint tương ứng.
+			+ Notion: Sử dụng Notion để ghi chép các quy tắc làm việc, lịch họp, và các quyết định quan trọng của nhóm.
+			+ Git: Bắt buộc sử dụng để quản lý phiên bản code. Đặt quy tắc rằng mọi thay đổi đều phải qua PR để đảm bảo code được review trước khi gộp vào nhánh chính (main).
+		- Phân công thành viên:
+			+ Project Manager: Phụ trách lập ra lộ trình tổng thể và đảm bảo mọi người tuân thủ các quy tắc làm việc.
+			  Product Owner: Cùng bạn xây dựng lộ trình và đảm bảo các tính năng được ưu tiên đúng cách.
+			+ Toàn bộ thành viên: Tham gia đầy đủ các cuộc họp Daily Scrum và tuân thủ quy trình làm việc đã được thống nhất.
+
+	2. Quản lý phạm vi (Scope Management)
+		Mục tiêu của quản lý phạm vi trong Agile là xác định rõ những gì sẽ làm trong từng Sprint.
+		- Các công việc cần làm:
+			+ Xây dựng Product Backlog: Liệt kê tất cả các yêu cầu và tính năng cần có của dự án.
+			+ Tạo User Story: Viết các yêu cầu dưới dạng User Story để dễ hiểu và thực thi.
+			+ Lập Sprint Backlog: Cả nhóm cùng thảo luận để chọn ra các User Story sẽ làm trong Sprint tiếp theo.
+		- Gợi ý các câu hỏi cần trả lời:
+			+ Về Product Backlog:
+				> Chúng ta cần những tính năng gì để sản phẩm hoạt động?
+				> Tính năng nào là bắt buộc phải có (Must-have)?
+				> Tính năng nào có thể trì hoãn lại sau (Nice-to-have)?
+			+ Về User Story:
+				> Các User Story có đủ chi tiết để bắt đầu làm việc không?
+				> Mỗi User Story có thể hoàn thành trong một Sprint không?
+			+ Về Sprint Backlog:
+				> Dựa vào năng lực của nhóm (Velocity), chúng ta có thể hoàn thành bao nhiêu Story Point trong Sprint này?
+				> Ai sẽ chịu trách nhiệm chính cho từng User Story?
+
+		- Sử dụng công cụ:
+			+ Jira Software: Đây là công cụ đắc lực nhất cho việc này.
+			+ Tạo một Product Backlog trên Jira và thêm tất cả các User Story vào đó.
+			+ Tạo các Epic lớn để phân loại các User Story.
+			+ Trong cuộc họp Sprint Planning, kéo các User Story từ Product Backlog vào Sprint Backlog.
+			+ Sử dụng bảng Kanban trên Jira để theo dõi trạng thái của các User Story ("To Do", "In Progress", "Done").
+		- Phân công thành viên:
+			+ Product Owner: Chịu trách nhiệm chính trong việc quản lý và sắp xếp thứ tự ưu tiên của các User Story trong Product Backlog.
+			+ Toàn bộ thành viên: Cả nhóm sẽ cùng nhau ước lượng và chọn User Story cho Sprint Backlog trong cuộc họp Sprint Planning.
+			+ Developer: Sau khi đã chọn, các thành viên sẽ tự nhận các User Story từ Sprint Backlog và bắt đầu làm việc.
+	
+	3. Quản lý ước lượng (Estimation Management)
+		Mục tiêu của quản lý ước lượng trong Agile là đưa ra một con số ước tính về độ phức tạp của các công việc, 
+		Từ đó giúp nhóm xác định được lượng công việc có thể hoàn thành trong một Sprint.
+		- Các công việc cần làm:
+			+ Ước lượng Story Points: Cả nhóm sẽ cùng nhau ước lượng độ phức tạp của từng User Story.
+			+ Đo lường Velocity (Tốc độ): Sau mỗi Sprint, tính toán tổng số Story Points đã hoàn thành để biết năng lực của nhóm.
+			+ Duy trì sự đồng thuận: Đảm bảo cả nhóm hiểu rõ và đồng ý về thang điểm ước lượng.
+		- Gợi ý các câu hỏi cần trả lời:
+			+ Về Story Points:
+				> Một User Story có độ phức tạp nhỏ nhất (ví dụ: "Đổi mật khẩu") sẽ được gán bao nhiêu Story Points? (thường là 1 hoặc 2).
+				> Một User Story phức tạp hơn (ví dụ: "Tích hợp cổng thanh toán") sẽ được gán bao nhiêu Story Points?
+				> Chúng ta có nên ước lượng luôn cả những User Story chưa rõ ràng hay không? (Câu trả lời là không).
+			+ Về Velocity:
+				> Sprint đầu tiên của chúng ta, chúng ta có thể đặt mục tiêu hoàn thành bao nhiêu Story Points?
+				> Tốc độ của nhóm có ổn định qua các Sprint không? Nếu không, tại sao?
+		- Sử dụng công cụ:
+			+ Jira Software: Gán Story Points cho các User Story trong Product Backlog và Sprint Backlog. Jira sẽ tự động tính toán và hiển thị Velocity của nhóm.
+			+ Planning Poker: Dùng các công cụ trực tuyến hoặc thẻ bài vật lý để mọi người trong nhóm cùng ước lượng một cách ẩn danh. Kỹ thuật này giúp tránh sự ảnh hưởng từ người quản lý hoặc những người có kinh nghiệm hơn.
+		- Phân công thành viên:
+			+ Product Owner: Đảm bảo các User Story đủ chi tiết để nhóm có thể ước lượng.
+			+ Toàn bộ thành viên: Cùng nhau tham gia vào các buổi ước lượng bằng kỹ thuật Planning Poker trước mỗi Sprint.
+
+	4. Kiểm soát dự án (Project Control)
+		Mục tiêu của kiểm soát dự án là đảm bảo dự án đi đúng hướng, đạt được các mục tiêu đã đề ra. Nó không chỉ là theo dõi tiến độ mà còn là kiểm soát chất lượng.
+		- Các công việc cần làm:
+			+ Theo dõi tiến độ Sprint: Theo dõi xem nhóm có đang hoàn thành công việc đúng tiến độ không.
+			+ Đảm bảo chất lượng code: Viết và chạy các bài kiểm thử tự động để phát hiện lỗi sớm.
+			+ Kiểm thử hiệu năng: Đảm bảo hệ thống hoạt động tốt dưới áp lực của nhiều người dùng.
+		- Gợi ý các câu hỏi cần trả lời:
+			+ Về tiến độ:
+				> Chúng ta có đang theo kịp biểu đồ Burndown không?
+				> Có thành viên nào đang bị quá tải công việc không?
+				> Có trở ngại nào đang cản trở tiến độ của chúng ta không?
+			+ Về chất lượng:
+				> Có bao nhiêu lỗi (bugs) được tìm thấy trong mỗi Sprint?
+			+ Tỷ lệ lỗi có đang giảm dần không?
+				> Mã nguồn có được các thành viên review kỹ lưỡng trước khi gộp vào main không?
+		- Về hiệu năng:
+			+ Website có tải nhanh khi có 100 người dùng truy cập cùng lúc không?
+			+ Thời gian phản hồi của các API có chấp nhận được không?
+		- Sử dụng công cụ:
+			+ Jira Software: Sử dụng biểu đồ Burndown để trực quan hóa tiến độ của Sprint, giúp cả nhóm và bạn biết được còn bao nhiêu công việc phải làm.
+			+ PHPUnit: Là framework kiểm thử đơn vị (unit testing) cho Laravel. Mỗi khi một thành viên viết một tính năng, họ cần viết thêm các bài test để kiểm tra các hàm và lớp hoạt động đúng.
+			+ Apache JMeter: Dùng để tạo ra các kịch bản kiểm thử, mô phỏng nhiều người dùng truy cập cùng lúc vào website. Điều này giúp bạn xác định được điểm yếu của hệ thống.
+		- Phân công thành viên:
+			+(Project Manager): Theo dõi biểu đồ Burndown và các chỉ số trên Jira để đảm bảo tiến độ.
+			+ Tester/Developer: Chịu trách nhiệm viết và chạy các bài kiểm thử tự động bằng PHPUnit và Apache JMeter để đảm bảo chất lượng và hiệu năng của sản phẩm
