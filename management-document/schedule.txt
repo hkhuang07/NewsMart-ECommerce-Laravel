@@ -1,8 +1,0 @@
--Day 1 - 9/10/2025: Chọn đề tài, tìm hiểu dự án, phát thaỏ những công việc cần làm cho dự án.
-	+ git_using_guide.txt: hướng dãn sử dụng git
-	+ guide.txt: hướng dẫn một số bước cụ thể cần làm
-	+ project_deploy_plan_pharse01.txt: hướng dẫn các công việc và ý chính để triển khai dự án
-	+ project_topic: chọn đề tài
--Day 2 - 9/11/2025: Xây dựng tài liệu sử dụng Git- thông báo cho các thành viên.
-	+ Git_Using_Guide.docx: file tài liệu hướng dẫn sử dụng git cụ thể cho dự án.
-	+ schedule.txt: viết lịch trình.
