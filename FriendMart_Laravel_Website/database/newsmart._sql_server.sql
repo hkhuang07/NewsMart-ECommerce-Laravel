@@ -74,9 +74,18 @@ CREATE TABLE Products (
     StockQuantity INT NOT NULL DEFAULT 0,
     Discount DECIMAL(5, 2) DEFAULT 0.00,
     AverageRate DECIMAL(2, 1) DEFAULT 0.0,
+    Favorites INT DEFAULT 0,
+    Purchases INT DEFAULT 0,
+    Views INT DEFAULT 0, 
     CreatedAt DATETIME DEFAULT GETDATE(),
     UpdatedAt DATETIME DEFAULT GETDATE()
 );
+ALTER TABLE Products
+ADD Favorites INT DEFAULT 0;
+ALTER TABLE Products
+ADD Purchases INT DEFAULT 0;
+ALTER TABLE Products
+ADD Views INT DEFAULT 0;
 
 -- Bảng ProductImages
 CREATE TABLE ProductImages (
@@ -119,7 +128,7 @@ CREATE TABLE Posts (
     Content NVARCHAR(MAX) NOT NULL,
     PostTypeID INT NOT NULL,
     TopicID INT,
-    Views INT DEFAULT 0, -- Thêm trường Views
+    Views INT DEFAULT 0, 
     CreatedAt DATETIME DEFAULT GETDATE(),
     UpdatedAt DATETIME DEFAULT GETDATE()
 );
