@@ -130,6 +130,7 @@ CREATE TABLE Posts (
     Content LONGTEXT NOT NULL,
     PostTypeID INT NOT NULL,
     TopicID INT,
+	Status VARCHAR(50) NOT NULL DEFAULT 'Pending',
     Views INT DEFAULT 0, 
     CreatedAt DATETIME DEFAULT CURRENT_TIMESTAMP,
     UpdatedAt DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
@@ -253,3 +254,55 @@ ADD CONSTRAINT FK_ShippingInfo_Orders FOREIGN KEY (OrderID) REFERENCES Orders(ID
 
 ALTER TABLE OrderTransactions
 ADD CONSTRAINT FK_OrderTransactions_Orders FOREIGN KEY (OrderID) REFERENCES Orders(ID);
+
+
+--UPDATE MỞ RỘNG
+-- 1. Bảng ProductFavorites (Danh sách Yêu thích của Người dùng)
+CREATE TABLE ProductFavorites (
+    UserID INT NOT NULL,
+    ProductID INT NOT NULL,
+    CreatedAt DATETIME DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (UserID, ProductID), -- Khóa chính kép
+    FOREIGN KEY (UserID) REFERENCES Users(ID),
+    FOREIGN KEY (ProductID) REFERENCES Products(ID)
+);
+
+-- 2. Bảng Notifications (Hệ thống Thông báo)
+CREATE TABLE Notifications (
+    ID INT AUTO_INCREMENT PRIMARY KEY,
+    UserID INT NOT NULL,
+    Title VARCHAR(255) NOT NULL,
+    Content TEXT NOT NULL,
+    URL VARCHAR(255), -- Link đến nội dung liên quan
+    IsRead BOOLEAN DEFAULT FALSE,
+    CreatedAt DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (UserID) REFERENCES Users(ID)
+);
+
+-- 3. Bảng Configurations (Cấu hình hệ thống)
+CREATE TABLE Configurations (
+    SettingKey VARCHAR(100) PRIMARY KEY, -- Ví dụ: 'SITE_NAME', 'SHIPPING_FEE'
+    SettingValue TEXT,
+    Description VARCHAR(255)
+);
+
+-- 4. Bảng DriverAssignments (Gán Đơn hàng cho Đối tác Vận chuyển)
+CREATE TABLE ShipperAssignments (
+    ID INT AUTO_INCREMENT PRIMARY KEY,
+    OrderID INT NOT NULL UNIQUE, -- Mỗi đơn hàng chỉ gán cho một tài xế
+    DriverID INT NOT NULL,
+    AssignedAt DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (OrderID) REFERENCES Orders(ID),
+    FOREIGN KEY (DriverID) REFERENCES Users(ID) -- DriverID là User có RoleID tương ứng
+);
+
+-- 5. Bảng UserActivities (Nhật ký Hoạt động)
+CREATE TABLE UserActivities (
+    ID INT AUTO_INCREMENT PRIMARY KEY,
+    UserID INT, -- NULL nếu là khách không đăng nhập
+    ActionType VARCHAR(50) NOT NULL, -- Ví dụ: 'LOGIN', 'CREATE_PRODUCT', 'BLOCK_USER'
+    Details TEXT,
+    IPAddress VARCHAR(50),
+    CreatedAt DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (UserID) REFERENCES Users(ID)
+);
