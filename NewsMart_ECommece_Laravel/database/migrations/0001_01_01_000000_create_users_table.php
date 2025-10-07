@@ -10,16 +10,27 @@ return new class extends Migration
      * Run the migrations.
      */
     public function up(): void
-    {
-        Schema::create('users', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
-            $table->rememberToken();
-            $table->timestamps();
-        });
+{
+    Schema::create('users', function (Blueprint $table) {
+        $table->id();
+        $table->string('name');
+        $table->string('username')->unique(); 
+        $table->string('fullname')->nullable(); 
+        $table->string('email')->unique();
+        $table->timestamp('email_verified_at')->nullable();
+        $table->string('password');
+
+        $table->foreignId('roleid')->constrained('roles')
+              ->onUpdate('cascade')
+              ->onDelete('restrict');
+              
+        $table->boolean('isactive')->default(true); 
+        $table->string('address')->nullable();
+        $table->string('phone', 20)->nullable();
+
+        $table->rememberToken();
+        $table->timestamps();
+    });
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {
             $table->string('email')->primary();
