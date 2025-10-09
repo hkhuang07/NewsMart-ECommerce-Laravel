@@ -32,6 +32,7 @@ return new class extends Migration
             $table->string('slug')->unique(); 
             $table->longText('content'); 
             $table->string('status', 50)->default('Pending'); 
+            $table->string('image')->nullable();
             $table->integer('views')->default(0);
 
             $table->timestamps();

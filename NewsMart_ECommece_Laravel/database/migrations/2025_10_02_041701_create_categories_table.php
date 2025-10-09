@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('name')->unique();
             $table->string('slug')->unique();
             $table->string('description')->nullable();
+            $table->string('image')->nullable();
 
             $table->foreignId('parentid')->nullable()->constrained('categories')
                    ->onUpdate('cascade')

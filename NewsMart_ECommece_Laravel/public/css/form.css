@@ -269,6 +269,152 @@
     text-decoration: none;
 }
 
+.current-logo-preview {
+    max-width: 100px;
+    max-height: 100px;
+    object-fit: contain;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 5px;
+}
+
+.current-logo-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.delete-modal .modal-content {
+    border: none;
+    background: linear-gradient(135deg, #E0EEFF 0%, #F0F8FF 50%, #E5E5FF 100%);
+    box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+    border-radius: 15px;
+}
+
+.delete-icon-container {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto;
+    background: linear-gradient(135deg, #E6E6FA, #F5FFFA);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.delete-icon {
+    font-size: 2rem;
+    color: #dc2626;
+}
+
+.delete-title {
+    color: #374151;
+    font-weight: 600;
+}
+
+.delete-message {
+    color: #191970;
+    line-height: 1.6;
+}
+
+.dark-mode .delete-message {
+    color: #191970;
+    line-height: 1.6;
+}
+
+.warning-text {
+    color: #F0F8FF !important;
+    font-size: 0.875rem;
+}
+
+.btn-cancel {
+    background-color: #C1CDCD;
+    color: #374151;
+    border: solid 3px #838B8B;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.btn-cancel:hover {
+    background-color: #e5e7eb;
+    border: solid 3px #6495ED;
+    color: #111827;
+    border-color: #9ca3af;
+}
+
+.btn-delete {
+    background: linear-gradient(135deg, #b91c1c, #991b1b);
+    color: white;
+    border: solid 3px #FF6A6A;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.btn-delete:hover {
+    background: linear-gradient(135deg, #500000, #FF3030 , #FFF0F5);
+    color: white;
+    border: solid 3px #FF3030;
+    text-decoration: none;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(220, 38, 38, 0.3);
+}
+
+.brand-info-preview {
+    border: 1px solid #104E8B;
+    background-color: #C1CDCD !important;
+}
+
+.dark-mode .brand-info-preview {
+    border: 1px solid #98F5FF;
+    background-color: #f9fafb !important;
+}
+
+.delete-preview-logo {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+    border-radius: 8px;
+    border: 1px solid #e5e7eb;
+}
+
+.no-logo-placeholder {
+    width: 60px;
+    height: 60px;
+    background-color: #f3f4f6;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #9ca3af;
+    font-size: 1.5rem;
+}
+
+.preview-details {
+    font-size: 0.875rem;
+}
+
+.preview-item {
+    margin-bottom: 4px;
+    word-break: break-word;
+}
+
+.preview-item small {
+    display: inline-block;
+    width: 60px;
+    font-weight: 500;
+}
+
+
+
 @keyframes spin {
     from { transform: rotate(0deg); }
     to { transform: rotate(360deg); }
@@ -453,8 +599,6 @@
     transform: translateY(-1px);
     box-shadow: 0 4px 12px rgba(64, 64, 64, 0.4);
 }
-
-
 
 .dark-mode .btn-action {
     background: linear-gradient(135deg, #000020 0%, #191970 100%);

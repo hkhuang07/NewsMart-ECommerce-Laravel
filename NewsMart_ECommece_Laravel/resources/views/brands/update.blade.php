@@ -133,22 +133,6 @@
     </div>
 </div>
 
-<style>
-.current-logo-preview {
-    max-width: 100px;
-    max-height: 100px;
-    object-fit: contain;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    padding: 5px;
-}
-
-.current-logo-container {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-</style>
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
@@ -158,11 +142,9 @@
         const btnText = updateSubmitBtn.querySelector('.btn-text');
         const btnLoading = updateSubmitBtn.querySelector('.btn-loading');
 
-        // Reset form when modal is hidden
         updateBrandModal.addEventListener('hidden.bs.modal', function() {
             updateBrandForm.reset();
 
-            // Clear validation errors
             const invalidInputs = updateBrandForm.querySelectorAll('.is-invalid');
             invalidInputs.forEach(input => {
                 input.classList.remove('is-invalid');
@@ -173,21 +155,17 @@
                 feedback.textContent = '';
             });
 
-            // Hide messages
             document.getElementById('updateModalMessages').style.display = 'none';
             document.getElementById('updateErrorMessage').style.display = 'none';
             document.getElementById('updateSuccessMessage').style.display = 'none';
             
-            // Hide current logo preview
             document.getElementById('currentLogoPreview').style.display = 'none';
             
-            // Reset button state
             updateSubmitBtn.disabled = false;
             btnText.style.display = 'inline';
             btnLoading.style.display = 'none';
         });
 
-        // Handle form submission
         updateBrandForm.addEventListener('submit', function(e) {
             // Show loading state
             updateSubmitBtn.disabled = true;
@@ -195,29 +173,23 @@
             btnLoading.style.display = 'inline';
         });
 
-        // Focus first input when modal is shown
         updateBrandModal.addEventListener('shown.bs.modal', function() {
             document.getElementById('updateName').focus();
         });
     });
 
-    // Function to populate update modal with brand data
     function openUpdateModal(brandId, brandData) {
-        // Set form action
         const updateForm = document.getElementById('updateBrandForm');
         updateForm.action = `{{ route('brand.update', ['id' => '__ID__']) }}`.replace('__ID__', brandId);
         
-        // Set brand ID
         document.getElementById('updateBrandId').value = brandId;
         
-        // Populate form fields
         document.getElementById('updateName').value = brandData.name || '';
         document.getElementById('updateAddress').value = brandData.address || '';
         document.getElementById('updateEmail').value = brandData.email || '';
         document.getElementById('updateContact').value = brandData.contact || '';
         document.getElementById('updateDescription').value = brandData.description || '';
         
-        // Show current logo if exists
         const currentLogoPreview = document.getElementById('currentLogoPreview');
         const currentLogoImage = document.getElementById('currentLogoImage');
         
@@ -229,13 +201,11 @@
             currentLogoPreview.style.display = 'none';
         }
         
-        // Clear any previous validation errors
         const invalidInputs = updateForm.querySelectorAll('.is-invalid');
         invalidInputs.forEach(input => {
             input.classList.remove('is-invalid');
         });
         
-        // Show modal
         const updateModal = new bootstrap.Modal(document.getElementById('updateBrandModal'));
         updateModal.show();
     }

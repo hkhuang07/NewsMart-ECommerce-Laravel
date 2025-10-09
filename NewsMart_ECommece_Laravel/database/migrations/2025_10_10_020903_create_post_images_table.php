@@ -11,12 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('topics', function (Blueprint $table) {
+        Schema::create('post_images', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->unique();
-            $table->string('slug')->unique();
-            $table->string('logo')->nullable();
-            $table->text('description')->nullable();
+
+            $table->foreignId('postid')->constrained('posts')
+                  ->onUpdate('cascade')
+                  ->onDelete('cascade');
+            $table->string('url');
+            $table->boolean('ismainimage')->default(false); 
+
             $table->timestamps();
         });
     }
@@ -26,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('topics');
+        Schema::dropIfExists('post_images');
     }
 };

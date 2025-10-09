@@ -1,7 +1,7 @@
 <div class="modal fade" id="deleteBrandModal" tabindex="-1" aria-labelledby="deleteBrandModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content delete-modal">
-            <div class="modal-header">
+            <div class="modal-header brand-modal-header">
                 <h5 class="modal-title" id="deleteBrandModalLabel">
                     <i class="fas fa-exclamation-triangle text-warning"></i>
                     Confirm Delete Brand
@@ -60,7 +60,7 @@
                 </div>
             </div>
             
-            <div class="modal-footer justify-content-center">
+            <div class="modal-footer brand-modal-footer">
                 <button type="button" class="btn btn-cancel me-3" data-bs-dismiss="modal">
                     <i class="fas fa-times"></i>
                     Cancel
@@ -78,123 +78,6 @@
     </div>
 </div>
 
-<style>
-.delete-modal .modal-content {
-    border: none;
-    box-shadow: 0 10px 40px rgba(0,0,0,0.15);
-    border-radius: 15px;
-}
-
-.delete-icon-container {
-    width: 80px;
-    height: 80px;
-    margin: 0 auto;
-    background: linear-gradient(135deg, #fee2e2, #fecaca);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.delete-icon {
-    font-size: 2rem;
-    color: #dc2626;
-}
-
-.delete-title {
-    color: #374151;
-    font-weight: 600;
-}
-
-.delete-message {
-    color: #6b7280;
-    line-height: 1.6;
-}
-
-.warning-text {
-    color: #9ca3af !important;
-    font-size: 0.875rem;
-}
-
-.btn-cancel {
-    background-color: #f3f4f6;
-    color: #374151;
-    border: 1px solid #d1d5db;
-    padding: 10px 20px;
-    border-radius: 8px;
-    font-weight: 500;
-    transition: all 0.2s ease;
-}
-
-.btn-cancel:hover {
-    background-color: #e5e7eb;
-    color: #111827;
-    border-color: #9ca3af;
-}
-
-.btn-delete {
-    background: linear-gradient(135deg, #dc2626, #b91c1c);
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 8px;
-    font-weight: 500;
-    text-decoration: none;
-    transition: all 0.2s ease;
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-}
-
-.btn-delete:hover {
-    background: linear-gradient(135deg, #b91c1c, #991b1b);
-    color: white;
-    text-decoration: none;
-    transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(220, 38, 38, 0.3);
-}
-
-.brand-info-preview {
-    border: 1px solid #e5e7eb;
-    background-color: #f9fafb !important;
-}
-
-.delete-preview-logo {
-    width: 60px;
-    height: 60px;
-    object-fit: contain;
-    border-radius: 8px;
-    border: 1px solid #e5e7eb;
-}
-
-.no-logo-placeholder {
-    width: 60px;
-    height: 60px;
-    background-color: #f3f4f6;
-    border: 1px solid #e5e7eb;
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #9ca3af;
-    font-size: 1.5rem;
-}
-
-.preview-details {
-    font-size: 0.875rem;
-}
-
-.preview-item {
-    margin-bottom: 4px;
-    word-break: break-word;
-}
-
-.preview-item small {
-    display: inline-block;
-    width: 60px;
-    font-weight: 500;
-}
-</style>
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
