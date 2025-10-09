@@ -586,3 +586,127 @@ footer {
     outline: 2px solid var(--primary-lighter);
     outline-offset: 2px;
 }
+
+/* ===================================
+   NAVBAR LOGO STYLING
+   =================================== */
+
+.navbar-brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    color: white !important;
+}
+
+.navbar-brand:hover {
+    text-decoration: none;
+    color: white !important;
+    transform: scale(1.02);
+}
+
+.navbar-logo {
+    height: 60px;
+    width: 110px;
+    object-fit: contain;
+    border-radius: 4px;
+    background-color: rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+    filter: brightness(1.1);
+}
+
+.navbar-logo:hover {
+    transform: scale(1.1);
+    background-color: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 2px 8px rgba(255, 255, 255, 0.3);
+}
+
+/* Brand Text */
+.brand-text {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: inherit;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsive Design cho Logo */
+@media (max-width: 768px) {
+    .navbar-logo {
+        height: 28px;
+        width: 28px;
+    }
+    
+    .brand-text {
+        font-size: 1.1rem;
+    }
+    
+    .navbar-brand {
+        gap: 8px;
+        padding: 0.25rem 0.75rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .navbar-logo {
+        height: 24px;
+        width: 24px;
+    }
+    
+    .brand-text {
+        font-size: 1rem;
+    }
+    
+    .navbar-brand {
+        gap: 6px;
+    }
+}
+
+.navbar-brand:active {
+    transform: scale(0.98);
+}
+
+.navbar-brand:focus {
+    outline: 2px solid rgba(255, 255, 255, 0.5);
+    outline-offset: 2px;
+    border-radius: 4px;
+}
+
+/* Dark Mode adjustments */
+.dark-mode .navbar-logo {
+    filter: brightness(1.2) contrast(1.1);
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.dark-mode .navbar-logo:hover {
+    background-color: rgba(255, 255, 255, 0.15);
+}
+
+.navbar-logo-circle {
+    border-radius: 50%;
+}
+
+.navbar-logo-large {
+    height: 40px;
+    width: 40px;
+}
+
+.navbar-logo-large + .brand-text {
+    font-size: 1.4rem;
+}
+
+@keyframes logoFadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.navbar-logo {
+    animation: logoFadeIn 0.5s ease-out;
+}

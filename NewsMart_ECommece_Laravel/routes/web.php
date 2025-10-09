@@ -13,6 +13,7 @@ use App\Http\Controllers\OrderItemController;
 use App\Http\Controllers\OrderStatusController;
 use App\Http\Controllers\OrderTransactionController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\PostStatusController;
 use App\Http\Controllers\PostInteractionController;
 use App\Http\Controllers\PostTypeController;
 use App\Http\Controllers\ProductController;
@@ -124,6 +125,14 @@ Route::post('/post/add', [PostController::class, 'postAdd'])->name('post.add');
 Route::get('/post/update/{id}', [PostController::class, 'getUpdate'])->name('post.update');     
 Route::post('/post/update/{id}', [PostController::class, 'postUpdate'])->name('post.update');       
 Route::get('/post/delete/{id}', [PostController::class, 'getDelete'])->name('post.delete');
+
+//Post Status Management
+Route::get('/poststatus', [PostStatusController::class, 'getList'])->name('poststatus');
+Route::get('/poststatus/add', [PostStatusController::class, 'getAdd'])->name('poststatus.add');
+Route::post('/poststatus/add', [PostStatusController::class, 'postAdd'])->name('poststatus.add');
+Route::get('/poststatus/update/{id}', [PostStatusController::class, 'getUpdate'])->name('poststatus.update');
+Route::post('/poststatus/update/{id}', [PostStatusController::class, 'postUpdate'])->name('poststatus.update');
+Route::get('/poststatus/delete/{id}', [PostStatusController::class, 'getDelete'])->name('poststatus.delete');
 
 //Post Interaction Management
 Route::get('/postinteraction', [PostInteractionController::class, 'getList'])->name('postinteraction');

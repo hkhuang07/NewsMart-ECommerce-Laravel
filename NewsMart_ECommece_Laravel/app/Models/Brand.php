@@ -7,12 +7,12 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Brand extends Model
 {
-    protected $table = 'Brands'; 
-    protected $primaryKey = 'ID';
+    protected $table = 'brands'; 
+    protected $primaryKey = 'id';
 
     // Quan hệ 1-n: Brand HAS MANY Products
     public function products(): HasMany
     {
-        return $this->hasMany(Product::class, 'BrandID', 'ID');
+        return $this->hasMany(Product::class, 'brandid', 'id');
     }
 }

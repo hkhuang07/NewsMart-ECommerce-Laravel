@@ -7,18 +7,18 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class OrderItem extends Model
 {
-    protected $table = 'OrderItems';
-    protected $primaryKey = 'ID';
+    protected $table = 'orderItems';
+    protected $primaryKey = 'id';
 
     // Quan hệ n-1: OrderItem BELONGS TO Order
     public function order(): BelongsTo
     {
-        return $this->belongsTo(Order::class, 'OrderID', 'ID');
+        return $this->belongsTo(Order::class, 'orderid', 'id');
     }
 
     // Quan hệ n-1: OrderItem BELONGS TO Product
     public function product(): BelongsTo
     {
-        return $this->belongsTo(Product::class, 'ProductID', 'ID');
+        return $this->belongsTo(Product::class, 'productid', 'id');
     }
 }

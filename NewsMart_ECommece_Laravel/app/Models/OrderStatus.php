@@ -7,12 +7,12 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class OrderStatus extends Model
 {
-    protected $table = 'OrderStatuses';
-    protected $primaryKey = 'ID';
+    protected $table = 'orderstatuses';
+    protected $primaryKey = 'id';
 
     // Quan hệ 1-n: OrderStatus HAS MANY Orders
     public function orders(): HasMany
     {
-        return $this->hasMany(Order::class, 'OrderStatusID', 'ID');
+        return $this->hasMany(Order::class, 'orderstatusid', 'id');
     }
 }

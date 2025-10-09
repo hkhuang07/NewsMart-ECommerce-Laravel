@@ -7,12 +7,12 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class PostType extends Model
 {
-    protected $table = 'PostTypes';
-    protected $primaryKey = 'ID';
+    protected $table = 'posttypes';
+    protected $primaryKey = 'id';
 
     // Quan hệ 1-n: PostType HAS MANY Posts
     public function posts(): HasMany
     {
-        return $this->hasMany(Post::class, 'PostTypeID', 'ID');
+        return $this->hasMany(Post::class, 'posttypeid', 'id');
     }
 }

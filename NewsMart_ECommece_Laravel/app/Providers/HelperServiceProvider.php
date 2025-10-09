@@ -13,7 +13,10 @@ class HelperServiceProvider extends ServiceProvider
     public function register(): void
     {
         // Register helper functions globally
-        require_once app_path('Helpers/helper_functions.php');
+        $helperPath = app_path('Helpers/helper_functions.php');
+        if (file_exists($helperPath)) {
+            require_once $helperPath;
+        }
     }
 
     /**

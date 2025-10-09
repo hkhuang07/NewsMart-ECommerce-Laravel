@@ -7,12 +7,12 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Topic extends Model
 {
-    protected $table = 'Topics';
-    protected $primaryKey = 'ID';
+    protected $table = 'topics';
+    protected $primaryKey = 'id';
 
     // Quan hệ 1-n: Topic HAS MANY Posts
     public function posts(): HasMany
     {
-        return $this->hasMany(Post::class, 'TopicID', 'ID');
+        return $this->hasMany(Post::class, 'topicid', 'id');
     }
 }

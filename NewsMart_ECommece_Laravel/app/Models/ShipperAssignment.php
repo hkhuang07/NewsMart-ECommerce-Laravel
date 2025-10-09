@@ -7,18 +7,18 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class ShipperAssignment extends Model
 {
-    protected $table = 'ShipperAssignments';
-    protected $primaryKey = 'ID';
+    protected $table = 'shipperassignments';
+    protected $primaryKey = 'id';
 
     // Quan hệ 1-1: ShipperAssignment BELONGS TO Order
     public function order(): BelongsTo
     {
-        return $this->belongsTo(Order::class, 'OrderID', 'ID');
+        return $this->belongsTo(Order::class, 'orderid', 'id');
     }
 
     // Quan hệ n-1: ShipperAssignment BELONGS TO User (Shipper)
     public function shipper(): BelongsTo
     {
-        return $this->belongsTo(User::class, 'ShipperID', 'ID');
+        return $this->belongsTo(User::class, 'shipperid', 'id');
     }
 }

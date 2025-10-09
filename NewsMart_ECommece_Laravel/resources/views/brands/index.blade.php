@@ -3,28 +3,31 @@
 @section('title', 'Brand Management')
 
 @section('styles')
-<link href="{{ asset('css/brand.css') }}" rel="stylesheet">
+<link href="{{ asset('css/list.css') }}" rel="stylesheet">
+<link href="{{ asset('css/form.css') }}" rel="stylesheet">
 @endsection
 
 @section('content')
-<div class="brand-container">
-    <!-- Brand Header -->
+<div class="brand-management-container">
+    <!-- Header Section -->
     <div class="brand-header">
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col-md-8">
-                    <h1 class="brand-page-title">
-                        <i class="fas fa-tags me-3"></i>Brand Management
+        <div class="container mx-auto px-4">
+            <div class="header-content">
+                <div class="header-left">
+                    <h1 class="page-title">
+                        <i class="fas fa-tags"></i>
+                        Brand Management
                     </h1>
-                    <p class="brand-page-subtitle mb-0">
+                    <p class="page-subtitle">
                         Manage and organize your product brands
                     </p>
                 </div>
-                <div class="col-md-4 text-md-end mt-3 mt-md-0">
+                <div class="header-right">
                     @if(canManageProducts())
-                    <a href="{{ route('brand.add') }}" class="btn btn-brand-primary">
-                        <i class="fas fa-plus me-2"></i>Add New Brand
-                    </a>
+                    <button type="button" class="btn-add-new" data-bs-toggle="modal" data-bs-target="#addBrandModal">
+                        <i class="fa-light fa-plus"></i>
+                        Add New Brand
+                    </button>
                     @endif
                 </div>
             </div>
@@ -32,10 +35,10 @@
     </div>
 
     <!-- Main Content -->
-    <div class="container">
+    <div class="container mx-auto px-4 py-8">
         <!-- Loading State -->
-        <div id="loadingState" class="brand-loading d-none">
-            <div class="brand-spinner mx-auto"></div>
+        <div id="loadingState" class="loading-container d-none">
+            <div class="loading-spinner"></div>
             <p class="loading-text">Loading brands...</p>
         </div>
 
@@ -44,36 +47,41 @@
             @forelse($brands as $brand)
             <div class="brand-card" data-brand-id="{{ $brand->id }}">
                 <!-- Brand Image -->
-                <div class="brand-card-image">
+                <div class="brand-image-container">
                     @if(isset($brand->logo) && $brand->logo)
-                    <img src="{{ asset('storage/' . $brand->logo) }}"
+                    <img src="{{ asset('storage/app/private/'.$brand->logo) }}"
                         alt="{{ $brand->name }}"
+                        class="brand-image"
                         loading="lazy">
                     @else
                     <div class="brand-image-placeholder">
-                        <i class="fas fa-building brand-placeholder-icon"></i>
+                        <i class="fas fa-building"></i>
                     </div>
                     @endif
 
-                    <!-- Brand Status Badge -->
-                    <div class="brand-status-badge">
-                        <i class="fas fa-check-circle me-1"></i>Active
+                    <!-- Status Badge -->
+                    <div class="status-badge">
+                        <i class="fas fa-check-circle"></i>
+                        Active
                     </div>
 
                     <!-- Action Overlay -->
                     @if(canManageProducts())
-                    <div class="brand-card-overlay">
-                        <div class="brand-overlay-actions">
-                            <a href="{{ route('brand.edit', ['id' => $brand->id]) }}"
-                                class="btn btn-brand-action btn-brand-edit"
-                                title="Edit Brand">
-                                <i class="fas fa-edit"></i>
-                            </a>
+                    <div class="action-overlay">
+                        <div class="action-buttons">
                             <button type="button"
-                                class="btn btn-brand-action btn-brand-delete"
+                                class="action-btn edit-btn"
+                                title="Edit Brand"
+                                onclick="openEditBrandModal('{{ $brand->id }}', {{ json_encode($brand) }})">
+                                <i class="fas fa-edit"></i>
+                                <span>Edit</span>
+                            </button>
+                            <button type="button"
+                                class="action-btn delete-btn"
                                 title="Delete Brand"
-                                onclick="confirmDelete('{{ $brand->id }}', '{{ addslashes($brand->name) }}')">
+                                onclick="openDeleteBrandModal('{{ $brand->id }}', {{ json_encode($brand) }})">
                                 <i class="fas fa-trash-alt"></i>
+                                <span>Delete</span>
                             </button>
                         </div>
                     </div>
@@ -81,157 +89,138 @@
                 </div>
 
                 <!-- Brand Content -->
-                <div class="brand-card-content">
-                    <h3 class="brand-card-title" title="{{ $brand->name }}">
+                <div class="brand-content">
+                    <h3 class="brand-title" title="{{ $brand->name }}">
                         {{ $brand->name }}
                     </h3>
 
-                    <div class="brand-card-info">
+                    <div class="brand-info">
                         @if($brand->email)
-                        <div class="brand-info-item">
+                        <div class="info-item">
                             <i class="fas fa-envelope"></i>
-                            <strong>Email:</strong>
-                            <span title="{{ $brand->email }}">{{ Str::limit($brand->email, 25) }}</span>
+                            <span class="info-label">Email:</span>
+                            <span class="info-value" title="{{ $brand->email }}">
+                                {{ Str::limit($brand->email, 25) }}
+                            </span>
                         </div>
                         @endif
 
                         @if($brand->address)
-                        <div class="brand-info-item">
+                        <div class="info-item">
                             <i class="fas fa-map-marker-alt"></i>
-                            <strong>Address:</strong>
-                            <span title="{{ $brand->address }}">{{ Str::limit($brand->address, 30) }}</span>
+                            <span class="info-label">Address:</span>
+                            <span class="info-value" title="{{ $brand->address }}">
+                                {{ Str::limit($brand->address, 30) }}
+                            </span>
                         </div>
                         @endif
 
                         @if($brand->contact)
-                        <div class="brand-info-item">
+                        <div class="info-item">
                             <i class="fas fa-phone"></i>
-                            <strong>Phone:</strong>
-                            <span>{{ $brand->contact }}</span>
+                            <span class="info-label">Phone:</span>
+                            <span class="info-value">{{ $brand->contact }}</span>
                         </div>
                         @endif
 
                         @if($brand->slug)
-                        <div class="brand-info-item">
+                        <div class="info-item">
                             <i class="fas fa-link"></i>
-                            <strong>Slug:</strong>
-                            <span title="{{ $brand->slug }}">{{ Str::limit($brand->slug, 20) }}</span>
+                            <span class="info-label">Slug:</span>
+                            <span class="info-value" title="{{ $brand->slug }}">
+                                {{ Str::limit($brand->slug, 20) }}
+                            </span>
                         </div>
                         @endif
 
                         @if($brand->description)
                         <div class="brand-description">
-                            {{ $brand->description }}
+                            {{ Str::limit($brand->description, 100) }}
                         </div>
                         @endif
                     </div>
-                </div>
 
-                <!-- Brand Footer -->
-                <div class="brand-card-footer">
-                    <div class="brand-created-date">
-                        <i class="fas fa-calendar-alt me-1"></i>
-                        Created {{ $brand->created_at->diffForHumans() }}
+                    <!-- Brand Footer -->
+                    <div class="brand-footer">
+                        <div class="created-date">
+                            <i class="fas fa-calendar-alt"></i>
+                            Created {{ $brand->created_at->diffForHumans() }}
+                        </div>
                     </div>
                 </div>
             </div>
             @empty
-            <div class="brand-empty-state">
-                <i class="fas fa-tags brand-empty-icon"></i>
-                <h3 class="brand-empty-title">No Brands Found</h3>
-                <p class="brand-empty-text">
-                    You haven't added any brands yet. Start building your brand portfolio by creating your first brand.
-                </p>
-                @if(canManageProducts())
-                <a href="{{ route('brand.add') }}" class="btn btn-brand-primary">
-                    <i class="fas fa-plus me-2"></i>Create Your First Brand
-                </a>
-                @endif
+            <div class="empty-state">
+                <div class="empty-content">
+                    <i class="fas fa-tags empty-icon"></i>
+                    <h3 class="empty-title">No Brands Found</h3>
+                    <p class="empty-text">
+                        You haven't added any brands yet. Start building your brand portfolio by creating your first brand.
+                    </p>
+                    @if(canManageProducts())
+                    <button type="button" class="btn-add-first" data-bs-toggle="modal" data-bs-target="#addBrandModal">
+                        <i class="fas fa-plus"></i>
+                        Create Your First Brand
+                    </button>
+                    @endif
+                </div>
             </div>
             @endforelse
         </div>
     </div>
 </div>
 
-<!-- Delete Confirmation Modal -->
-<div class="modal fade brand-modal" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="deleteModalLabel">
-                    <i class="fas fa-exclamation-triangle me-2"></i>
-                    Confirm Delete Brand
-                </h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <div class="text-center">
-                    <i class="fas fa-trash-alt text-danger mb-3" style="font-size: 3rem;"></i>
-                    <h4>Are you sure?</h4>
-                    <p class="mb-0">
-                        Do you really want to delete the brand <strong id="brandNameToDelete"></strong>?
-                    </p>
-                    <small class="text-muted">
-                        This action cannot be undone and may affect related products.
-                    </small>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-brand-cancel" data-bs-dismiss="modal">
-                    <i class="fas fa-times me-1"></i>Cancel
-                </button>
-                <a href="#" id="confirmDeleteBtn" class="btn btn-brand-confirm-delete">
-                    <i class="fas fa-trash-alt me-1"></i>Yes, Delete It
-                </a>
-            </div>
-        </div>
-    </div>
-</div>
+<!-- Include Brand Modals -->
+@include('brands.add')
+@include('brands.update')
+@include('brands.delete')
+
 @endsection
 
 @section('scripts')
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        // Brand card hover effects
+        // Brand card interactions
         const brandCards = document.querySelectorAll('.brand-card');
 
         brandCards.forEach(card => {
-            // Add smooth transitions
+            // Hover effects
             card.addEventListener('mouseenter', function() {
-                this.style.transform = 'translateY(-10px) scale(1.03)';
+                this.style.transform = 'translateY(-8px) scale(1.02)';
             });
 
             card.addEventListener('mouseleave', function() {
                 this.style.transform = 'translateY(0) scale(1)';
             });
 
-            // Add click effect (optional - for card clicking)
+            // Click handling
             card.addEventListener('click', function(e) {
-                // Only if not clicking on action buttons
-                if (!e.target.closest('.btn-brand-action') && !e.target.closest('.brand-card-overlay')) {
-                    // You can add card click functionality here
+                if (!e.target.closest('.action-btn') && !e.target.closest('.action-overlay')) {
                     console.log('Brand card clicked:', this.dataset.brandId);
                 }
             });
         });
 
-        // Add loading simulation (optional)
-        showLoading();
-        setTimeout(hideLoading, 800);
+        // Keyboard shortcut for adding new brand
+        document.addEventListener('keydown', function(e) {
+            if ((e.ctrlKey || e.metaKey) && e.key === 'n' && !e.shiftKey) {
+                e.preventDefault();
+                const addBrandModal = new bootstrap.Modal(document.getElementById('addBrandModal'));
+                addBrandModal.show();
+            }
+        });
     });
 
-    // Delete confirmation function
-    function confirmDelete(brandId, brandName) {
-        const brandNameElement = document.getElementById('brandNameToDelete');
-        const confirmBtn = document.getElementById('confirmDeleteBtn');
+    // Edit Brand Modal Function
+    function openEditBrandModal(brandId, brandData) {
+        // Use the function from update.blade.php
+        openUpdateModal(brandId, brandData);
+    }
 
-        if (brandNameElement && confirmBtn) {
-            brandNameElement.textContent = brandName;
-            confirmBtn.href = `{{ route('brand.delete', ['id' => '__ID__']) }}`.replace('__ID__', brandId);
-
-            const deleteModal = new bootstrap.Modal(document.getElementById('deleteModal'));
-            deleteModal.show();
-        }
+    // Delete Brand Modal Function
+    function openDeleteBrandModal(brandId, brandData) {
+        // Use the function from delete.blade.php
+        openDeleteModal(brandId, brandData);
     }
 
     // Loading functions
@@ -255,15 +244,15 @@
         }
     }
 
-    // Search functionality (if you want to add search later)
+    // Search functionality
     function filterBrands(searchTerm) {
         const cards = document.querySelectorAll('.brand-card');
         let visibleCount = 0;
 
         cards.forEach(card => {
-            const brandName = card.querySelector('.brand-card-title').textContent.toLowerCase();
+            const brandName = card.querySelector('.brand-title').textContent.toLowerCase();
             const brandDescription = card.querySelector('.brand-description')?.textContent.toLowerCase() || '';
-            const brandEmail = card.querySelector('.brand-info-item span')?.textContent.toLowerCase() || '';
+            const brandEmail = card.querySelector('.info-value')?.textContent.toLowerCase() || '';
 
             const isVisible = brandName.includes(searchTerm.toLowerCase()) ||
                 brandDescription.includes(searchTerm.toLowerCase()) ||
@@ -277,29 +266,79 @@
             }
         });
 
-        // Show/hide empty state based on visible cards
-        const emptyState = document.querySelector('.brand-empty-state');
+        // Show/hide empty state
+        const emptyState = document.querySelector('.empty-state');
         if (emptyState) {
             emptyState.style.display = visibleCount === 0 ? 'block' : 'none';
         }
     }
-
-    // Keyboard shortcuts (optional enhancement)
-    document.addEventListener('keydown', function(e) {
-        // Ctrl/Cmd + N to add new brand
-        if ((e.ctrlKey || e.metaKey) && e.key === 'n' && !e.shiftKey) {
-            e.preventDefault();
-            const addBtn = document.querySelector('a[href*="brand.add"]');
-            if (addBtn) {
-                window.location.href = addBtn.href;
-            }
-        }
-    });
-
-    // Optional: Add tooltip initialization if using Bootstrap tooltips
-    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
-    var tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl) {
-        return new bootstrap.Tooltip(tooltipTriggerEl);
-    });
 </script>
+
+<!-- Handle Validation Errors for Add Form -->
+@if ($errors->any() && !session('update_errors') && !session('delete_errors'))
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Mở modal nếu có lỗi validation cho add form
+    const addBrandModal = new bootstrap.Modal(document.getElementById('addBrandModal'));
+    addBrandModal.show();
+    
+    // Hiển thị lỗi
+    const errorMessage = document.getElementById('errorMessage');
+    const modalMessages = document.getElementById('modalMessages');
+    
+    if (errorMessage && modalMessages) {
+        errorMessage.innerHTML = '<strong>Please fix the following errors:</strong><ul>@foreach ($errors->all() as $error)<li>{{ $error }}</li>@endforeach</ul>';
+        errorMessage.style.display = 'block';
+        modalMessages.style.display = 'block';
+    }
+});
+</script>
+@endif
+
+<!-- Handle Validation Errors for Update Form -->
+@if (session('update_errors'))
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Show update modal with errors
+    const updateBrandModal = new bootstrap.Modal(document.getElementById('updateBrandModal'));
+    updateBrandModal.show();
+    
+    // Display errors
+    const errorMessage = document.getElementById('updateErrorMessage');
+    const modalMessages = document.getElementById('updateModalMessages');
+    
+    if (errorMessage && modalMessages) {
+        errorMessage.innerHTML = '<strong>Please fix the following errors:</strong><ul>@foreach (session('update_errors')->all() as $error)<li>{{ $error }}</li>@endforeach</ul>';
+        errorMessage.style.display = 'block';
+        modalMessages.style.display = 'block';
+    }
+});
+</script>
+@endif
+
+<!-- Handle Success Messages -->
+@if (session('success'))
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Hiển thị success message
+    const successMessage = document.getElementById('successMessage');
+    const modalMessages = document.getElementById('modalMessages');
+    
+    if (successMessage && modalMessages) {
+        successMessage.innerHTML = '<strong>{{ session('success') }}</strong>';
+        successMessage.style.display = 'block';
+        modalMessages.style.display = 'block';
+        
+        // Auto hide after 3 seconds
+        setTimeout(function() {
+            successMessage.style.display = 'none';
+            modalMessages.style.display = 'none';
+        }, 3000);
+    } else {
+        // Fallback alert
+        alert('{{ session('success') }}');
+    }
+});
+</script>
+@endif
 @endsection

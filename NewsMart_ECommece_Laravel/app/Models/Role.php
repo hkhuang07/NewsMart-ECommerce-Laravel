@@ -7,12 +7,12 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Role extends Model
 {
-    protected $table = 'Roles';
-    protected $primaryKey = 'ID';
+    protected $table = 'roles';
+    protected $primaryKey = 'id';
 
     // Quan hệ 1-n: Role HAS MANY Users
     public function users(): HasMany
     {
-        return $this->hasMany(User::class, 'RoleID', 'ID');
+        return $this->hasMany(User::class, 'roleid', 'id');
     }
 }

@@ -7,18 +7,18 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class PostInteraction extends Model
 {
-    protected $table = 'PostInteractions';
-    protected $primaryKey = 'ID';
+    protected $table = 'postinteractions';
+    protected $primaryKey = 'id';
 
     // Quan hệ n-1: PostInteraction BELONGS TO Post
     public function post(): BelongsTo
     {
-        return $this->belongsTo(Post::class, 'PostID', 'ID');
+        return $this->belongsTo(Post::class, 'postid', 'id');
     }
 
     // Quan hệ n-1: PostInteraction BELONGS TO User
     public function user(): BelongsTo
     {
-        return $this->belongsTo(User::class, 'UserID', 'ID');
+        return $this->belongsTo(User::class, 'userid', 'id');
     }
 }

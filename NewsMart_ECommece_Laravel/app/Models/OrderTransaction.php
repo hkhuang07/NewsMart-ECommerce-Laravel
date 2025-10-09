@@ -7,12 +7,12 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class OrderTransaction extends Model
 {
-    protected $table = 'OrderTransactions';
-    protected $primaryKey = 'ID';
-    
+    protected $table = 'ordertransactions';
+    protected $primaryKey = 'id';
+
     // Quan hệ 1-1: OrderTransaction BELONGS TO Order
     public function order(): BelongsTo
     {
-        return $this->belongsTo(Order::class, 'OrderID', 'ID');
+        return $this->belongsTo(Order::class, 'orderid', 'id');
     }
 }

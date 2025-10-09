@@ -7,11 +7,11 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class ProductImage extends Model
 {
-    protected $table = 'ProductImages';
-    protected $primaryKey = 'ID';
+    protected $table = 'productimages';
+    protected $primaryKey = 'id';
 
     public function product(): BelongsTo
     {
-        return $this->belongsTo(Product::class, 'ProductID', 'ID');
+        return $this->belongsTo(Product::class, 'productid', 'id');
     }
 }

@@ -14,15 +14,11 @@ class PermissionHelper
         if (!Auth::check()) return 'User';
         
         try {
-            // Lấy tên role từ relationship với bảng roles
             if (Auth::user()->role && Auth::user()->role->name) {
                 return Auth::user()->role->name;
             }
         } catch (\Exception $e) {
-            // Xử lý lỗi nếu relationship chưa được thiết lập đúng
         }
-        
-        // Fallback trả về User nếu không tìm thấy role
         return 'User';
     }
     

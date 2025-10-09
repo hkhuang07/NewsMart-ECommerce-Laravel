@@ -7,21 +7,21 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Review extends Model
 {
-    protected $table = 'Reviews';
-    protected $primaryKey = 'ID';
+    protected $table = 'reviews';
+    protected $primaryKey = 'id';
 
     public function user(): BelongsTo
     {
-        return $this->belongsTo(User::class, 'UserID', 'ID');
+        return $this->belongsTo(User::class, 'userid', 'id');
     }
 
     public function product(): BelongsTo
     {
-        return $this->belongsTo(Product::class, 'ProductID', 'ID');
+        return $this->belongsTo(Product::class, 'productid', 'id');
     }
 
     public function order(): BelongsTo
     {
-        return $this->belongsTo(Order::class, 'OrderID', 'ID');
+        return $this->belongsTo(Order::class, 'orderid', 'id');
     }
 }

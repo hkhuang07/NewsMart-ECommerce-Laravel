@@ -6,8 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Configuration extends Model
 {
-    protected $table = 'Configurations';
-    protected $primaryKey = 'SettingKey'; 
+    protected $table = 'configurations';
+    protected $primaryKey = 'settingKey'; 
     public $incrementing = false; 
     protected $keyType = 'string';
 }
