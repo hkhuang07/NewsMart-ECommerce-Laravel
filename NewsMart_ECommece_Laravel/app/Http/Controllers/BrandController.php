@@ -30,7 +30,7 @@ class BrandController extends Controller
         return view('brands.add');
     }
 
-    public function postAdd(Request $request)
+    public function postAdd(Request $request): RedirectResponse
     {
         if (!$this->canManageProducts()) {
             abort(403, 'You do not have permission to add brands.');
