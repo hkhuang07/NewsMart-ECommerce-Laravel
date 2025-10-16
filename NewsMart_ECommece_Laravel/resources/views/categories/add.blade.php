@@ -1,10 +1,10 @@
-<div class="modal fade" id="addBrandModal" tabindex="-1" aria-labelledby="addBrandModalLabel" aria-hidden="true">
+<div class="modal fade" id="addCategoryModal" tabindex="-1" aria-labelledby="addCategoryModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered">
-        <div class="modal-content item-modal">
-            <div class="modal-header item-modal-header">
-                <h5 class="modal-title" id="addBrandModalLabel">
+        <div class="modal-content brand-modal">
+            <div class="modal-header brand-modal-header">
+                <h5 class="modal-title" id="addCategoryModalLabel">
                     <i class="fa-light fa-plus-circle"></i>
-                    Add New Brand
+                    Add New Category
                 </h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
@@ -15,17 +15,17 @@
                     <div id="successMessage" class="alert alert-success" style="display: none;"></div>
                 </div>
 
-                <form id="addBrandForm" action="{{ route('brand.add') }}" method="post" enctype="multipart/form-data">
+                <form id="addCategoryForm" action="{{ route('category.add') }}" method="post" enctype="multipart/form-data">
                     @csrf
 
                     <div class="form-group mb-4">
                         <label class="form-label" for="name">
                             <i class="fa-light fa-tag"></i>
-                            Brand Name
+                            Category Name
                         </label>
                         <input
                             type="text"
-                            class="form-control item-input @error('name') is-invalid @enderror"
+                            class="form-control brand-input @error('name') is-invalid @enderror"
                             id="name"
                             name="name"
                             value="{{ old('name') }}"
@@ -38,70 +38,15 @@
                         @enderror
                     </div>
 
-                    <div class="form-group mb-4">
-                        <label class="form-label" for="address">
-                            <i class="fa-light fa-location-dot"></i>
-                            Brand Address
-                        </label>
-                        <input
-                            type="text"
-                            class="form-control item-input @error('address') is-invalid @enderror"
-                            id="address"
-                            name="address"
-                            value="{{ old('address') }}"
-                            placeholder="Enter brand address" />
-                        @error('address')
-                        <div class="invalid-feedback">
-                            <strong>{{ $message }}</strong>
-                        </div>
-                        @enderror
-                    </div>
-
-                    <div class="form-group mb-4">
-                        <label class="form-label" for="email">
-                            <i class="fa-light fa-envelope"></i>
-                            Brand Email
-                        </label>
-                        <input
-                            type="email"
-                            class="form-control item-input @error('email') is-invalid @enderror"
-                            id="email"
-                            name="email"
-                            value="{{ old('email') }}"
-                            placeholder="Enter brand email" />
-                        @error('email')
-                        <div class="invalid-feedback">
-                            <strong>{{ $message }}</strong>
-                        </div>
-                        @enderror
-                    </div>
-
-                    <div class="form-group mb-4">
-                        <label class="form-label" for="contact">
-                            <i class="fa-light fa-phone"></i>
-                            Brand Contact
-                        </label>
-                        <input
-                            type="text"
-                            class="form-control item-input @error('contact') is-invalid @enderror"
-                            id="contact"
-                            name="contact"
-                            value="{{ old('contact') }}"
-                            placeholder="Enter contact number" />
-                        @error('contact')
-                        <div class="invalid-feedback">
-                            <strong>{{ $message }}</strong>
-                        </div>
-                        @enderror
-                    </div>
+                    
 
                     <div class="form-group mb-4">
                         <label class="form-label" for="description">
                             <i class="fa-light fa-file-text"></i>
-                            Brand Description
+                            Category Description
                         </label>
                         <textarea
-                            class="form-control item-textarea @error('description') is-invalid @enderror"
+                            class="form-control brand-textarea @error('description') is-invalid @enderror"
                             id="description"
                             name="description"
                             rows="4"
@@ -114,17 +59,35 @@
                     </div>
 
                     <div class="form-group mb-4">
-                        <label class="form-label" for="logo">
+                        <label class="form-label" for="description">
+                            <i class="fa-light fa-file-text"></i>
+                            Category Parent
+                        </label>
+                        <select class="form-select @error('parentid') is-invalid @enderror" id="parentid" name="parentid">
+                            <option value="">-- Chọn --</option>
+                            @foreach($categories as $value)
+                            <option value="{{ $value->id }}">{{ $value->name }}</option>
+                            @endforeach
+                            </select>
+                        @error('description')
+                        <div class="invalid-feedback">
+                            <strong>{{ $message }}</strong>
+                        </div>
+                        @enderror
+                    </div>
+
+                    <div class="form-group mb-4">
+                        <label class="form-label" for="image">
                             <i class="fa-light fa-image"></i>
-                            Brand Logo (Image file only)
+                            Category Image (Image file only)
                         </label>
                         <input
                             type="file"
-                            class="form-control item-input @error('logo') is-invalid @enderror"
-                            id="logo"
-                            name="logo"
+                            class="form-control brand-input @error('image') is-invalid @enderror"
+                            id="image"
+                            name="image"
                             accept="image/*" />
-                        @error('logo')
+                        @error('image')
                         <div class="invalid-feedback">
                             <strong>{{ $message }}</strong>
                         </div>
@@ -133,14 +96,14 @@
                 </form>
             </div>
 
-            <div class="modal-footer item-modal-footer">
+            <div class="modal-footer brand-modal-footer">
                 <button type="button" class="btn btn-cancel" data-bs-dismiss="modal">
                     <i class="fa-light fa-times"></i>
                     Cancel
                 </button>
-                <button type="submit" form="addBrandForm" class="btn btn-action" id="submitBtn">
+                <button type="submit" form="addCategoryForm" class="btn btn-action" id="submitBtn">
                     <i class="fa-light fa-save"></i>
-                    <span class="btn-text">Add Brand</span>
+                    <span class="btn-text">Add Category</span>
                     <span class="btn-loading" style="display: none;">
                         <i class="fa-light fa-spinner fa-spin"></i>
                         Adding...
@@ -153,27 +116,27 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        const addBrandModal = document.getElementById('addBrandModal');
-        const addBrandForm = document.getElementById('addBrandForm');
+        const addCategoryModal = document.getElementById('addCategoryModal');
+        const addCategoryForm = document.getElementById('addCategoryForm');
         const submitBtn = document.getElementById('submitBtn');
         const btnText = submitBtn.querySelector('.btn-text');
         const btnLoading = submitBtn.querySelector('.btn-loading');
 
         // Reset form when modal is hidden
-        addBrandModal.addEventListener('hidden.bs.modal', function() {
-            addBrandForm.reset();
+        addCategoryModal.addEventListener('hidden.bs.modal', function() {
+            addCategoryForm.reset();
 
-            const fileInput = document.getElementById('logo');
+            const fileInput = document.getElementById('image');
             if (fileInput) {
                 fileInput.value = '';
             }
 
             // Clear validation errors
-            const invalidInputs = addBrandForm.querySelectorAll('.is-invalid');
+            const invalidInputs = addCategoryForm.querySelectorAll('.is-invalid');
             invalidInputs.forEach(input => {
                 input.classList.remove('is-invalid');
             });
-            const feedbacks = addBrandForm.querySelectorAll('.invalid-feedback');
+            const feedbacks = addCategoryForm.querySelectorAll('.invalid-feedback');
             feedbacks.forEach(feedback => {
                 feedback.style.display = 'none';
             });
@@ -188,7 +151,7 @@
         });
 
         // Handle form submission
-        addBrandForm.addEventListener('submit', function(e) {
+        addCategoryForm.addEventListener('submit', function(e) {
             // Show loading state
             submitBtn.disabled = true;
             btnText.style.display = 'none';
@@ -196,7 +159,7 @@
         });
 
         // Focus first input when modal is shown
-        addBrandModal.addEventListener('shown.bs.modal', function() {
+        addCategoryModal.addEventListener('shown.bs.modal', function() {
             document.getElementById('name').focus();
         });
     });

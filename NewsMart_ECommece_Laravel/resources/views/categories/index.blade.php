@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Brand Management')
+@section('title', 'Category Management')
 
 @section('styles')
 <link href="{{ asset('css/list.css') }}" rel="stylesheet">
@@ -15,17 +15,17 @@
                 <div class="header-left">
                     <h1 class="page-title">
                         <i class="fas fa-tags"></i>
-                        Brand Management
+                        Category Management
                     </h1>
                     <p class="page-subtitle">
-                        Manage and organize your product brands
+                        Category and organize your product Category
                     </p>
                 </div>
                 <div class="header-right">
                     @if(canManageProducts())
-                    <button type="button" class="btn-add-new" data-bs-toggle="modal" data-bs-target="#addBrandModal">
+                    <button type="button" class="btn-add-new" data-bs-toggle="modal" data-bs-target="#addCategoryModal">
                         <i class="fa-light fa-plus"></i>
-                        Add New Brand
+                        Add New Category
                     </button>
                     @endif
                 </div>
@@ -39,13 +39,13 @@
             <p class="loading-text">Loading brands...</p>
         </div>
 
-        <div class="items-grid" id="brandsGrid">
-            @forelse($brands as $brand)
-            <div class="item-card" data-brand-id="{{ $brand->id }}">
+        <div class="items-grid" id="categoriesGrid">
+            @forelse($categories as $category)
+            <div class="item-card" data-brand-id="{{ $category->id }}">
                 <div class="item-image-container">
-                    @if(isset($brand->logo) && $brand->logo)
-                    <img src="{{ asset('storage/app/private/'.$brand->logo) }}"
-                        alt="{{ $brand->name }}"
+                    @if(isset($category->image) && $category->image)
+                    <img src="{{ asset('storage/app/private/'.$category->image) }}"
+                        alt="{{ $category->name }}"
                         class="item-image"
                         loading="lazy">
                     @else
@@ -64,15 +64,15 @@
                         <div class="action-buttons">
                             <button type="button"
                                 class="action-btn edit-btn"
-                                title="Edit Brand"
-                                onclick="openEditBrandModal('{{ $brand->id }}', {{ json_encode($brand) }})">
+                                title="Edit Category"
+                                onclick="openEditCategoryModal('{{ $category->id }}', {{ json_encode($category) }})">
                                 <i class="fas fa-edit"></i>
                                 <span>Edit</span>
                             </button>
                             <button type="button"
                                 class="action-btn delete-btn"
-                                title="Delete Brand"
-                                onclick="openDeleteBrandModal('{{ $brand->id }}', {{ json_encode($brand) }})">
+                                title="Delete Category"
+                                onclick="openDeleteCategoryModal('{{ $category->id }}', {{ json_encode($category) }})">
                                 <i class="fas fa-trash-alt"></i>
                                 <span>Delete</span>
                             </button>
@@ -82,52 +82,26 @@
                 </div>
 
                 <div class="item-content">
-                    <h3 class="item-title" title="{{ $brand->name }}">
-                        {{ $brand->name }}
+                    <h3 class="item-title" title="{{ $category->name }}">
+                        {{ $category->name }}
                     </h3>
 
                     <div class="item-info">
-                        @if($brand->email)
-                        <div class="info-item">
-                            <i class="fas fa-envelope"></i>
-                            <span class="info-label">Email:</span>
-                            <span class="info-value" title="{{ $brand->email }}">
-                                {{ Str::limit($brand->email, 25) }}
-                            </span>
-                        </div>
-                        @endif
+                    
 
-                        @if($brand->address)
-                        <div class="info-item">
-                            <i class="fas fa-map-marker-alt"></i>
-                            <span class="info-label">Address:</span>
-                            <span class="info-value" title="{{ $brand->address }}">
-                                {{ Str::limit($brand->address, 30) }}
-                            </span>
-                        </div>
-                        @endif
-
-                        @if($brand->contact)
-                        <div class="info-item">
-                            <i class="fas fa-phone"></i>
-                            <span class="info-label">Phone:</span>
-                            <span class="info-value">{{ $brand->contact }}</span>
-                        </div>
-                        @endif
-
-                        @if($brand->slug)
+                        @if($category->slug)
                         <div class="info-item">
                             <i class="fas fa-link"></i>
                             <span class="info-label">Slug:</span>
-                            <span class="info-value" title="{{ $brand->slug }}">
-                                {{ Str::limit($brand->slug, 20) }}
+                            <span class="info-value" title="{{ $category->slug }}">
+                                {{ Str::limit($category->slug, 20) }}
                             </span>
                         </div>
                         @endif
 
-                        @if($brand->description)
+                        @if($category->description)
                         <div class="item-description">
-                            {{ Str::limit($brand->description, 100) }}
+                            {{ Str::limit($category->description, 100) }}
                         </div>
                         @endif
                     </div>
@@ -135,7 +109,7 @@
                     <div class="item-footer">
                         <div class="created-date">
                             <i class="fas fa-calendar-alt"></i>
-                            Created {{ $brand->created_at->diffForHumans() }}
+                            Created {{ $category->created_at->diffForHumans() }}
                         </div>
                     </div>
                 </div>
@@ -144,14 +118,14 @@
             <div class="empty-state">
                 <div class="empty-content">
                     <i class="fas fa-tags empty-icon"></i>
-                    <h3 class="empty-title">No Brands Found</h3>
+                    <h3 class="empty-title">No Categories Found</h3>
                     <p class="empty-text">
-                        You haven't added any brands yet. Start building your brand portfolio by creating your first brand.
+                        You haven't added any Categories yet. Start building your brand portfolio by creating your first brand.
                     </p>
                     @if(canManageProducts())
-                    <button type="button" class="btn-add-first" data-bs-toggle="modal" data-bs-target="#addBrandModal">
+                    <button type="button" class="btn-add-first" data-bs-toggle="modal" data-bs-target="#addCategoryModal">
                         <i class="fas fa-plus"></i>
-                        Create Your First Brand
+                        Create Your First Category
                     </button>
                     @endif
                 </div>
@@ -161,9 +135,9 @@
     </div>
 </div>
 
-@include('brands.add')
-@include('brands.update')
-@include('brands.delete')
+@include('categories.add')
+@include('categories.update')
+@include('categories.delete')
 
 @endsection
 
@@ -186,7 +160,7 @@
             // Click handling
             card.addEventListener('click', function(e) {
                 if (!e.target.closest('.action-btn') && !e.target.closest('.action-overlay')) {
-                    console.log('Brand card clicked:', this.dataset.brandId);
+                    console.log('Category card clicked:', this.dataset.brandId);
                 }
             });
         });
@@ -195,20 +169,20 @@
         document.addEventListener('keydown', function(e) {
             if ((e.ctrlKey || e.metaKey) && e.key === 'n' && !e.shiftKey) {
                 e.preventDefault();
-                const addBrandModal = new bootstrap.Modal(document.getElementById('addBrandModal'));
-                addBrandModal.show();
+                const addCategoryModal = new bootstrap.Modal(document.getElementById('addCategoryModal'));
+                addCategoryModal.show();
             }
         });
     });
 
-    // Edit Brand Modal Function
-    function openEditBrandModal(brandId, brandData) {
+    // Edit Category Modal Function
+    function openEditCategoryModal(brandId, brandData) {
         // Use the function from update.blade.php
         openUpdateModal(brandId, brandData);
     }
 
-    // Delete Brand Modal Function
-    function openDeleteBrandModal(brandId, brandData) {
+    // Delete Category Modal Function
+    function openDeleteCategoryModal(brandId, brandData) {
         // Use the function from delete.blade.php
         openDeleteModal(brandId, brandData);
     }
@@ -216,33 +190,30 @@
     // Loading functions
     function showLoading() {
         const loadingState = document.getElementById('loadingState');
-        const brandsGrid = document.getElementById('brandsGrid');
+        const categoriesGrid = document.getElementById('categoriesGrid');
 
-        if (loadingState && brandsGrid) {
+        if (loadingState && categoriesGrid) {
             loadingState.classList.remove('d-none');
-            brandsGrid.style.opacity = '0.3';
+            categoriesGrid.style.opacity = '0.3';
         }
     }
 
     function hideLoading() {
         const loadingState = document.getElementById('loadingState');
-        const brandsGrid = document.getElementById('brandsGrid');
+        const categoriesGrid = document.getElementById('categoriesGrid');
 
-        if (loadingState && brandsGrid) {
+        if (loadingState && categoriesGrid) {
             loadingState.classList.add('d-none');
-            brandsGrid.style.opacity = '1';
+            categoriesGrid.style.opacity = '1';
         }
     }
 
     // Search functionality
-    function filterBrands(searchTerm) {
+    function filterCategorys(searchTerm) {
         const cards = document.querySelectorAll('.item-card');
         let visibleCount = 0;
 
         cards.forEach(card => {
-            const brandName = card.querySelector('.item-title').textContent.toLowerCase();
-            const brandDescription = card.querySelector('.item-description')?.textContent.toLowerCase() || '';
-            const brandEmail = card.querySelector('.info-value')?.textContent.toLowerCase() || '';
 
             const isVisible = brandName.includes(searchTerm.toLowerCase()) ||
                 brandDescription.includes(searchTerm.toLowerCase()) ||
@@ -268,8 +239,8 @@
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     // Mở modal nếu có lỗi validation cho add form
-    const addBrandModal = new bootstrap.Modal(document.getElementById('addBrandModal'));
-    addBrandModal.show();
+    const addCategoryModal = new bootstrap.Modal(document.getElementById('addCategoryModal'));
+    addCategoryModal.show();
     
     // Hiển thị lỗi
     const errorMessage = document.getElementById('errorMessage');
@@ -288,8 +259,8 @@ document.addEventListener('DOMContentLoaded', function() {
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     // Show update modal with errors
-    const updateBrandModal = new bootstrap.Modal(document.getElementById('updateBrandModal'));
-    updateBrandModal.show();
+    const updateCategoryModal = new bootstrap.Modal(document.getElementById('updateCategoryModal'));
+    updateCategoryModal.show();
     
     // Display errors
     const errorMessage = document.getElementById('updateErrorMessage');
