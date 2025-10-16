@@ -8,9 +8,8 @@
 @endsection
 
 @section('content')
-<div class="brand-management-container">
-    <!-- Header Section -->
-    <div class="brand-header">
+<div class="item-management-container">
+    <div class="item-header">
         <div class="container mx-auto px-4">
             <div class="header-content">
                 <div class="header-left">
@@ -34,38 +33,32 @@
         </div>
     </div>
 
-    <!-- Main Content -->
     <div class="container mx-auto px-4 py-8">
-        <!-- Loading State -->
         <div id="loadingState" class="loading-container d-none">
             <div class="loading-spinner"></div>
             <p class="loading-text">Loading brands...</p>
         </div>
 
-        <!-- Brands Grid -->
-        <div class="brands-grid" id="brandsGrid">
+        <div class="items-grid" id="brandsGrid">
             @forelse($brands as $brand)
-            <div class="brand-card" data-brand-id="{{ $brand->id }}">
-                <!-- Brand Image -->
-                <div class="brand-image-container">
+            <div class="item-card" data-brand-id="{{ $brand->id }}">
+                <div class="item-image-container">
                     @if(isset($brand->logo) && $brand->logo)
                     <img src="{{ asset('storage/app/private/'.$brand->logo) }}"
                         alt="{{ $brand->name }}"
-                        class="brand-image"
+                        class="item-image"
                         loading="lazy">
                     @else
-                    <div class="brand-image-placeholder">
+                    <div class="item-image-placeholder">
                         <i class="fas fa-building"></i>
                     </div>
                     @endif
 
-                    <!-- Status Badge -->
                     <div class="status-badge">
                         <i class="fas fa-check-circle"></i>
                         Active
                     </div>
 
-                    <!-- Action Overlay -->
                     @if(canManageProducts())
                     <div class="action-overlay">
                         <div class="action-buttons">
@@ -88,13 +81,12 @@
                     @endif
                 </div>
 
-                <!-- Brand Content -->
-                <div class="brand-content">
-                    <h3 class="brand-title" title="{{ $brand->name }}">
+                <div class="item-content">
+                    <h3 class="item-title" title="{{ $brand->name }}">
                         {{ $brand->name }}
                     </h3>
 
-                    <div class="brand-info">
+                    <div class="item-info">
                         @if($brand->email)
                         <div class="info-item">
                             <i class="fas fa-envelope"></i>
@@ -134,14 +126,13 @@
                         @endif
 
                         @if($brand->description)
-                        <div class="brand-description">
+                        <div class="item-description">
                             {{ Str::limit($brand->description, 100) }}
                         </div>
                         @endif
                     </div>
 
-                    <!-- Brand Footer -->
-                    <div class="brand-footer">
+                    <div class="item-footer">
                         <div class="created-date">
                             <i class="fas fa-calendar-alt"></i>
                             Created {{ $brand->created_at->diffForHumans() }}
@@ -170,7 +161,6 @@
     </div>
 </div>
 
-<!-- Include Brand Modals -->
 @include('brands.add')
 @include('brands.update')
 @include('brands.delete')
@@ -180,10 +170,10 @@
 @section('scripts')
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        // Brand card interactions
-        const brandCards = document.querySelectorAll('.brand-card');
+        // Item card interactions
+        const itemCards = document.querySelectorAll('.item-card');
 
-        brandCards.forEach(card => {
+        itemCards.forEach(card => {
             // Hover effects
             card.addEventListener('mouseenter', function() {
                 this.style.transform = 'translateY(-8px) scale(1.02)';
@@ -246,12 +236,12 @@
 
     // Search functionality
     function filterBrands(searchTerm) {
-        const cards = document.querySelectorAll('.brand-card');
+        const cards = document.querySelectorAll('.item-card');
         let visibleCount = 0;
 
         cards.forEach(card => {
-            const brandName = card.querySelector('.brand-title').textContent.toLowerCase();
-            const brandDescription = card.querySelector('.brand-description')?.textContent.toLowerCase() || '';
+            const brandName = card.querySelector('.item-title').textContent.toLowerCase();
+            const brandDescription = card.querySelector('.item-description')?.textContent.toLowerCase() || '';
             const brandEmail = card.querySelector('.info-value')?.textContent.toLowerCase() || '';
 
             const isVisible = brandName.includes(searchTerm.toLowerCase()) ||
@@ -274,7 +264,6 @@
     }
 </script>
 
-<!-- Handle Validation Errors for Add Form -->
 @if ($errors->any() && !session('update_errors') && !session('delete_errors'))
 <script>
 document.addEventListener('DOMContentLoaded', function() {
@@ -295,7 +284,6 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 @endif
 
-<!-- Handle Validation Errors for Update Form -->
 @if (session('update_errors'))
 <script>
 document.addEventListener('DOMContentLoaded', function() {
@@ -316,7 +304,6 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 @endif
 
-<!-- Handle Success Messages -->
 @if (session('success'))
 <script>
 document.addEventListener('DOMContentLoaded', function() {

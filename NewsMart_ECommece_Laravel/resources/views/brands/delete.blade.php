@@ -1,7 +1,7 @@
 <div class="modal fade" id="deleteBrandModal" tabindex="-1" aria-labelledby="deleteBrandModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content delete-modal">
-            <div class="modal-header brand-modal-header">
+            <div class="modal-header item-modal-header">
                 <h5 class="modal-title" id="deleteBrandModalLabel">
                     <i class="fas fa-exclamation-triangle text-warning"></i>
                     Confirm Delete Brand
@@ -23,7 +23,7 @@
                             <strong id="deleteBrandNameToDelete" class="text-danger"></strong>?
                         </p>
                         
-                        <div class="brand-info-preview bg-light p-3 rounded mb-3" id="delet eBrandPreview">
+                        <div class="item-info-preview bg-light p-3 rounded mb-3" id="deleteBrandPreview">
                             <div class="row">
                                 <div class="col-4">
                                     <div class="preview-logo" id="deleteLogoPreview">
@@ -60,7 +60,7 @@
                 </div>
             </div>
             
-            <div class="modal-footer brand-modal-footer">
+            <div class="modal-footer item-modal-footer">
                 <button type="button" class="btn btn-cancel me-3" data-bs-dismiss="modal">
                     <i class="fas fa-times"></i>
                     Cancel
@@ -83,7 +83,7 @@
     document.addEventListener('DOMContentLoaded', function() {
         const deleteBrandModal = document.getElementById('deleteBrandModal');
         const deleteConfirmBtn = document.getElementById('deleteConfirmDeleteBtn');
-        const btnText = deleteConfirmBtn.querySelector('.btn-text');
+        const btnText = deleteConfirmBtn.querySelector('span:not(.btn-loading)');
         const btnLoading = deleteConfirmBtn.querySelector('.btn-loading');
 
         // Handle delete confirmation click

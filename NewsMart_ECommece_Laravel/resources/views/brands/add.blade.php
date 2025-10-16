@@ -1,7 +1,7 @@
 <div class="modal fade" id="addBrandModal" tabindex="-1" aria-labelledby="addBrandModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered">
-        <div class="modal-content brand-modal">
-            <div class="modal-header brand-modal-header">
+        <div class="modal-content item-modal">
+            <div class="modal-header item-modal-header">
                 <h5 class="modal-title" id="addBrandModalLabel">
                     <i class="fa-light fa-plus-circle"></i>
                     Add New Brand
@@ -25,7 +25,7 @@
                         </label>
                         <input
                             type="text"
-                            class="form-control brand-input @error('name') is-invalid @enderror"
+                            class="form-control item-input @error('name') is-invalid @enderror"
                             id="name"
                             name="name"
                             value="{{ old('name') }}"
@@ -45,7 +45,7 @@
                         </label>
                         <input
                             type="text"
-                            class="form-control brand-input @error('address') is-invalid @enderror"
+                            class="form-control item-input @error('address') is-invalid @enderror"
                             id="address"
                             name="address"
                             value="{{ old('address') }}"
@@ -64,7 +64,7 @@
                         </label>
                         <input
                             type="email"
-                            class="form-control brand-input @error('email') is-invalid @enderror"
+                            class="form-control item-input @error('email') is-invalid @enderror"
                             id="email"
                             name="email"
                             value="{{ old('email') }}"
@@ -83,7 +83,7 @@
                         </label>
                         <input
                             type="text"
-                            class="form-control brand-input @error('contact') is-invalid @enderror"
+                            class="form-control item-input @error('contact') is-invalid @enderror"
                             id="contact"
                             name="contact"
                             value="{{ old('contact') }}"
@@ -101,7 +101,7 @@
                             Brand Description
                         </label>
                         <textarea
-                            class="form-control brand-textarea @error('description') is-invalid @enderror"
+                            class="form-control item-textarea @error('description') is-invalid @enderror"
                             id="description"
                             name="description"
                             rows="4"
@@ -120,7 +120,7 @@
                         </label>
                         <input
                             type="file"
-                            class="form-control brand-input @error('logo') is-invalid @enderror"
+                            class="form-control item-input @error('logo') is-invalid @enderror"
                             id="logo"
                             name="logo"
                             accept="image/*" />
@@ -133,7 +133,7 @@
                 </form>
             </div>
 
-            <div class="modal-footer brand-modal-footer">
+            <div class="modal-footer item-modal-footer">
                 <button type="button" class="btn btn-cancel" data-bs-dismiss="modal">
                     <i class="fa-light fa-times"></i>
                     Cancel

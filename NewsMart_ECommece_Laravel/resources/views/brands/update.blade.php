@@ -1,7 +1,7 @@
 <div class="modal fade" id="updateBrandModal" tabindex="-1" aria-labelledby="updateBrandModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered">
-        <div class="modal-content brand-modal">
-            <div class="modal-header brand-modal-header">
+        <div class="modal-content item-modal">
+            <div class="modal-header item-modal-header">
                 <h5 class="modal-title" id="updateBrandModalLabel">
                     <i class="fa-light fa-edit"></i>
                     Edit Brand
@@ -26,7 +26,7 @@
                         </label>
                         <input
                             type="text"
-                            class="form-control brand-input"
+                            class="form-control item-input"
                             id="updateName"
                             name="name"
                             placeholder="Enter brand name"
@@ -41,7 +41,7 @@
                         </label>
                         <input
                             type="text"
-                            class="form-control brand-input"
+                            class="form-control item-input"
                             id="updateAddress"
                             name="address"
                             placeholder="Enter brand address" />
@@ -55,7 +55,7 @@
                         </label>
                         <input
                             type="email"
-                            class="form-control brand-input"
+                            class="form-control item-input"
                             id="updateEmail"
                             name="email"
                             placeholder="Enter brand email" />
@@ -69,7 +69,7 @@
                         </label>
                         <input
                             type="text"
-                            class="form-control brand-input"
+                            class="form-control item-input"
                             id="updateContact"
                             name="contact"
                             placeholder="Enter contact number" />
@@ -82,7 +82,7 @@
                             Brand Description
                         </label>
                         <textarea
-                            class="form-control brand-textarea"
+                            class="form-control item-textarea"
                             id="updateDescription"
                             name="description"
                             rows="4"
@@ -97,14 +97,13 @@
                         </label>
                         <input
                             type="file"
-                            class="form-control brand-input"
+                            class="form-control item-input"
                             id="updateLogo"
                             name="logo"
                             accept="image/*" />
                         <small class="form-text text-muted">Leave empty to keep current logo</small>
                         <div class="invalid-feedback"></div>
                         
-                        <!-- Current Logo Preview -->
                         <div id="currentLogoPreview" class="mt-3" style="display: none;">
                             <label class="form-label">Current Logo:</label>
                             <div class="current-logo-container">
@@ -115,7 +114,7 @@
                 </form>
             </div>
 
-            <div class="modal-footer brand-modal-footer">
+            <div class="modal-footer item-modal-footer">
                 <button type="button" class="btn btn-cancel" data-bs-dismiss="modal">
                     <i class="fa-light fa-times"></i>
                     Cancel
