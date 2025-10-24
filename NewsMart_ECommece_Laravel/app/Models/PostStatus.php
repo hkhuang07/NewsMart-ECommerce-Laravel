@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class PostStatus extends Model
 {
-    protected $table = 'poststatuses';
+    protected $table = 'post_statuses';
     protected $primaryKey = 'id';
 
     // Quan hệ 1-n: PostStatus HAS MANY Posts

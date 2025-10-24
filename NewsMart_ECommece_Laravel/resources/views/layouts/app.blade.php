@@ -167,13 +167,13 @@
                     <a class="nav-link" href="{{ route('topic') }}">
                         <i class="fas fa-tags"></i> Post Topics
                     </a>
-                    <a class="nav-link" href="{{ route('posttype') }}">
+                    <a class="nav-link" href="{{ route('post_type') }}">
                         <i class="fas fa-file-alt"></i> Post Types
                     </a>
                     <a class="nav-link" href="#">
                         <i class="fas fa-newspaper"></i> Post Moderation
                     </a>
-                    <a class="nav-link" href="#">
+                    <a class="nav-link" href="{{ route('post_status') }}">
                         <i class="fas fa-list"></i> Post Status
                     </a>
                 </div>

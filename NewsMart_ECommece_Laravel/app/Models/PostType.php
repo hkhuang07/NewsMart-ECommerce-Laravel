@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class PostType extends Model
 {
-    protected $table = 'posttypes';
+    protected $table = 'post_types';
     protected $primaryKey = 'id';
 
     // Quan hệ 1-n: PostType HAS MANY Posts
