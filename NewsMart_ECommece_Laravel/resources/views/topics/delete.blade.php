@@ -4,7 +4,7 @@
             <div class="modal-header item-modal-header">
                 <h5 class="modal-title" id="deleteBrandModalLabel">
                     <i class="fas fa-exclamation-triangle text-warning"></i>
-                    Confirm Delete Category
+                    Confirm Delete Topic
                 </h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
@@ -19,7 +19,7 @@
                     
                     <div class="delete-message mb-4">
                         <p class="mb-2">
-                            Do you really want to delete the category 
+                            Do you really want to delete the topic 
                             <strong id="deleteBrandNameToDelete" class="text-danger"></strong>?
                         </p>
                         
@@ -33,7 +33,6 @@
                                         </div>
                                     </div>
                                 </div>
-                                
                             </div>
                         </div>
                         
@@ -99,17 +98,15 @@
         
         // Set delete URL
         const deleteBtn = document.getElementById('deleteConfirmDeleteBtn');
-        deleteBtn.href = `{{ route('category.delete', ['id' => '__ID__']) }}`.replace('__ID__', brandId);
+        deleteBtn.href = `{{ route('topic.delete', ['id' => '__ID__']) }}`.replace('__ID__', brandId);
         
         // Populate brand preview
-        
-        
         // Handle logo preview
         const logoImg = document.getElementById('deleteBrandLogo');
         const noLogoPlaceholder = document.getElementById('deleteNoLogo');
         
-        if (brandData.image) {
-            const logoUrl = `{{ asset('storage/app/private/') }}/${brandData.image}`;
+        if (brandData.logo) {
+            const logoUrl = `{{ asset('storage/app/private/') }}/${brandData.logo}`;
             logoImg.src = logoUrl;
             logoImg.style.display = 'block';
             noLogoPlaceholder.style.display = 'none';

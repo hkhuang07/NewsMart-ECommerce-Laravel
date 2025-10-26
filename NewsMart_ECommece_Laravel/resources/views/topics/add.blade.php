@@ -4,7 +4,7 @@
             <div class="modal-header item-modal-header">
                 <h5 class="modal-title" id="addBrandModalLabel">
                     <i class="fa-light fa-plus-circle"></i>
-                    Add New Category
+                    Add New Topic
                 </h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
@@ -15,13 +15,13 @@
                     <div id="successMessage" class="alert alert-success" style="display: none;"></div>
                 </div>
 
-                <form id="addBrandForm" action="{{ route('category.add') }}" method="post" enctype="multipart/form-data">
+                <form id="addBrandForm" action="{{ route('topic.add') }}" method="post" enctype="multipart/form-data">
                     @csrf
 
                     <div class="form-group mb-4">
                         <label class="form-label" for="name">
                             <i class="fa-light fa-tag"></i>
-                            Category Name
+                            Topic Name
                         </label>
                         <input
                             type="text"
@@ -29,7 +29,7 @@
                             id="name"
                             name="name"
                             value="{{ old('name') }}"
-                            placeholder="Enter category name"
+                            placeholder="Enter topic name"
                             required />
                         @error('name')
                         <div class="invalid-feedback">
@@ -39,34 +39,16 @@
                     </div>
 
                     <div class="form-group mb-4">
-                        <label class="form-label" for="parentid">
-                            <i class="fa-light fa-file-text"></i>
-                            Category Parent
-                        </label>
-                        <select class="form-select @error('parentid') is-invalid @enderror" id="parentid" name="parentid" >
-                            <option value="">-- Chọn --</option>
-                            @foreach($categories as $value)
-                            <option value="{{ $value->id }}">{{ $value->name }}</option>
-                            @endforeach
-                            </select>
-                        @error('description')
-                        <div class="invalid-feedback">
-                            <strong>{{ $message }}</strong>
-                        </div>
-                        @enderror
-                    </div>
-
-                    <div class="form-group mb-4">
                         <label class="form-label" for="description">
-                            <i class="fa-light "></i>
-                            Category Description
+                            <i class="fa-light fa-file-text"></i>
+                            Topic Description
                         </label>
                         <textarea
                             class="form-control item-textarea @error('description') is-invalid @enderror"
                             id="description"
                             name="description"
                             rows="4"
-                            placeholder="Enter category description">{{ old('description') }}</textarea>
+                            placeholder="Enter topic description">{{ old('description') }}</textarea>
                         @error('description')
                         <div class="invalid-feedback">
                             <strong>{{ $message }}</strong>
@@ -75,17 +57,17 @@
                     </div>
 
                     <div class="form-group mb-4">
-                        <label class="form-label" for="image">
+                        <label class="form-label" for="logo">
                             <i class="fa-light fa-image"></i>
-                            Category Logo (Image file only)
+                            Topic Logo (Image file only)
                         </label>
                         <input
                             type="file"
-                            class="form-control item-input @error('image') is-invalid @enderror"
-                            id="image"
-                            name="image"
+                            class="form-control item-input @error('logo') is-invalid @enderror"
+                            id="logo"
+                            name="logo"
                             accept="image/*" />
-                        @error('image')
+                        @error('logo')
                         <div class="invalid-feedback">
                             <strong>{{ $message }}</strong>
                         </div>
@@ -101,7 +83,7 @@
                 </button>
                 <button type="submit" form="addBrandForm" class="btn btn-action" id="submitBtn">
                     <i class="fa-light fa-save"></i>
-                    <span class="btn-text">Add Category</span>
+                    <span class="btn-text">Add Topic</span>
                     <span class="btn-loading" style="display: none;">
                         <i class="fa-light fa-spinner fa-spin"></i>
                         Adding...

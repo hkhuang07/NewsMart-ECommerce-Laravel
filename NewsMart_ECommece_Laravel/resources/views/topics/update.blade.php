@@ -4,7 +4,7 @@
             <div class="modal-header item-modal-header">
                 <h5 class="modal-title" id="updateBrandModalLabel">
                     <i class="fa-light fa-edit"></i>
-                    Edit Category
+                    Edit Topic
                 </h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
@@ -22,53 +22,36 @@
                     <div class="form-group mb-4">
                         <label class="form-label" for="updateName">
                             <i class="fa-light fa-tag"></i>
-                            Category Name
-                        </label>
+                            Topic Name
                         <input
                             type="text"
                             class="form-control item-input"
                             id="updateName"
                             name="name"
-                            placeholder="Enter category name" {{ old('name') }}
+                            placeholder="Enter topic name"
                             required />
                         <div class="invalid-feedback"></div>
                     </div>
-                    <div class="form-group mb-4">
-                        <label class="form-label" for="parentid">
-                            <i class="fa-light fa-tag"></i>
-                            Category Parent
-                        </label>
-                        <select class="form-select @error('parentid') is-invalid @enderror" id="parentid" name="parentid" >
-                            <option value="">-- Chọn --</option>
-                            @foreach($categories as $value)
-                            <option value="{{ $value->id }}">{{ $value->name }}</option>
-                            @endforeach
-                            </select>
-                        @error('description')
-                        <div class="invalid-feedback">
-                            <strong>{{ $message }}</strong>
-                        </div>
-                        @enderror
-                    </div>
-            
+
+
                     <div class="form-group mb-4">
                         <label class="form-label" for="updateDescription">
                             <i class="fa-light fa-file-text"></i>
-                            Category Description
+                            Topic Description
                         </label>
                         <textarea
                             class="form-control item-textarea"
                             id="updateDescription"
                             name="description"
                             rows="4"
-                            placeholder="Enter brand description">{{ old('description') }}</textarea>
+                            placeholder="Enter topic description"></textarea>
                         <div class="invalid-feedback"></div>
                     </div>
 
                     <div class="form-group mb-4">
                         <label class="form-label" for="updateLogo">
                             <i class="fa-light fa-image"></i>
-                            Category Logo (Image file only)
+                            Topic Logo (Image file only)
                         </label>
                         <input
                             type="file"
@@ -96,7 +79,7 @@
                 </button>
                 <button type="submit" form="updateBrandForm" class="btn btn-action" id="updateSubmitBtn">
                     <i class="fa-light fa-save"></i>
-                    <span class="btn-text">Update Category</span>
+                    <span class="btn-text">Update Topic</span>
                     <span class="btn-loading" style="display: none;">
                         <i class="fa-light fa-spinner fa-spin"></i>
                         Updating...
@@ -154,20 +137,18 @@
 
     function openUpdateModal(brandId, brandData) {
         const updateForm = document.getElementById('updateBrandForm');
-        updateForm.action = `{{ route('category.update', ['id' => '__ID__']) }}`.replace('__ID__', brandId);
+        updateForm.action = `{{ route('topic.update', ['id' => '__ID__']) }}`.replace('__ID__', brandId);
         
         document.getElementById('updateBrandId').value = brandId;
         
         document.getElementById('updateName').value = brandData.name || '';
-        
-        document.getElementById('parentid').value = brandData.parentid || '';
         document.getElementById('updateDescription').value = brandData.description || '';
         
         const currentLogoPreview = document.getElementById('currentLogoPreview');
         const currentLogoImage = document.getElementById('currentLogoImage');
         
-        if (brandData.image) {
-            const logoUrl = `{{ asset('storage/app/private/') }}/${brandData.image}`;
+        if (brandData.logo) {
+            const logoUrl = `{{ asset('storage/app/private/') }}/${brandData.logo}`;
             currentLogoImage.src = logoUrl;
             currentLogoPreview.style.display = 'block';
         } else {

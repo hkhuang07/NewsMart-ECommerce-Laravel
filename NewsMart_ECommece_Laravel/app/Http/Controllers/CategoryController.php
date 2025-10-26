@@ -55,6 +55,7 @@ class CategoryController extends Controller
             $path = Storage::putFileAs('categories', $request->file('image'), $filename);
         }
 
+
         $categories = new Category();
         $categories->name = $request->name;
         $slug = Str::slug($request->name, '-');
@@ -102,7 +103,7 @@ class CategoryController extends Controller
 
         $categories->parentid = $request->parentid;
 
-        $categories->image = $path ?? null;
+        $categories->image = $path ?? $categories->image ?? null;
 
         $categories->save();
 
