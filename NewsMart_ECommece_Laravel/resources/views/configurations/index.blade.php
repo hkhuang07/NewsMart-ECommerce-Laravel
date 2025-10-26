@@ -23,7 +23,8 @@
                 </div>
                 <div class="header-right">
                     @if(canManageConfigurations())
-                    <button type="button" class="btn-add-new" data-bs-toggle="modal" data-bs-target="#addConfigurationModal">
+                    <button type="button" class="btn-add-new" data-bs-toggle="modal"
+                        data-bs-target="#addConfigurationModal">
                         <i class="fa-light fa-plus"></i>
                         Add New Configuration
                     </button>
@@ -110,7 +111,8 @@
                         You haven't added any configurations yet. Start by creating your first system setting.
                     </p>
                     @if(canManageConfigurations())
-                    <button type="button" class="btn-add-first" data-bs-toggle="modal" data-bs-target="#addConfigurationModal">
+                    <button type="button" class="btn-add-first" data-bs-toggle="modal"
+                        data-bs-target="#addConfigurationModal">
                         <i class="fas fa-plus"></i>
                         Create Your First Configuration
                     </button>
@@ -156,9 +158,26 @@
         openUpdateModal(key, data);
     }
 
+    // function openDeleteConfigModal(key, data) {
+    //     openDeleteModal(key, data);
+    // }
+
     function openDeleteConfigModal(key, data) {
-        openDeleteModal(key, data);
-    }
+    // Gọi đúng hàm trong file delete.blade.php
+    document.getElementById('deleteConfigKeyToDelete').textContent = key;
+
+    const deleteBtn = document.getElementById('deleteConfirmDeleteConfigBtn');
+    deleteBtn.href = `{{ route('configuration.delete', ['settingkey' => '__KEY__']) }}`.replace('__KEY__', key);
+
+    document.getElementById('deleteConfigValue').textContent = data.settingvalue || 'N/A';
+    document.getElementById('deleteConfigDescription').textContent = data.description || 'N/A';
+    document.getElementById('deleteConfigCreatedAt').textContent = data.created_at || 'N/A';
+    document.getElementById('deleteConfigUpdatedAt').textContent = data.updated_at || 'N/A';
+
+    const deleteModal = new bootstrap.Modal(document.getElementById('deleteConfigurationModal'));
+    deleteModal.show();
+}
+
 
     function showLoading() {
         const loadingState = document.getElementById('loadingState');

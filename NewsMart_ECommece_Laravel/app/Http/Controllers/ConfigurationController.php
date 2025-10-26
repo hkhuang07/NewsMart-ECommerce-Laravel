@@ -69,20 +69,20 @@ class ConfigurationController extends Controller
         $config->description = $request->description;
         $config->save();
 
-        return redirect()->route('configurations')->with('success', 'Configuration updated successfully!');
+        return redirect()->route('configuration')->with('success', 'Configuration updated successfully!');
     }
 
     public function getDelete($settingkey)
     {
         if (!$this->canManageConfigurations()) {
-            abort(403, 'You do not have permission to delete configurations.');
+            abort(403, 'You do not have permission to delete configuration.');
         }
+        $configuration = Configuration::find($settingkey);
+        $setkey = $configuration->settingkey;
+        $configuration->delete();
 
-        $config = Configuration::where('settingkey', $settingkey)->firstOrFail();
-        $key = $config->settingkey;
-        $config->delete();
 
-        return redirect()->route('configurations')->with('success', "Configuration '{$key}' deleted successfully!");
+        return redirect()->route('configuration')->with('success', "Configuration '{$setkey}' deleted successfully!");
     }
 
     private function canManageConfigurations()

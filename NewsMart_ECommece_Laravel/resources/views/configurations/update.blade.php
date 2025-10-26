@@ -103,7 +103,7 @@
         const form = document.getElementById('updateConfigurationForm');
 
         // Gán action (route dùng settingkey)
-        form.action = `{{ route('configuration.update', ['key' => '__KEY__']) }}`.replace('__KEY__', settingKey);
+        form.action = `{{ route('configuration.update', ['settingkey' => '__KEY__']) }}`.replace('__KEY__', settingKey);
 
         // Gán dữ liệu cũ vào form
         document.getElementById('updateSettingKey').value = configData.settingkey || '';
