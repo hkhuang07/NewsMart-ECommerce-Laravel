@@ -1,0 +1,108 @@
+/* public/css/auth.css */
+
+.login-container {
+    position: relative;
+    max-width: 800px;
+    width: 100%;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 20px 25px rgba(0, 0, 0, 0.5);
+    
+    backdrop-filter: none;
+    background-color: transparent !important;
+}
+
+/* --- BACKGROUND LỚN ĐÃ HOẠT ĐỘNG, GIỮ NGUYÊN --- */
+.full-screen-bg {
+    background-image: url('../images/login-bg.jpg');
+    background-size: cover;
+    background-position: center;
+}
+
+/* --- BANNER (LEFT PANEL): Đã dọn dẹp --- */
+.left-panel {
+    /* ĐƯỜNG DẪN ĐÚNG: Đã kiểm tra */
+    background: url('../images/login-bnr01.jpg  ') center center no-repeat;
+    background-size: cover;
+    min-height: 300px;
+    
+    /* Cấu hình hiển thị Slogan */
+    position: relative; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2; 
+    
+}
+
+.left-overlay {
+    /* LOẠI BỎ TOÀN BỘ MÀU VÀ HIỆU ỨNG CHE */
+    background-image: none !important;
+    background-color: transparent !important;
+    
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1; 
+}
+
+
+/* --- PANEL PHẢI (LOGIN FORM): Đặt z-index cao hơn --- */
+.right-panel {
+    background-image: linear-gradient(to bottom, transparent, #000005);
+    background-color: rgba(0, 0, 5, 0.9);
+    color: white;
+    padding: 30px;
+    position: relative; 
+    z-index: 3; /* Đảm bảo form nằm trên các lớp nền khác */
+}
+
+/* --- Form Controls (Giữ nguyên) --- */
+.form-control-custom {
+    background-color: #000009;
+    color: white;
+    border: 1px solid #191970;
+    padding-left: 30px; 
+    font-size: 0.75rem;
+    height: 32px;
+}
+
+.form-control-custom:focus {
+    box-shadow: 0 0 0 0.25rem rgba(152, 245, 255, 0.25);
+    border-color: #98F5FF; 
+}
+
+.icon-absolute {
+    position: absolute;
+    top: 50%;
+    left: 10px;
+    transform: translateY(-50%);
+    color: #5F9EA0;
+    font-size: 0.8rem;
+}
+
+/* --- Nút bấm (Giữ nguyên) --- */
+.btn-custom-gradient {
+    background-image: linear-gradient(to right, #1874CD, #27408B);
+    border: none;
+    font-size: 0.75rem;
+    padding: 8px 15px;
+    font-weight: bold;
+    transition: all 0.3s;
+}
+
+.btn-custom-gradient:hover {
+    background-image: linear-gradient(to right, #191970, #3A5FCD);
+    color: white;
+}
+
+/* --- Font size (Giữ nguyên) --- */
+.form-check label.text-gray-400 {
+    font-size: 0.75rem !important;
+}
+
+.text-secondary {
+    font-size: 0.65rem !important;
+}

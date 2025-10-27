@@ -4,28 +4,25 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Favicon -->
     <link rel="preload" href="{{ asset('public/images/favicon.ico') }}" as="image" type="image/x-icon">
-    <link rel="icon" type="image/x-icon" href="{{ asset('public/images/favicon.ico') }}">
-    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('public/favicon.ico') }}">
+    <link rel="icon" type="image/x-icon" href="{{ asset('public/favicon.ico') }}">
+    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('public/images/favicon.ico') }}">
     <link rel="apple-touch-icon" href="{{ asset('public/images/favicon.ico') }}">
 
     <!-- Stylesheets -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="{{ asset('public/vendor/font-awesome/css/all.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('public/css/custom.css') }}" />
-    <link rel="stylesheet" href="{{ asset('public/css/list.css') }}"/>
+    <link rel="stylesheet" href="{{ asset('public/css/list.css') }}" />
     <link rel="stylesheet" href="{{ asset('public/css/form.css') }}">
     <link rel="stylesheet" href="{{ asset('public/css/auth.css') }}">
-    
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
     @yield('javascript')
-
 </head>
 
 <body>
@@ -35,9 +32,10 @@
     <!-- Sidebar -->
     <nav class="sidebar" id="sidebar">
         <div class="sidebar-header">
-            <h5>
-                <img src="{{ asset('public/images/favicon.ico') }}" alt="{{ config('app.name', 'Laravel') }} Logo" class="navbar-logo"> {{ config('app.name', 'Laravel') }}
-            </h5>
+            <a class="navbar-brand" href="{{ route  ('frontend') }}">
+                <img src="{{ asset('public/images/newsmart_logo.jpg') }}" alt="{{ config('app.name', 'Laravel') }} Logo" class="navbar-logo">
+                <!--span class="brand-text">{{ config('app.name', 'Laravel') }}</span-->
+            </a>
             <button class="sidebar-close" id="sidebarClose">
                 <i class="fas fa-times"></i>
             </button>
@@ -175,7 +173,7 @@
                     <a class="nav-link" href="#">
                         <i class="fas fa-newspaper"></i> Post Moderation
                     </a>
-                    <a class="nav-link" href="#">
+                    <a class="nav-link" href="{{ route('post_status') }}">
                         <i class="fas fa-list"></i> Post Status
                     </a>
                 </div>
@@ -317,7 +315,10 @@
                     <i class="fas fa-bars"></i>
                 </button>
 
-                <!-- Brand -->
+                <!-- Brand >
+                <a class="navbar-brand" href="{{ route('frontend') }}">
+                    <i class="fas fa-shopping-cart"></i> {{ config('app.name', 'Laravel') }}
+                </a-->
                 <a class="navbar-brand" href="{{ route('frontend') }}">
                     <img src="{{ asset('public/images/newsmart_logo.jpg') }}" alt="{{ config('app.name', 'Laravel') }} Logo" class="navbar-logo">
                     <!--span class="brand-text">{{ config('app.name', 'Laravel') }}</span-->
@@ -339,7 +340,7 @@
                         <!-- News Center Dropdown -->
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
-                                <i class="fas fa-newspaper"></i> News 
+                                <i class="fas fa-newspaper"></i> News
                             </a>
                             <ul class="dropdown-menu">
                                 <li><a class="dropdown-item" href="#">
@@ -368,7 +369,7 @@
 
                         <li class="nav-item">
                             <button class="nav-link btn" onclick="toggleTheme()">
-                                <i class="fas fa-palette"></i> <span id="themeTextNav">Dark Mode</span>
+                                <i class="fas fa-palette"></i> <span id="themeTextNav">Dark</span>
                             </button>
                         </li>
 
@@ -386,7 +387,7 @@
 
                         <li class="nav-item">
                             <a class="nav-link" href="#">
-                                <i class="fas fa-question-circle"></i> 
+                                <i class="fas fa-question-circle"></i>
                             </a>
                         </li>
                     </ul>
@@ -539,7 +540,7 @@
                                 <i class="fas fa-share-alt me-2"></i>Follow Us
                             </h3>
                             <div class="d-flex flex-column gap-1">
-                                <a href="https://www.facebook.com/hk.huang07"  class="footer-link-item">
+                                <a href="https://www.facebook.com/hk.huang07" class="footer-link-item">
                                     <i class="fab fa-facebook me-2"></i>Facebook
                                 </a>
                                 <a href="https://www.linkedin.com/in/hkhuang07/" class="footer-link-item">
@@ -638,7 +639,7 @@
                     </div>
 
                     <div class="footer-company-info">
-                        <p class="mb-2">&copy; {{ date('Y') }} {{ config('app.name', 'Laravel') }} by Development Team. All rights reserved.</p>
+                        <p class="mb-2">&copy; {{ date('Y') }} {{ config('app.name', 'Laravel') }} by NewsMart Team. All rights reserved.</p>
                         <p class="mb-2">{{ config('app.name', 'Laravel') }} Technology Company Limited</p>
                         <p class="mb-0">
                             Address: <span class="footer-highlight">Long Xuyen City, An Giang, VietNam</span> |

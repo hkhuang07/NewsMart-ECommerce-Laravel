@@ -9,77 +9,189 @@
 
     <title>{{ config('app.name', 'Laravel') }}</title>
 
-    <!-- Favicon -->
-    <link rel="preload" href="{{ asset('public/images/favicon.ico') }}" as="image" type="image/x-icon">
-    <link rel="icon" type="image/x-icon" href="{{ asset('public/images/favicon.ico') }}">
-    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('public/favicon.ico') }}">
-    <link rel="apple-touch-icon" href="{{ asset('public/images/favicon.ico') }}">
-
-    <!-- Stylesheets -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="{{ asset('public/vendor/font-awesome/css/all.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('public/css/custom.css') }}" />
-    <link rel="stylesheet" href="{{ asset('public/css/list.css') }}"/>
-    <link rel="stylesheet" href="{{ asset('public/css/form.css') }}">
-    <link rel="stylesheet" href="{{ asset('public/css/auth.css') }}">
-    
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
     @yield('javascript')
 
 </head>
 
 <body>
+    @php
+        // Permission helper functions based on actual database structure
+        function getUserRole() {
+            try {
+                if (Auth::user()->role && Auth::user()->role->name)
+                return Auth::user()->role->name;
+            } catch (Exception $e) {
+                //
+            }
+            return 'User';
+        }
+        function getCurrentUserName() {
+            return Auth::user()->fullname ?? Auth::user()->name ?? 'Unknown';
+        }
+
+        function isUserActive() {
+            return Auth::user()->isactive ?? false;
+        }
+
+        function getUserRoleId() {
+            if (!Auth::check()) return null;
+            return Auth::user()->roleid ?? null;
+        }
+        
+        function hasRole($roleName) {
+            if (!Auth::check()) return false;
+            return strtolower(getUserRole()) === strtolower($roleName);
+        }
+        
+        function hasAnyRole($roles) {
+            if (!Auth::check()) return false;
+            $userRole = strtolower(getUserRole());
+            return in_array($userRole, array_map('strtolower', $roles));
+        }
+        
+        // Individual role checking functions
+        function isAdmin() {
+            return hasRole('Admin');
+        }
+        
+        function isManager() {
+            return hasRole('Manager');
+        }
+        
+        function isSaler() {
+            return hasRole('Saler');
+        }
+        
+        function isShipper() {
+            return hasRole('Shipper');
+        }
+        
+        function isStandardUser() {
+            return hasRole('User');
+        }
+        
+        // Combined permission functions based on role hierarchy
+        function hasAdminAccess() {
+            return isAdmin();
+        }
+        
+        function hasManagerAccess() {
+            return hasAnyRole(['Admin', 'Manager']);
+        }
+        
+        function hasSalesAccess() {
+            return hasAnyRole(['Admin', 'Manager', 'Saler']);
+        }
+        
+        function hasShippingAccess() {
+            return hasAnyRole(['Admin', 'Manager', 'Shipper']);
+        }
+        
+        // Specific permission functions based on role descriptions
+        function canManageSystem() {
+            // Admin: Highest administrator rights
+            return isAdmin();
+        }
+        
+        function canManageProducts() {
+            // Admin, Manager: System and product management rights
+            // Saler: Sell and manage related orders
+            return hasAnyRole(['Admin', 'Manager', 'Saler']);
+        }
+        
+        function canManageOrders() {
+            // Admin, Manager, Saler: Order management
+            // Shipper: Delivery and update order status rights
+            return hasAnyRole(['Admin', 'Manager', 'Saler', 'Shipper']);
+        }
+        
+        function canManageUsers() {
+            // Only Admin and Manager can manage users
+            return hasAnyRole(['Admin', 'Manager']);
+        }
+        
+        function canViewReports() {
+            // Admin, Manager, Saler can view reports
+            return hasAnyRole(['Admin', 'Manager', 'Saler']);
+        }
+        
+        function canManageCategories() {
+            // Admin and Manager can manage categories
+            return hasAnyRole(['Admin', 'Manager']);
+        }
+        
+        function canManageSuppliers() {
+            // Admin and Manager can manage suppliers
+            return hasAnyRole(['Admin', 'Manager']);
+        }
+        
+        function canUpdateOrderStatus() {
+            // Admin, Manager, and Shipper can update order status
+            return hasAnyRole(['Admin', 'Manager', 'Shipper']);
+        }
+        
+        function canAccessAdminPanel() {
+            // All staff roles can access admin panel (not regular users)
+            return hasAnyRole(['Admin', 'Manager', 'Saler', 'Shipper']);
+        }
+    @endphp
+
     <!-- Sidebar Overlay -->
     <div class="sidebar-overlay" id="sidebarOverlay"></div>
 
     <!-- Sidebar -->
     <nav class="sidebar" id="sidebar">
         <div class="sidebar-header">
-            <h5>
-                <img src="{{ asset('public/images/favicon.ico') }}" alt="{{ config('app.name', 'Laravel') }} Logo" class="navbar-logo"> {{ config('app.name', 'Laravel') }}
-            </h5>
+            <h5><i class="fas fa-user-circle"></i> Navigation</h5>
             <button class="sidebar-close" id="sidebarClose">
                 <i class="fas fa-times"></i>
             </button>
         </div>
-
+        
         <ul class="sidebar-nav">
             <!-- Account Section -->
             @guest
-            <li class="nav-item">
-                <a class="nav-link" href="{{ route('login') }}">
-                    <i class="fas fa-sign-in-alt"></i> Login
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{{ route('register') }}">
-                    <i class="fas fa-user-plus"></i> Register
-                </a>
-            </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('login') }}">
+                        <i class="fas fa-sign-in-alt"></i> Log In
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('register') }}">
+                        <i class="fas fa-user-plus"></i> Register
+                    </a>
+                </li>
             @else
-            <li class="nav-item">
-                <span class="nav-link">
-                    <i class="fas fa-user-circle"></i> {{ Auth::user()->FullName ?? Auth::user()->name }}
-                    <span class="badge-role">{{ getUserRole() }}</span>
-                </span>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form-sidebar').submit();">
-                    <i class="fas fa-sign-out-alt"></i> Log Out
-                </a>
-                <form id="logout-form-sidebar" action="{{ route('logout') }}" method="post" class="d-none">
-                    @csrf
-                </form>
-            </li>
+                <li class="nav-item">
+                    <span class="nav-link">
+                        <i class="fas fa-user-circle"></i> {{ Auth::user()->FullName ?? Auth::user()->name }}
+                        <span class="badge-role">{{ getUserRole() }}</span>
+                    </span>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form-sidebar').submit();">
+                        <i class="fas fa-sign-out-alt"></i> Log Out
+                    </a>
+                    <form id="logout-form-sidebar" action="{{ route('logout') }}" method="post" class="d-none">
+                        @csrf
+                    </form>
+                </li>
             @endguest
-
+            
             <!-- Main Navigation -->
-            <li>
-                <h6 class="sidebar-section-title">Main Navigation</h6>
-            </li>
+            <li><h6 class="sidebar-section-title">Main Navigation</h6></li>
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('frontend') }}">
                     <i class="fas fa-home"></i> Home
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">
+                    <i class="fas fa-info-circle"></i> About Us
                 </a>
             </li>
             <li class="nav-item">
@@ -92,18 +204,12 @@
                     <i class="fas fa-store"></i> Shopping Center
                 </a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">
-                    <i class="fas fa-info-circle"></i> About Us
-                </a>
-            </li>
+
             @auth
             <!-- Admin Management Section -->
             @if(hasAdminAccess())
-            <li>
-                <h6 class="sidebar-section-title">Administration</h6>
-            </li>
-
+            <li><h6 class="sidebar-section-title">Administration</h6></li>
+            
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('role') }}">
                     <i class="fas fa-user-tag"></i> Role Management
@@ -119,7 +225,7 @@
                     <i class="fas fa-cog"></i> System Configuration
                 </a>
             </li>
-
+            
             <li class="nav-item">
                 <button class="sidebar-dropdown collapsed" data-bs-toggle="collapse" data-bs-target="#adminReports">
                     <i class="fas fa-chart-bar"></i> Reports & Analytics
@@ -138,13 +244,11 @@
                 </div>
             </li>
             @endif
-
+            
             <!-- Manager & Admin Shared Management -->
             @if(hasManagerAccess())
-            <li>
-                <h6 class="sidebar-section-title">System Management</h6>
-            </li>
-
+            <li><h6 class="sidebar-section-title">System Management</h6></li>
+            
             <li class="nav-item">
                 <button class="sidebar-dropdown collapsed" data-bs-toggle="collapse" data-bs-target="#categoryManagement">
                     <i class="fas fa-sitemap"></i> Categories & Brands
@@ -159,7 +263,7 @@
                     </a>
                 </div>
             </li>
-
+            
             <li class="nav-item">
                 <button class="sidebar-dropdown collapsed" data-bs-toggle="collapse" data-bs-target="#contentManagement">
                     <i class="fas fa-edit"></i> Content Management
@@ -175,12 +279,12 @@
                     <a class="nav-link" href="#">
                         <i class="fas fa-newspaper"></i> Post Moderation
                     </a>
-                    <a class="nav-link" href="#">
+                    <a class="nav-link" href="{{ route('post_status') }}">
                         <i class="fas fa-list"></i> Post Status
                     </a>
                 </div>
             </li>
-
+            
             <li class="nav-item">
                 <button class="sidebar-dropdown collapsed" data-bs-toggle="collapse" data-bs-target="#orderSystemManagement">
                     <i class="fas fa-cogs"></i> Order System
@@ -196,15 +300,13 @@
                 </div>
             </li>
             @endif
-
+            
             <!-- Product Management (Admin, Manager, Saler) -->
             @if(canManageProducts())
             @if(!isSaler())
-            <li>
-                <h6 class="sidebar-section-title">Product Management</h6>
-            </li>
+            <li><h6 class="sidebar-section-title">Product Management</h6></li>
             @endif
-
+            
             <li class="nav-item">
                 <button class="sidebar-dropdown collapsed" data-bs-toggle="collapse" data-bs-target="#productManagement">
                     <i class="fas fa-box"></i> @if(isSaler()) My Products @else Products @endif
@@ -222,26 +324,20 @@
                 </div>
             </li>
             @endif
-
+            
             <!-- Order Management (Admin, Manager, Saler, Shipper) -->
             @if(canManageOrders())
             @if(isSaler())
-            <li>
-                <h6 class="sidebar-section-title">Sales Management</h6>
-            </li>
+            <li><h6 class="sidebar-section-title">Sales Management</h6></li>
             @elseif(isShipper())
-            <li>
-                <h6 class="sidebar-section-title">Delivery Management</h6>
-            </li>
+            <li><h6 class="sidebar-section-title">Delivery Management</h6></li>
             @elseif(!hasManagerAccess())
-            <li>
-                <h6 class="sidebar-section-title">Order Management</h6>
-            </li>
+            <li><h6 class="sidebar-section-title">Order Management</h6></li>
             @endif
-
+            
             <li class="nav-item">
                 <button class="sidebar-dropdown collapsed" data-bs-toggle="collapse" data-bs-target="#orderManagement">
-                    <i class="fas fa-file-invoice"></i>
+                    <i class="fas fa-file-invoice"></i> 
                     @if(isSaler()) My Orders
                     @elseif(isShipper()) Delivery Orders
                     @else Orders
@@ -250,7 +346,7 @@
                 </button>
                 <div class="collapse sidebar-submenu" id="orderManagement">
                     <a class="nav-link" href="{{ route('order') }}">
-                        <i class="fas fa-shopping-cart"></i>
+                        <i class="fas fa-shopping-cart"></i> 
                         @if(isSaler()) Sales Orders
                         @elseif(isShipper()) Assigned Orders
                         @else All Orders
@@ -272,27 +368,25 @@
                 </div>
             </li>
             @endif
-
+            
             <!-- Reports Section (Admin, Manager, Saler) -->
             @if(canViewReports() && !hasAdminAccess())
             <li class="nav-item">
                 <a class="nav-link" href="#">
-                    <i class="fas fa-chart-bar"></i>
-                    @if(isSaler()) Revenue Reports
-                    @else Reports & Analytics
+                    <i class="fas fa-chart-bar"></i> 
+                    @if(isSaler()) Revenue Reports 
+                    @else Reports & Analytics 
                     @endif
                 </a>
             </li>
             @endif
             @endauth
-
+            
             <!-- Settings Section -->
-            <li>
-                <h6 class="sidebar-section-title">Settings</h6>
-            </li>
+            <li><h6 class="sidebar-section-title">Settings</h6></li>
             <li class="nav-item">
                 <button class="theme-toggle" onclick="toggleTheme()">
-                    <i class="fas fa-palette"></i> <span id="themeText">Dark</span>
+                    <i class="fas fa-palette"></i> <span id="themeText">Dark Mode</span>
                 </button>
             </li>
             <li class="nav-item">
@@ -316,18 +410,17 @@
                 <button class="sidebar-toggle" id="sidebarToggle">
                     <i class="fas fa-bars"></i>
                 </button>
-
+                
                 <!-- Brand -->
                 <a class="navbar-brand" href="{{ route('frontend') }}">
-                    <img src="{{ asset('public/images/newsmart_logo.jpg') }}" alt="{{ config('app.name', 'Laravel') }} Logo" class="navbar-logo">
-                    <!--span class="brand-text">{{ config('app.name', 'Laravel') }}</span-->
+                    <i class="fas fa-shopping-cart"></i> {{ config('app.name', 'Laravel') }}
                 </a>
-
+                
                 <!-- Mobile Toggle -->
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-
+                
                 <div class="collapse navbar-collapse" id="navbarMain">
                     <!-- Left Navigation -->
                     <ul class="navbar-nav me-auto">
@@ -336,61 +429,59 @@
                                 <i class="fas fa-home"></i> Home
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                <i class="fas fa-info-circle"></i> About Us
+                            </a>
+                        </li>
+                        
                         <!-- News Center Dropdown -->
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
-                                <i class="fas fa-newspaper"></i> News 
+                                <i class="fas fa-newspaper"></i> News Center
                             </a>
                             <ul class="dropdown-menu">
                                 <li><a class="dropdown-item" href="#">
-                                        <i class="fas fa-tags"></i> Topics
-                                    </a></li>
+                                    <i class="fas fa-tags"></i> Topics
+                                </a></li>
                                 <li><a class="dropdown-item" href="#">
-                                        <i class="fas fa-file-alt"></i> Post Types
-                                    </a></li>
+                                    <i class="fas fa-file-alt"></i> Post Types
+                                </a></li>
                             </ul>
                         </li>
-
+                        
                         <!-- Shopping Center Dropdown -->
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
-                                <i class="fas fa-store"></i> Mart
+                                <i class="fas fa-store"></i> Shopping Center
                             </a>
                             <ul class="dropdown-menu">
                                 <li><a class="dropdown-item" href="{{ route('category') }}">
-                                        <i class="fas fa-sitemap"></i> Categories
-                                    </a></li>
+                                    <i class="fas fa-sitemap"></i> Categories
+                                </a></li>
                                 <li><a class="dropdown-item" href="{{ route('brand') }}">
-                                        <i class="fas fa-copyright"></i> Brands
-                                    </a></li>
+                                    <i class="fas fa-copyright"></i> Brands
+                                </a></li>
                             </ul>
                         </li>
-
+                        
                         <li class="nav-item">
                             <button class="nav-link btn" onclick="toggleTheme()">
                                 <i class="fas fa-palette"></i> <span id="themeTextNav">Dark Mode</span>
                             </button>
                         </li>
-
                         <li class="nav-item">
                             <button class="nav-link btn" onclick="toggleLanguage()">
                                 <i class="fas fa-language"></i> <span id="langTextNav">Vietnamese</span>
                             </button>
                         </li>
-
                         <li class="nav-item">
                             <a class="nav-link" href="#">
-                                <i class="fas fa-info-circle"></i>
-                            </a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">
-                                <i class="fas fa-question-circle"></i> 
+                                <i class="fas fa-question-circle"></i> Help Center
                             </a>
                         </li>
                     </ul>
-
+                    
                     <!-- Search Form -->
                     <form class="d-flex search-form mx-3">
                         <input class="form-control" type="search" placeholder="Search..." aria-label="Search">
@@ -398,7 +489,7 @@
                             <i class="fas fa-search"></i>
                         </button>
                     </form>
-
+                    
                     <!-- Right Navigation -->
                     <ul class="navbar-nav ms-auto">
                         <li class="nav-item">
@@ -409,53 +500,51 @@
                                 </span>
                             </a>
                         </li>
-
+                        
                         @guest
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
-                                <i class="fas fa-user"></i> Account
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="{{ route('login') }}">
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
+                                    <i class="fas fa-user"></i> Account
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="{{ route('login') }}">
                                         <i class="fas fa-sign-in-alt"></i> Log In
                                     </a></li>
-                                <li><a class="dropdown-item" href="{{ route('register') }}">
+                                    <li><a class="dropdown-item" href="{{ route('register') }}">
                                         <i class="fas fa-user-plus"></i> Register
                                     </a></li>
-                            </ul>
-                        </li>
+                                </ul>
+                            </li>
                         @else
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
-                                <i class="fas fa-user-circle"></i> {{ Auth::user()->FullName ?? Auth::user()->name }}
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="#">
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
+                                    <i class="fas fa-user-circle"></i> {{ Auth::user()->FullName ?? Auth::user()->name }}
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="#">
                                         <i class="fas fa-user"></i> Profile
                                     </a></li>
-                                <li><a class="dropdown-item" href="#">
+                                    <li><a class="dropdown-item" href="#">
                                         <i class="fas fa-cog"></i> Settings
                                     </a></li>
-                                <li>
-                                    <hr class="dropdown-divider">
-                                </li>
-                                <li><a class="dropdown-item" href="{{ route('logout') }}"
-                                        onclick="event.preventDefault();document.getElementById('logout-form').submit();">
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li><a class="dropdown-item" href="{{ route('logout') }}" 
+                                           onclick="event.preventDefault();document.getElementById('logout-form').submit();">
                                         <i class="fas fa-sign-out-alt"></i> Log Out
                                     </a></li>
-                            </ul>
-                        </li>
+                                </ul>
+                            </li>
                         @endguest
                     </ul>
                 </div>
             </div>
         </nav>
-
+        
         <!-- Main Content -->
         <main class="main-content pt-3" id="mainContent">
             @yield('content')
         </main>
-
+        
         <!-- Footer -->
         <footer>
             <div class="container py-5">
@@ -466,13 +555,13 @@
                     </h2>
                     <p class="lead">
                         {{ config('app.name', 'Laravel') }} is an integrated ecosystem that delivers essential services for modern living.
-                        Our platform features key functionalities like
-                        <span class="highlight">E-commerce</span>,
-                        <span class="highlight">News & Content Center</span>,
-                        <span class="highlight">Ride-hailing & Delivery</span>,
+                        Our platform features key functionalities like 
+                        <span class="highlight">E-commerce</span>, 
+                        <span class="highlight">News & Content Center</span>, 
+                        <span class="highlight">Ride-hailing & Delivery</span>, 
                         and a comprehensive management system.
-                        With a robust multi-role structure
-                        (<span class="highlight">User, Admin, Manager, Shipper, Saler</span>),
+                        With a robust multi-role structure 
+                        (<span class="highlight">User, Admin, Manager, Shipper, Saler</span>), 
                         we are committed to providing an optimal, secure, and efficient experience for all users.
                     </p>
                 </div>
@@ -539,14 +628,14 @@
                                 <i class="fas fa-share-alt me-2"></i>Follow Us
                             </h3>
                             <div class="d-flex flex-column gap-1">
-                                <a href="https://www.facebook.com/hk.huang07"  class="footer-link-item">
+                                <a href="#" class="footer-link-item">
                                     <i class="fab fa-facebook me-2"></i>Facebook
                                 </a>
-                                <a href="https://www.linkedin.com/in/hkhuang07/" class="footer-link-item">
+                                <a href="#" class="footer-link-item">
                                     <i class="fab fa-linkedin me-2"></i>LinkedIn
                                 </a>
-                                <a href="https://github.com/hkhuang07/" class="footer-link-item">
-                                    <i class="fab fa-github me-2"></i>Github
+                                <a href="#" class="footer-link-item">
+                                    <i class="fab fa-twitter me-2"></i>Twitter
                                 </a>
                                 <a href="#" class="footer-link-item">
                                     <i class="fab fa-instagram me-2"></i>Instagram
@@ -575,7 +664,7 @@
                                     <i class="fas fa-credit-card me-2"></i>Credit Card
                                 </div>
                             </div>
-
+                            
                             <h3 class="mb-4">
                                 <i class="fas fa-truck me-2"></i>Logistics
                             </h3>
@@ -636,14 +725,14 @@
                         <a href="#" class="me-3">Shipping Policy</a>
                         <a href="#" class="me-3">Return & Refund Policy</a>
                     </div>
-
+                    
                     <div class="footer-company-info">
                         <p class="mb-2">&copy; {{ date('Y') }} {{ config('app.name', 'Laravel') }} by Development Team. All rights reserved.</p>
                         <p class="mb-2">{{ config('app.name', 'Laravel') }} Technology Company Limited</p>
                         <p class="mb-0">
-                            Address: <span class="footer-highlight">Long Xuyen City, An Giang, VietNam</span> |
-                            Tax Code: <span class="footer-highlight">8825719470</span> |
-                            Email: <span class="footer-highlight">newsmarteam@gmail.com</span>
+                            Address: <span class="footer-highlight">Ho Chi Minh City, Vietnam</span> | 
+                            Tax Code: <span class="footer-highlight">0123456789</span> | 
+                            Email: <span class="footer-highlight">contact@{{ strtolower(config('app.name', 'laravel')) }}.com</span>
                         </p>
                     </div>
                 </div>
@@ -658,6 +747,7 @@
 
     <!-- JavaScript -->
     <script>
+        // Sidebar functionality
         document.addEventListener('DOMContentLoaded', function() {
             const sidebar = document.getElementById('sidebar');
             const sidebarToggle = document.getElementById('sidebarToggle');
@@ -683,6 +773,7 @@
             sidebarClose.addEventListener('click', closeSidebar);
             sidebarOverlay.addEventListener('click', closeSidebar);
 
+            // Close sidebar on window resize if mobile
             window.addEventListener('resize', function() {
                 if (window.innerWidth <= 768) {
                     mainContent.classList.remove('sidebar-open');
@@ -709,18 +800,18 @@
         function toggleTheme() {
             isDarkMode = !isDarkMode;
             localStorage.setItem('darkMode', isDarkMode);
-
+            
             const themeText = document.getElementById('themeText');
             const themeTextNav = document.getElementById('themeTextNav');
-
+            
             if (isDarkMode) {
                 document.body.classList.add('dark-mode');
                 if (themeText) themeText.textContent = 'Light Mode';
-                if (themeTextNav) themeTextNav.textContent = 'Light';
+                if (themeTextNav) themeTextNav.textContent = 'Light Mode';
             } else {
                 document.body.classList.remove('dark-mode');
                 if (themeText) themeText.textContent = 'Dark Mode';
-                if (themeTextNav) themeTextNav.textContent = 'Dark';
+                if (themeTextNav) themeTextNav.textContent = 'Dark Mode';
             }
         }
 
@@ -730,16 +821,16 @@
         function toggleLanguage() {
             isVietnamese = !isVietnamese;
             localStorage.setItem('language', isVietnamese ? 'vi' : 'en');
-
+            
             const langText = document.getElementById('langText');
             const langTextNav = document.getElementById('langTextNav');
-
+            
             if (isVietnamese) {
                 if (langText) langText.textContent = 'English';
-                if (langTextNav) langTextNav.textContent = 'EN';
+                if (langTextNav) langTextNav.textContent = 'English';
             } else {
                 if (langText) langText.textContent = 'Vietnamese';
-                if (langTextNav) langTextNav.textContent = 'VI';
+                if (langTextNav) langTextNav.textContent = 'Vietnamese';
             }
         }
 
@@ -750,9 +841,9 @@
                 const themeText = document.getElementById('themeText');
                 const themeTextNav = document.getElementById('themeTextNav');
                 if (themeText) themeText.textContent = 'Light Mode';
-                if (themeTextNav) themeTextNav.textContent = 'Light';
+                if (themeTextNav) themeTextNav.textContent = 'Light Mode';
             }
-
+            
             if (isVietnamese) {
                 const langText = document.getElementById('langText');
                 const langTextNav = document.getElementById('langTextNav');

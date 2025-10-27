@@ -185,10 +185,4 @@ class PermissionHelper
         if (!Auth::check()) return false;
         return Auth::user()->isactive ?? false;
     }
-
-    public static function canManageConfigurations()
-    {
-        // Chỉ Admin và Manager được phép quản lý cấu hình hệ thống
-        return self::hasAnyRole(['Admin', 'Manager']);
-    }
 }
