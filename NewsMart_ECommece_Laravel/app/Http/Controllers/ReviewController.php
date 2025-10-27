@@ -16,7 +16,7 @@ class ReviewController extends Controller
         }
 
         $reviews = Review::with(['user', 'product'])->orderBy('id', 'desc')->get();
-        return view('reviews.index', compact('reviews'));
+        return view('<reviews></reviews>.index', compact('reviews'));
     }
 
     // Form thêm review

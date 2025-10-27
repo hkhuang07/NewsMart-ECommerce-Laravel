@@ -64,14 +64,14 @@
                         Manage and review customer feedback
                     </p>
                 </div>
-                <div class="header-right">
+                {{-- <div class="header-right">
                     @if(canManageProducts())
                     <button type="button" class="btn-add-new" data-bs-toggle="modal" data-bs-target="#addReviewModal">
                         <i class="fa-light fa-plus"></i>
                         Add New Review
                     </button>
                     @endif
-                </div>
+                </div> --}}
             </div>
         </div>
     </div>
@@ -83,9 +83,9 @@
             <h3>No Reviews Found</h3>
             {{-- <p>You haven't added any reviews yet. Start by creating one below.</p> --}}
             @if(canManageProducts())
-            <button class="btn-add-first" data-bs-toggle="modal" data-bs-target="#addReviewModal">
+            {{-- <button class="btn-add-first" data-bs-toggle="modal" data-bs-target="#addReviewModal">
                 <i class="fas fa-plus"></i> Add Review
-            </button>
+            </button> --}}
             @endif
         </div>
         @else

@@ -19,11 +19,8 @@
                     <td>{{ $loop->iteration }}</td>
                     <td>{{ $value->name }}</td>
                     <td>{{ $value->slug }}</td>
-                    <td class="text-center"><a href="{{ route('brand.edit', ['id' => $value->id]) }}"><i
-                                class="fa-light fa-edit"></i></a></td>
-                    <td class="text-center"><a href="{{ route('brand.delete', ['id' => $value->id]) }}"
-                            onclick="return confirm('Do you want to delete this brand {{ $value->name }} ?')"><i
-                                class="fa-light fa-trash-alt text-danger"></i></a></td>
+                    <td class="text-center"><a href="{{ route('brand.edit', ['id' => $value->id]) }}"><i class="fa-light fa-edit"></i></a></td>
+                    <td class="text-center"><a href="{{ route('brand.delete', ['id' => $value->id]) }}" onclick="return confirm('Do you want to delete this brand {{ $value->name }} ?')"><i class="fa-light fa-trash-alt text-danger"></i></a></td>
                 </tr>
                 @endforeach
             </tbody>
