@@ -3,6 +3,13 @@
 **Slogan:** **Igniting Minds, Fueling Markets!**
 
 NewsMart is a robust, multi-role web application designed as an integrated ecosystem for e-commerce and content publishing. It is built on the powerful **Laravel** framework, ensuring scalability, security, and clean architecture.
+<p align="center">
+  <img src="https://img.shields.io/badge/PHP-777BB4?style=for-the-badge&logo=php&logoColor=white" alt="PHP Badge" />
+  <img src="https://img.shields.io/badge/Laravel-FF2D20?style=for-the-badge&logo=laravel&logoColor=white" alt="Laravel Badge" />
+  <img src="https://img.shields.io/badge/MySQL-4479A1?style=for-the-badge&logo=mysql&logoColor=white" alt="MySQL Badge" />
+  <img src="https://img.shields.io/badge/Bootstrap-7952B3?style=for-the-badge&logo=bootstrap&logoColor=white" alt="Bootstrap Badge" />
+  <img src="https://img.shields.io/badge/Font_Awesome-528DD7?style=for-the-badge&logo=fontawesome&logoColor=white" alt="Font Awesome Badge" />
+</p>
 
 ## 💡 Project Highlights
 
