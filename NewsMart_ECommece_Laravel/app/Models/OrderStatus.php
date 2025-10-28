@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class OrderStatus extends Model
 {
-    protected $table = 'orderstatuses';
+    protected $table = 'order_statuses';
     protected $primaryKey = 'id';
 
     // Quan hệ 1-n: OrderStatus HAS MANY Orders
