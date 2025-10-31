@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Category Management')
+@section('title', 'Brand Management')
 
 @section('styles')
 <link href="{{ asset('css/list.css') }}" rel="stylesheet">
@@ -18,12 +18,12 @@
                         Category Management
                     </h1>
                     <p class="page-subtitle">
-                        Category and organize your product Category
+                        Manage and organize your product categories
                     </p>
                 </div>
                 <div class="header-right">
                     @if(canManageProducts())
-                    <button type="button" class="btn-add-new" data-bs-toggle="modal" data-bs-target="#addCategoryModal">
+                    <button type="button" class="btn-add-new" data-bs-toggle="modal" data-bs-target="#addBrandModal">
                         <i class="fa-light fa-plus"></i>
                         Add New Category
                     </button>
@@ -36,10 +36,10 @@
     <div class="container mx-auto px-4 py-8">
         <div id="loadingState" class="loading-container d-none">
             <div class="loading-spinner"></div>
-            <p class="loading-text">Loading brands...</p>
+            <p class="loading-text">Loading category...</p>
         </div>
 
-        <div class="items-grid" id="categoriesGrid">
+        <div class="items-grid" id="brandsGrid">
             @forelse($categories as $category)
             <div class="item-card" data-brand-id="{{ $category->id }}">
                 <div class="item-image-container">
@@ -64,15 +64,15 @@
                         <div class="action-buttons">
                             <button type="button"
                                 class="action-btn edit-btn"
-                                title="Edit Category"
-                                onclick="openEditCategoryModal('{{ $category->id }}', {{ json_encode($category) }})">
+                                title="Edit Brand"
+                                onclick="openEditBrandModal('{{ $category->id }}', {{ json_encode($category) }})">
                                 <i class="fas fa-edit"></i>
                                 <span>Edit</span>
                             </button>
                             <button type="button"
                                 class="action-btn delete-btn"
-                                title="Delete Category"
-                                onclick="openDeleteCategoryModal('{{ $category->id }}', {{ json_encode($category) }})">
+                                title="Delete Brand"
+                                onclick="openDeleteBrandModal('{{ $category->id }}', {{ json_encode($category) }})">
                                 <i class="fas fa-trash-alt"></i>
                                 <span>Delete</span>
                             </button>
@@ -87,8 +87,6 @@
                     </h3>
 
                     <div class="item-info">
-                    
-
                         @if($category->slug)
                         <div class="info-item">
                             <i class="fas fa-link"></i>
@@ -118,12 +116,12 @@
             <div class="empty-state">
                 <div class="empty-content">
                     <i class="fas fa-tags empty-icon"></i>
-                    <h3 class="empty-title">No Categories Found</h3>
+                    <h3 class="empty-title">No Category Found</h3>
                     <p class="empty-text">
-                        You haven't added any Categories yet. Start building your brand portfolio by creating your first brand.
+                        You haven't added any category yet. Start building your category portfolio by creating your first category.
                     </p>
                     @if(canManageProducts())
-                    <button type="button" class="btn-add-first" data-bs-toggle="modal" data-bs-target="#addCategoryModal">
+                    <button type="button" class="btn-add-first" data-bs-toggle="modal" data-bs-target="#addBrandModal">
                         <i class="fas fa-plus"></i>
                         Create Your First Category
                     </button>
@@ -160,7 +158,7 @@
             // Click handling
             card.addEventListener('click', function(e) {
                 if (!e.target.closest('.action-btn') && !e.target.closest('.action-overlay')) {
-                    console.log('Category card clicked:', this.dataset.brandId);
+                    console.log('Brand card clicked:', this.dataset.brandId);
                 }
             });
         });
@@ -169,20 +167,20 @@
         document.addEventListener('keydown', function(e) {
             if ((e.ctrlKey || e.metaKey) && e.key === 'n' && !e.shiftKey) {
                 e.preventDefault();
-                const addCategoryModal = new bootstrap.Modal(document.getElementById('addCategoryModal'));
-                addCategoryModal.show();
+                const addBrandModal = new bootstrap.Modal(document.getElementById('addBrandModal'));
+                addBrandModal.show();
             }
         });
     });
 
-    // Edit Category Modal Function
-    function openEditCategoryModal(brandId, brandData) {
+    // Edit Brand Modal Function
+    function openEditBrandModal(brandId, brandData) {
         // Use the function from update.blade.php
         openUpdateModal(brandId, brandData);
     }
 
-    // Delete Category Modal Function
-    function openDeleteCategoryModal(brandId, brandData) {
+    // Delete Brand Modal Function
+    function openDeleteBrandModal(brandId, brandData) {
         // Use the function from delete.blade.php
         openDeleteModal(brandId, brandData);
     }
@@ -190,30 +188,33 @@
     // Loading functions
     function showLoading() {
         const loadingState = document.getElementById('loadingState');
-        const categoriesGrid = document.getElementById('categoriesGrid');
+        const brandsGrid = document.getElementById('brandsGrid');
 
-        if (loadingState && categoriesGrid) {
+        if (loadingState && brandsGrid) {
             loadingState.classList.remove('d-none');
-            categoriesGrid.style.opacity = '0.3';
+            brandsGrid.style.opacity = '0.3';
         }
     }
 
     function hideLoading() {
         const loadingState = document.getElementById('loadingState');
-        const categoriesGrid = document.getElementById('categoriesGrid');
+        const brandsGrid = document.getElementById('brandsGrid');
 
-        if (loadingState && categoriesGrid) {
+        if (loadingState && brandsGrid) {
             loadingState.classList.add('d-none');
-            categoriesGrid.style.opacity = '1';
+            brandsGrid.style.opacity = '1';
         }
     }
 
     // Search functionality
-    function filterCategorys(searchTerm) {
+    function filterBrands(searchTerm) {
         const cards = document.querySelectorAll('.item-card');
         let visibleCount = 0;
 
         cards.forEach(card => {
+            const brandName = card.querySelector('.item-title').textContent.toLowerCase();
+            const brandDescription = card.querySelector('.item-description')?.textContent.toLowerCase() || '';
+            const brandEmail = card.querySelector('.info-value')?.textContent.toLowerCase() || '';
 
             const isVisible = brandName.includes(searchTerm.toLowerCase()) ||
                 brandDescription.includes(searchTerm.toLowerCase()) ||
@@ -239,8 +240,8 @@
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     // Mở modal nếu có lỗi validation cho add form
-    const addCategoryModal = new bootstrap.Modal(document.getElementById('addCategoryModal'));
-    addCategoryModal.show();
+    const addBrandModal = new bootstrap.Modal(document.getElementById('addBrandModal'));
+    addBrandModal.show();
     
     // Hiển thị lỗi
     const errorMessage = document.getElementById('errorMessage');
@@ -259,8 +260,8 @@ document.addEventListener('DOMContentLoaded', function() {
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     // Show update modal with errors
-    const updateCategoryModal = new bootstrap.Modal(document.getElementById('updateCategoryModal'));
-    updateCategoryModal.show();
+    const updateBrandModal = new bootstrap.Modal(document.getElementById('updateBrandModal'));
+    updateBrandModal.show();
     
     // Display errors
     const errorMessage = document.getElementById('updateErrorMessage');
