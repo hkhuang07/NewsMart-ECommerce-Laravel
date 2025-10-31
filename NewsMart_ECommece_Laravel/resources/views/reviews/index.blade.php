@@ -33,24 +33,10 @@
         </div>
     </div>
 
-<<<<<<< HEAD
     <div class="container mx-auto px-4 py-8">
         <div id="loadingState" class="loading-container d-none">
             <div class="loading-spinner"></div>
             <p class="loading-text">Loading reviews...</p>
-=======
-    <div class="container mx-auto px-4 py-6">
-        @if($reviews->isEmpty())
-        <div class="empty-state">
-            <i class="fas fa-comments fa-3x mb-3"></i>
-            <h3>No Reviews Found</h3>
-            {{-- <p>You haven't added any reviews yet. Start by creating one below.</p> --}}
-            @if(canManageProducts())
-            {{-- <button class="btn-add-first" data-bs-toggle="modal" data-bs-target="#addReviewModal">
-                <i class="fas fa-plus"></i> Add Review
-            </button> --}}
-            @endif
->>>>>>> 1679f750720f54699398b3e923803854f3198352
         </div>
 
         <div class="items-grid" id="reviewsGrid">

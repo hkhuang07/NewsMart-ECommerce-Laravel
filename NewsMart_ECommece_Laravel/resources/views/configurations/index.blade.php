@@ -1,3 +1,8 @@
+@php
+use App\Helpers\PermissionHelper;
+@endphp
+
+
 @extends('layouts.app')
 
 @section('title', 'Configuration Management')
@@ -22,8 +27,8 @@
                     </p>
                 </div>
                 <div class="header-right">
-                    @if(canManageConfigurations())
-                    <button type="button" class="btn-add-new" data-bs-toggle="modal"
+                    @if(PermissionHelper::canManageConfigurations())
+                    <button type="button" class="btn-add-new" data-bs-toggle="modsal"
                         data-bs-target="#addConfigurationModal">
                         <i class="fa-light fa-plus"></i>
                         Add New Configuration
@@ -53,7 +58,7 @@
                         Active
                     </div>
 
-                    @if(canManageConfigurations())
+                    @if(PermissionHelper::canManageConfigurations())
                     <div class="action-overlay">
                         <div class="action-buttons">
                             <button type="button" class="action-btn edit-btn" title="Edit Configuration"
@@ -63,6 +68,7 @@
                             </button>
                             <button type="button" class="action-btn delete-btn"
                                 onclick="openDeleteConfigurationModalWrapper('{{ $config->settingkey }}', {{ json_encode($config) }})">
+
                                 <i class="fas fa-trash-alt"></i>
                                 <span>Delete</span>
                             </button>
@@ -111,7 +117,7 @@
                         You haven't added any configurations yet. Start customizing your system by creating your first
                         setting.
                     </p>
-                    @if(canManageConfigurations())
+                    @if(PermissionHelper::canManageConfigurations())
                     <button type="button" class="btn-add-first" data-bs-toggle="modal"
                         data-bs-target="#addConfigurationModal">
                         <i class="fas fa-plus"></i>
@@ -169,7 +175,7 @@
     // Delete Configuration Modal
     function openDeleteConfigurationModalWrapper(settingkey, configData) {
         openDeleteConfigurationModal(settingkey, configData);
-}
+    }
 
     // Loading functions
     function showLoading() {
