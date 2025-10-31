@@ -1,10 +1,10 @@
-<div class="modal fade" id="addBrandModal" tabindex="-1" aria-labelledby="addBrandModalLabel" aria-hidden="true">
+<div class="modal fade" id="addReviewModal" tabindex="-1" aria-labelledby="addReviewModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content item-modal">
             <div class="modal-header item-modal-header">
-                <h5 class="modal-title" id="addBrandModalLabel">
+                <h5 class="modal-title" id="addReviewModalLabel">
                     <i class="fa-light fa-plus-circle"></i>
-                    Add New Brand
+                    Add New Review
                 </h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
@@ -15,116 +15,100 @@
                     <div id="successMessage" class="alert alert-success" style="display: none;"></div>
                 </div>
 
-                <form id="addBrandForm" action="{{ route('brand.add') }}" method="post" enctype="multipart/form-data">
+                <form id="addReviewForm" action="{{ route('review.add') }}" method="post">
                     @csrf
 
+                    <!-- User ID -->
                     <div class="form-group mb-4">
-                        <label class="form-label" for="name">
-                            <i class="fa-light fa-tag"></i>
-                            Brand Name
+                        <label class="form-label" for="userid">
+                            <i class="fa-light fa-user"></i>
+                            User ID
                         </label>
-                        <input
-                            type="text"
-                            class="form-control item-input @error('name') is-invalid @enderror"
-                            id="name"
-                            name="name"
-                            value="{{ old('name') }}"
-                            placeholder="Enter brand name"
+                        <input type="number" class="form-control item-input @error('userid') is-invalid @enderror"
+                            id="userid" name="userid" value="{{ old('userid') }}" placeholder="Enter user ID"
                             required />
-                        @error('name')
+                        @error('userid')
                         <div class="invalid-feedback">
                             <strong>{{ $message }}</strong>
                         </div>
                         @enderror
                     </div>
 
+                    <!-- Product ID -->
                     <div class="form-group mb-4">
-                        <label class="form-label" for="address">
-                            <i class="fa-light fa-location-dot"></i>
-                            Brand Address
+                        <label class="form-label" for="productid">
+                            <i class="fa-light fa-box"></i>
+                            Product ID
                         </label>
-                        <input
-                            type="text"
-                            class="form-control item-input @error('address') is-invalid @enderror"
-                            id="address"
-                            name="address"
-                            value="{{ old('address') }}"
-                            placeholder="Enter brand address" />
-                        @error('address')
+                        <input type="number" class="form-control item-input @error('productid') is-invalid @enderror"
+                            id="productid" name="productid" value="{{ old('productid') }}"
+                            placeholder="Enter product ID" required />
+                        @error('productid')
                         <div class="invalid-feedback">
                             <strong>{{ $message }}</strong>
                         </div>
                         @enderror
                     </div>
 
+                    <!-- Order ID -->
                     <div class="form-group mb-4">
-                        <label class="form-label" for="email">
-                            <i class="fa-light fa-envelope"></i>
-                            Brand Email
+                        <label class="form-label" for="orderid">
+                            <i class="fa-light fa-receipt"></i>
+                            Order ID
                         </label>
-                        <input
-                            type="email"
-                            class="form-control item-input @error('email') is-invalid @enderror"
-                            id="email"
-                            name="email"
-                            value="{{ old('email') }}"
-                            placeholder="Enter brand email" />
-                        @error('email')
+                        <input type="number" class="form-control item-input @error('orderid') is-invalid @enderror"
+                            id="orderid" name="orderid" value="{{ old('orderid') }}" placeholder="Enter order ID" />
+                        @error('orderid')
                         <div class="invalid-feedback">
                             <strong>{{ $message }}</strong>
                         </div>
                         @enderror
                     </div>
 
+                    <!-- Rating -->
                     <div class="form-group mb-4">
-                        <label class="form-label" for="contact">
-                            <i class="fa-light fa-phone"></i>
-                            Brand Contact
+                        <label class="form-label" for="rating">
+                            <i class="fa-light fa-star"></i>
+                            Rating
                         </label>
-                        <input
-                            type="text"
-                            class="form-control item-input @error('contact') is-invalid @enderror"
-                            id="contact"
-                            name="contact"
-                            value="{{ old('contact') }}"
-                            placeholder="Enter contact number" />
-                        @error('contact')
+                        <input type="number" class="form-control item-input @error('rating') is-invalid @enderror"
+                            id="rating" name="rating" value="{{ old('rating') }}" placeholder="Enter rating (1-5)"
+                            min="1" max="5" required />
+                        @error('rating')
                         <div class="invalid-feedback">
                             <strong>{{ $message }}</strong>
                         </div>
                         @enderror
                     </div>
 
+                    <!-- Content -->
                     <div class="form-group mb-4">
-                        <label class="form-label" for="description">
-                            <i class="fa-light fa-file-text"></i>
-                            Brand Description
+                        <label class="form-label" for="content">
+                            <i class="fa-light fa-comment"></i>
+                            Content
                         </label>
-                        <textarea
-                            class="form-control item-textarea @error('description') is-invalid @enderror"
-                            id="description"
-                            name="description"
-                            rows="4"
-                            placeholder="Enter brand description">{{ old('description') }}</textarea>
-                        @error('description')
+                        <textarea class="form-control item-textarea @error('content') is-invalid @enderror" id="content"
+                            name="content" rows="4" placeholder="Enter review content">{{ old('content') }}</textarea>
+                        @error('content')
                         <div class="invalid-feedback">
                             <strong>{{ $message }}</strong>
                         </div>
                         @enderror
                     </div>
 
+                    <!-- Status -->
                     <div class="form-group mb-4">
-                        <label class="form-label" for="logo">
-                            <i class="fa-light fa-image"></i>
-                            Brand Logo (Image file only)
+                        <label class="form-label" for="status">
+                            <i class="fa-light fa-info-circle"></i>
+                            Status
                         </label>
-                        <input
-                            type="file"
-                            class="form-control item-input @error('logo') is-invalid @enderror"
-                            id="logo"
-                            name="logo"
-                            accept="image/*" />
-                        @error('logo')
+                        <select class="form-control item-input @error('status') is-invalid @enderror" id="status"
+                            name="status" required>
+                            <option value="Pending" {{ old('status')=='Pending' ? 'selected' : '' }}>Pending</option>
+                            <option value="Approved" {{ old('status')=='Approved' ? 'selected' : '' }}>Approved</option>
+                            <option value="Rejected" {{ old('status')=='Rejected' ? 'selected' : '' }}>Rejected</option>
+                        </select>
+                        @error('status')
                         <div class="invalid-feedback">
                             <strong>{{ $message }}</strong>
                         </div>
@@ -138,9 +122,9 @@
                     <i class="fa-light fa-times"></i>
                     Cancel
                 </button>
-                <button type="submit" form="addBrandForm" class="btn btn-action" id="submitBtn">
+                <button type="submit" form="addReviewForm" class="btn btn-action" id="submitBtn">
                     <i class="fa-light fa-save"></i>
-                    <span class="btn-text">Add Brand</span>
+                    <span class="btn-text">Add Review</span>
                     <span class="btn-loading" style="display: none;">
                         <i class="fa-light fa-spinner fa-spin"></i>
                         Adding...
@@ -153,51 +137,34 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        const addBrandModal = document.getElementById('addBrandModal');
-        const addBrandForm = document.getElementById('addBrandForm');
+        const addReviewModal = document.getElementById('addReviewModal');
+        const addReviewForm = document.getElementById('addReviewForm');
         const submitBtn = document.getElementById('submitBtn');
         const btnText = submitBtn.querySelector('.btn-text');
         const btnLoading = submitBtn.querySelector('.btn-loading');
 
-        // Reset form when modal is hidden
-        addBrandModal.addEventListener('hidden.bs.modal', function() {
-            addBrandForm.reset();
-
-            const fileInput = document.getElementById('logo');
-            if (fileInput) {
-                fileInput.value = '';
-            }
-
-            // Clear validation errors
-            const invalidInputs = addBrandForm.querySelectorAll('.is-invalid');
-            invalidInputs.forEach(input => {
-                input.classList.remove('is-invalid');
-            });
-            const feedbacks = addBrandForm.querySelectorAll('.invalid-feedback');
-            feedbacks.forEach(feedback => {
-                feedback.style.display = 'none';
-            });
-            // Hide messages
+        addReviewModal.addEventListener('hidden.bs.modal', function() {
+            addReviewForm.reset();
+            const invalidInputs = addReviewForm.querySelectorAll('.is-invalid');
+            invalidInputs.forEach(input => input.classList.remove('is-invalid'));
+            const feedbacks = addReviewForm.querySelectorAll('.invalid-feedback');
+            feedbacks.forEach(fb => fb.style.display = 'none');
             document.getElementById('modalMessages').style.display = 'none';
             document.getElementById('errorMessage').style.display = 'none';
             document.getElementById('successMessage').style.display = 'none';
-            // Reset button state
             submitBtn.disabled = false;
             btnText.style.display = 'inline';
             btnLoading.style.display = 'none';
         });
 
-        // Handle form submission
-        addBrandForm.addEventListener('submit', function(e) {
-            // Show loading state
+        addReviewForm.addEventListener('submit', function(e) {
             submitBtn.disabled = true;
             btnText.style.display = 'none';
             btnLoading.style.display = 'inline';
         });
 
-        // Focus first input when modal is shown
-        addBrandModal.addEventListener('shown.bs.modal', function() {
-            document.getElementById('name').focus();
+        addReviewModal.addEventListener('shown.bs.modal', function() {
+            document.getElementById('userid').focus();
         });
     });
 </script>

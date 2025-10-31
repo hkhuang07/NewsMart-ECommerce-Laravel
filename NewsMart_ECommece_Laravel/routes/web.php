@@ -76,7 +76,7 @@ Route::get('/configuration/add', [ConfigurationController::class, 'getAdd'])->na
 Route::post('/configuration/add', [ConfigurationController::class, 'postAdd'])->name('configuration.add');
 Route::get('/configuration/update/{id}', [ConfigurationController::class, 'getUpdate'])->name('configuration.update');
 Route::post('/configuration/update/{id}', [ConfigurationController::class, 'postUpdate'])->name('configuration.update');
-Route::get('/configuration/delete/{id}', [ConfigurationController::class, 'getDelete'])->name('configuration.delete');  
+Route::get('/configuration/delete/{id}', [ConfigurationController::class, 'getDelete'])->name('configuration.delete');
 
 //Notification Management
 Route::get('/notification', [NotificationController::class, 'getList'])->name('notification');
@@ -122,8 +122,8 @@ Route::get('/ordertransaction/delete/{id}', [OrderTransactionController::class, 
 Route::get('/post', [PostController::class, 'getList'])->name('post');
 Route::get('/post/add', [PostController::class, 'getAdd'])->name('post.add');
 Route::post('/post/add', [PostController::class, 'postAdd'])->name('post.add');
-Route::get('/post/update/{id}', [PostController::class, 'getUpdate'])->name('post.update');     
-Route::post('/post/update/{id}', [PostController::class, 'postUpdate'])->name('post.update');       
+Route::get('/post/update/{id}', [PostController::class, 'getUpdate'])->name('post.update');
+Route::post('/post/update/{id}', [PostController::class, 'postUpdate'])->name('post.update');
 Route::get('/post/delete/{id}', [PostController::class, 'getDelete'])->name('post.delete');
 
 //Post Status Management
@@ -148,7 +148,7 @@ Route::get('/posttype/add', [PostTypeController::class, 'getAdd'])->name('post_t
 Route::post('/posttype/add', [PostTypeController::class, 'postAdd'])->name('post_type.add');
 Route::get('/posttype/update/{id}', [PostTypeController::class, 'getUpdate'])->name('post_type.update');
 Route::post('/posttype/update/{id}', [PostTypeController::class, 'postUpdate'])->name('post_type.update');
-Route::get('/posttype/delete/{id}', [PostTypeController::class, 'getDelete'])->name('post_type.delete'); 
+Route::get('/posttype/delete/{id}', [PostTypeController::class, 'getDelete'])->name('post_type.delete');
 
 //Product Management
 Route::get('/product', [ProductController::class, 'getList'])->name('product');
@@ -156,7 +156,7 @@ Route::get('/product/add', [ProductController::class, 'getAdd'])->name('product.
 Route::post('/product/add', [ProductController::class, 'postAdd'])->name('product.add');
 Route::get('/product/update/{id}', [ProductController::class, 'getUpdate'])->name('product.update');
 Route::post('/product/update/{id}', [ProductController::class, 'postUpdate'])->name('product.update');
-Route::get('/product/delete/{id}', [ProductController::class, 'getDelete'])->name('product.delete');    
+Route::get('/product/delete/{id}', [ProductController::class, 'getDelete'])->name('product.delete');
 
 //Product Favorite Management
 Route::get('/productfavorite', [ProductFavoriteController::class, 'getList'])->name('productfavorite');
@@ -164,7 +164,7 @@ Route::get('/productfavorite/add', [ProductFavoriteController::class, 'getAdd'])
 Route::post('/productfavorite/add', [ProductFavoriteController::class, 'postAdd'])->name('productfavorite.add');
 Route::get('/productfavorite/update/{id}', [ProductFavoriteController::class, 'getUpdate'])->name('productfavorite.update');
 Route::post('/productfavorite/update/{id}', [ProductFavoriteController::class, 'postUpdate'])->name('productfavorite.update');
-Route::get('/productfavorite/delete/{id}', [ProductFavoriteController::class, 'getDelete'])->name('productfavorite.delete');    
+Route::get('/productfavorite/delete/{id}', [ProductFavoriteController::class, 'getDelete'])->name('productfavorite.delete');
 
 //Product Image Management
 Route::get('/productimage', [ProductImageController::class, 'getList'])->name('productimage');
@@ -180,7 +180,7 @@ Route::get('/review/add', [ReviewController::class, 'getAdd'])->name('review.add
 Route::post('/review/add', [ReviewController::class, 'postAdd'])->name('review.add');
 Route::get('/review/update/{id}', [ReviewController::class, 'getUpdate'])->name('review.update');
 Route::post('/review/update/{id}', [ReviewController::class, 'postUpdate'])->name('review.update');
-Route::get('/review/delete/{id}', [ReviewController::class, 'getDelete'])->name('review.delete');   
+Route::get('/review/delete/{id}', [ReviewController::class, 'getDelete'])->name('review.delete');
 
 //Role Management
 Route::get('/role', [RoleController::class, 'getList'])->name('role');
@@ -196,7 +196,7 @@ Route::get('/shipperassignment/add', [ShipperAssignmentController::class, 'getAd
 Route::post('/shipperassignment/add', [ShipperAssignmentController::class, 'postAdd'])->name('shipperassignment.add');
 Route::get('/shipperassignment/update/{id}', [ShipperAssignmentController::class, 'getUpdate'])->name('shipperassignment.update');
 Route::post('/shipperassignment/update/{id}', [ShipperAssignmentController::class, 'postUpdate'])->name('shipperassignment.update');
-Route::get('/shipperassignment/delete/{id}', [ShipperAssignmentController::class, 'getDelete'])->name('shipperassignment.delete');      
+Route::get('/shipperassignment/delete/{id}', [ShipperAssignmentController::class, 'getDelete'])->name('shipperassignment.delete');
 
 //Shipping Information Management
 Route::get('/shippinginformation', [ShippingInformationController::class, 'getList'])->name('shippinginformation');
@@ -222,16 +222,28 @@ Route::get('/useractivity/update/{id}', [UserActivityController::class, 'getUpda
 Route::post('/useractivity/update/{id}', [UserActivityController::class, 'postUpdate'])->name('useractivity.update');
 Route::get('/useractivity/delete/{id}', [UserActivityController::class, 'getDelete'])->name('useractivity.delete');
 
-//User Management
+/*/User Management
 Route::get('/user', [UserController::class, 'getList'])->name('user');
 Route::get('/user/add', [UserController::class, 'getAdd'])->name('user.add');
 Route::post('/user/add', [UserController::class, 'postAdd'])->name('user.add');
 Route::get('/user/update/{id}', [UserController::class, 'getUpdate'])->name('user.update');
 Route::post('/user/update/{id}', [UserController::class, 'postUpdate'])->name('user.update');
-Route::get('/nguoidung/xoa/{id}', [UserController::class, 'getXoa'])->name('nguoidung.xoa');
-Auth::routes();
+Route::get('/user/delete/{id}', [UserController::class, 'getDelete'])->name('user.delete');*/
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+// User Management Routes
+Route::middleware(['auth'])->group(function () {
+    Route::get('/user', [UserController::class, 'getList'])->name('user');
+    Route::get('/user/add', [UserController::class, 'getAdd'])->name('user.add');
+    Route::post('/user/add', [UserController::class, 'postAdd'])->name('user.add');
+    Route::get('/user/update/{id}', [UserController::class, 'getUpdate'])->name('user.update');
+    Route::post('/user/update/{id}', [UserController::class, 'postUpdate'])->name('user.update');
+    Route::get('/user/delete/{id}', [UserController::class, 'getDelete'])->name('user.delete');
+
+    // Data routes for better UX
+    Route::get('/user/data', [UserController::class, 'getUsersData'])->name('user.data');
+    Route::get('/user/search', [UserController::class, 'searchUsers'])->name('user.search');
+});
 
 Auth::routes();
 

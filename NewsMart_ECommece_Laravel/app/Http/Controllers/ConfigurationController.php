@@ -4,62 +4,132 @@ namespace App\Http\Controllers;
 
 use App\Models\Configuration;
 use Illuminate\Http\Request;
+use Illuminate\Http\RedirectResponse;
+
 
 class ConfigurationController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    public function getList()
     {
-        //
+        if (!$this->canManageConfigurations()) {
+            abort(403, 'You do not have permission to access configuration management.');
+        }
+
+        $configurations = Configuration::orderBy('settingkey', 'asc')->get();
+        return view('configurations.index', compact('configurations'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function getAdd()
     {
-        //
+        if (!$this->canManageConfigurations()) {
+            abort(403, 'You do not have permission to add configurations.');
+        }
+
+        return view('configurations.add');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    public function postAdd(Request $request): RedirectResponse
     {
-        //
+        if (!$this->canManageConfigurations()) {
+            abort(403, 'You do not have permission to add configurations.');
+        }
+
+        // Validation
+        $request->validate([
+            'settingkey' => ['required', 'string', 'max:100', 'unique:configurations,settingkey'],
+            'settingvalue' => ['nullable', 'string'],
+            'description' => ['nullable', 'string', 'max:255'],
+        ]);
+
+        $config = new Configuration();
+        $config->settingkey = $request->settingkey;
+        $config->settingvalue = $request->settingvalue;
+        $config->description = $request->description;
+        $config->save();
+
+        return redirect()->route('configuration')->with('success', 'Configuration created successfully!');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Configuration $configuration)
+    public function getUpdate($settingkey)
     {
-        //
+        if (!$this->canManageConfigurations()) {
+            abort(403, 'You do not have permission to edit configurations.');
+        }
+
+        $config = Configuration::findOrFail($settingkey);
+        return view('configurations.update', compact('config'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Configuration $configuration)
+    public function postUpdate(Request $request, $settingkey)
     {
-        //
+        if (!$this->canManageConfigurations()) {
+            abort(403, 'You do not have permission to edit configurations.');
+        }
+
+        $config = Configuration::findOrFail($settingkey);
+
+        // Validation
+        $request->validate([
+            'settingkey' => ['required', 'string', 'max:100', 'unique:configurations,settingkey,' . $settingkey . ',settingkey'],
+            'settingvalue' => ['nullable', 'string'],
+            'description' => ['nullable', 'string', 'max:255'],
+        ]);
+
+        // Nếu đổi khóa chính
+        if ($request->settingkey !== $settingkey) {
+            $config->settingkey = $request->settingkey;
+        }
+
+        $config->settingvalue = $request->settingvalue;
+        $config->description = $request->description;
+        $config->save();
+
+        return redirect()->route('configuration')->with('success', 'Configuration updated successfully!');
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Configuration $configuration)
+    public function getDelete($settingkey)
     {
-        //
+        if (!$this->canManageConfigurations()) {
+            abort(403, 'You do not have permission to delete configurations.');
+        }
+
+        $config = Configuration::findOrFail($settingkey);
+        $configName = $config->settingkey;
+        $config->delete();
+
+        return redirect()->route('configuration')->with('success', "Configuration '{$configName}' deleted successfully!");
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Configuration $configuration)
+    private function canManageConfigurations()
     {
-        //
+        if (!auth()->check()) {
+            return false;
+        }
+
+        try {
+            $userRole = auth()->user()->role->name ?? 'User';
+            return in_array(strtolower($userRole), ['admin', 'manager']);
+        } catch (\Exception $e) {
+            return false;
+        }
+    }
+
+    public function searchConfigurations(Request $request)
+    {
+        if (!$this->canManageConfigurations()) {
+            abort(403, 'You do not have permission to search configurations.');
+        }
+
+        $query = $request->get('q', '');
+
+        $configurations = Configuration::where(function ($q) use ($query) {
+            $q->where('settingkey', 'LIKE', "%{$query}%")
+                ->orWhere('settingvalue', 'LIKE', "%{$query}%")
+                ->orWhere('description', 'LIKE', "%{$query}%");
+        })
+            ->orderBy('settingkey', 'asc')
+            ->get();
+
+        return view('configurations.index', compact('configurations'));
     }
 }
