@@ -74,9 +74,9 @@ Route::get('/comment/delete/{id}', [CommentController::class, 'getDelete'])->nam
 Route::get('/configuration', [ConfigurationController::class, 'getList'])->name('configuration');
 Route::get('/configuration/add', [ConfigurationController::class, 'getAdd'])->name('configuration.add');
 Route::post('/configuration/add', [ConfigurationController::class, 'postAdd'])->name('configuration.add');
-Route::get('/configuration/update/{id}', [ConfigurationController::class, 'getUpdate'])->name('configuration.update');
-Route::post('/configuration/update/{id}', [ConfigurationController::class, 'postUpdate'])->name('configuration.update');
-Route::get('/configuration/delete/{id}', [ConfigurationController::class, 'getDelete'])->name('configuration.delete');  
+Route::get('/configuration/update/{settingkey}', [ConfigurationController::class, 'getUpdate'])->name('configuration.update');
+Route::post('/configuration/update/{settingkey}', [ConfigurationController::class, 'postUpdate'])->name('configuration.update');
+Route::get('/configuration/delete/{settingkey}', [ConfigurationController::class, 'getDelete'])->name('configuration.delete');  
 
 //Notification Management
 Route::get('/notification', [NotificationController::class, 'getList'])->name('notification');
