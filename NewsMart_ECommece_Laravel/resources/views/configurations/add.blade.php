@@ -43,7 +43,7 @@
                         </label>
                         <textarea class="form-control item-textarea @error('settingvalue') is-invalid @enderror"
                             id="settingvalue" name="settingvalue" rows="4"
-                            placeholder="Enter configuration value">{{ old('settingvalue') }}</textarea>
+                            placeholder="Enter setting value">{{ old('settingvalue') }}</textarea>
                         @error('settingvalue')
                         <div class="invalid-feedback">
                             <strong>{{ $message }}</strong>
@@ -57,9 +57,9 @@
                             <i class="fa-light fa-file-lines"></i>
                             Description
                         </label>
-                        <input type="text" class="form-control item-input @error('description') is-invalid @enderror"
-                            id="description" name="description" value="{{ old('description') }}"
-                            placeholder="Optional: describe what this setting does" />
+                        <textarea class="form-control item-textarea @error('description') is-invalid @enderror"
+                            id="description" name="description" rows="3"
+                            placeholder="Enter short description (optional)">{{ old('description') }}</textarea>
                         @error('description')
                         <div class="invalid-feedback">
                             <strong>{{ $message }}</strong>
@@ -89,42 +89,42 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        const modal = document.getElementById('addConfigurationModal');
-        const form = document.getElementById('addConfigurationForm');
+        const addConfigurationModal = document.getElementById('addConfigurationModal');
+        const addConfigurationForm = document.getElementById('addConfigurationForm');
         const submitBtn = document.getElementById('submitBtn');
         const btnText = submitBtn.querySelector('.btn-text');
         const btnLoading = submitBtn.querySelector('.btn-loading');
 
         // Reset form when modal is hidden
-        modal.addEventListener('hidden.bs.modal', function() {
-            form.reset();
+        addConfigurationModal.addEventListener('hidden.bs.modal', function() {
+            addConfigurationForm.reset();
 
             // Clear validation errors
-            const invalidInputs = form.querySelectorAll('.is-invalid');
+            const invalidInputs = addConfigurationForm.querySelectorAll('.is-invalid');
             invalidInputs.forEach(input => input.classList.remove('is-invalid'));
-            const feedbacks = form.querySelectorAll('.invalid-feedback');
-            feedbacks.forEach(f => f.style.display = 'none');
+            const feedbacks = addConfigurationForm.querySelectorAll('.invalid-feedback');
+            feedbacks.forEach(feedback => feedback.style.display = 'none');
 
             // Hide messages
             document.getElementById('modalMessages').style.display = 'none';
             document.getElementById('errorMessage').style.display = 'none';
             document.getElementById('successMessage').style.display = 'none';
 
-            // Reset button
+            // Reset button state
             submitBtn.disabled = false;
             btnText.style.display = 'inline';
             btnLoading.style.display = 'none';
         });
 
-        // Loading effect when submit
-        form.addEventListener('submit', function() {
+        // Handle form submission
+        addConfigurationForm.addEventListener('submit', function() {
             submitBtn.disabled = true;
             btnText.style.display = 'none';
             btnLoading.style.display = 'inline';
         });
 
-        // Auto-focus first input when modal is shown
-        modal.addEventListener('shown.bs.modal', function() {
+        // Focus first input when modal is shown
+        addConfigurationModal.addEventListener('shown.bs.modal', function() {
             document.getElementById('settingkey').focus();
         });
     });
