@@ -17,16 +17,11 @@ class ReviewController extends Controller
             abort(403, 'You do not have permission to access review management.');
         }
 
-<<<<<<< HEAD
         $reviews = Review::with(['user', 'product'])
             ->orderBy('created_at', 'desc')
             ->get();
 
         return view('reviews.index', compact('reviews'));
-=======
-        $reviews = Review::with(['user', 'product'])->orderBy('id', 'desc')->get();
-        return view('<reviews></reviews>.index', compact('reviews'));
->>>>>>> 1679f750720f54699398b3e923803854f3198352
     }
 
     // ======================

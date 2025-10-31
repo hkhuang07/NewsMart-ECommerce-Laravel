@@ -4,44 +4,32 @@ namespace App\Http\Controllers;
 
 use App\Models\Configuration;
 use Illuminate\Http\Request;
-<<<<<<< HEAD
 use Illuminate\Http\RedirectResponse;
-=======
->>>>>>> 1679f750720f54699398b3e923803854f3198352
+
 
 class ConfigurationController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    public function getList()
     {
-<<<<<<< HEAD
         if (!$this->canManageConfigurations()) {
             abort(403, 'You do not have permission to access configuration management.');
         }
 
         $configurations = Configuration::orderBy('settingkey', 'asc')->get();
         return view('configurations.index', compact('configurations'));
-=======
-        //
->>>>>>> 1679f750720f54699398b3e923803854f3198352
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function getAdd()
     {
-        //
+        if (!$this->canManageConfigurations()) {
+            abort(403, 'You do not have permission to add configurations.');
+        }
+
+        return view('configurations.add');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    public function postAdd(Request $request): RedirectResponse
     {
-<<<<<<< HEAD
         if (!$this->canManageConfigurations()) {
             abort(403, 'You do not have permission to add configurations.');
         }
@@ -97,25 +85,10 @@ class ConfigurationController extends Controller
         $config->save();
 
         return redirect()->route('configuration')->with('success', 'Configuration updated successfully!');
-=======
-        //
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Configuration $configuration)
+    public function getDelete($settingkey)
     {
-        //
->>>>>>> 1679f750720f54699398b3e923803854f3198352
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Configuration $configuration)
-    {
-<<<<<<< HEAD
         if (!$this->canManageConfigurations()) {
             abort(403, 'You do not have permission to delete configurations.');
         }
@@ -125,20 +98,22 @@ class ConfigurationController extends Controller
         $config->delete();
 
         return redirect()->route('configuration')->with('success', "Configuration '{$configName}' deleted successfully!");
-=======
-        //
->>>>>>> 1679f750720f54699398b3e923803854f3198352
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Configuration $configuration)
+    private function canManageConfigurations()
     {
-        //
+        if (!auth()->check()) {
+            return false;
+        }
+
+        try {
+            $userRole = auth()->user()->role->name ?? 'User';
+            return in_array(strtolower($userRole), ['admin', 'manager']);
+        } catch (\Exception $e) {
+            return false;
+        }
     }
 
-<<<<<<< HEAD
     public function searchConfigurations(Request $request)
     {
         if (!$this->canManageConfigurations()) {
@@ -149,20 +124,12 @@ class ConfigurationController extends Controller
 
         $configurations = Configuration::where(function ($q) use ($query) {
             $q->where('settingkey', 'LIKE', "%{$query}%")
-              ->orWhere('settingvalue', 'LIKE', "%{$query}%")
-              ->orWhere('description', 'LIKE', "%{$query}%");
+                ->orWhere('settingvalue', 'LIKE', "%{$query}%")
+                ->orWhere('description', 'LIKE', "%{$query}%");
         })
-        ->orderBy('settingkey', 'asc')
-        ->get();
+            ->orderBy('settingkey', 'asc')
+            ->get();
 
         return view('configurations.index', compact('configurations'));
-=======
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Configuration $configuration)
-    {
-        //
->>>>>>> 1679f750720f54699398b3e923803854f3198352
     }
 }
