@@ -13,37 +13,49 @@
             <div class="modal-body">
                 <div class="delete-confirmation text-center">
                     <div class="delete-icon-container mb-3">
-                        <i class="fas fa-comment-dots delete-icon"></i>
+                        <i class="fas fa-trash-alt delete-icon"></i>
                     </div>
 
                     <h4 class="delete-title mb-3">Are you sure?</h4>
 
                     <div class="delete-message mb-4">
                         <p class="mb-2">
-                            Do you really want to delete this review by
-                            <strong id="deleteReviewUserName" class="text-danger"></strong>?
+                            Do you really want to delete this review with ID
+                            <strong id="deleteReviewIdToDelete" class="text-danger"></strong>?
                         </p>
 
                         <div class="item-info-preview bg-light p-3 rounded mb-3" id="deleteReviewPreview">
                             <div class="text-start">
                                 <div class="preview-item mb-1">
-                                    <small class="text-muted">Product:</small>
-                                    <span id="deleteReviewProduct"></span>
+                                    <small class="text-muted">User ID:</small>
+                                    <span id="deleteReviewUserId"></span>
+                                </div>
+                                <div class="preview-item mb-1">
+                                    <small class="text-muted">Product ID:</small>
+                                    <span id="deleteReviewProductId"></span>
+                                </div>
+                                <div class="preview-item mb-1">
+                                    <small class="text-muted">Order ID:</small>
+                                    <span id="deleteReviewOrderId"></span>
                                 </div>
                                 <div class="preview-item mb-1">
                                     <small class="text-muted">Rating:</small>
                                     <span id="deleteReviewRating"></span>
                                 </div>
-                                <div class="preview-item mb-1">
-                                    <small class="text-muted">Comment:</small>
-                                    <span id="deleteReviewComment"></span>
+                                <div class="preview-item mb-2">
+                                    <small class="text-muted">Content:</small>
+                                    <span id="deleteReviewContent"></span>
+                                </div>
+                                <div class="preview-item mb-2">
+                                    <small class="text-muted">Status:</small>
+                                    <span id="deleteReviewStatus"></span>
                                 </div>
                             </div>
                         </div>
 
                         <small class="warning-text text-muted">
                             <i class="fas fa-exclamation-circle"></i>
-                            This action cannot be undone and will permanently remove the review.
+                            This action cannot be undone and may affect product feedback statistics.
                         </small>
                     </div>
                 </div>
@@ -54,7 +66,7 @@
                     <i class="fas fa-times"></i>
                     Cancel
                 </button>
-                <a href="#" id="deleteConfirmDeleteReviewBtn" class="btn btn-delete">
+                <a href="#" id="deleteConfirmReviewBtn" class="btn btn-delete">
                     <i class="fas fa-trash-alt"></i>
                     <span>Yes, Delete It</span>
                     <span class="btn-loading" style="display: none;">
@@ -70,24 +82,18 @@
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         const deleteReviewModal = document.getElementById('deleteReviewModal');
-        const deleteConfirmBtn = document.getElementById('deleteConfirmDeleteReviewBtn');
+        const deleteConfirmBtn = document.getElementById('deleteConfirmReviewBtn');
         const btnText = deleteConfirmBtn.querySelector('span:not(.btn-loading)');
         const btnLoading = deleteConfirmBtn.querySelector('.btn-loading');
 
-        // Handle delete confirmation click
         deleteConfirmBtn.addEventListener('click', function(e) {
             e.preventDefault();
-            
-            // Show loading state
             btnText.style.display = 'none';
             btnLoading.style.display = 'inline';
             deleteConfirmBtn.style.pointerEvents = 'none';
-            
-            // Redirect to delete URL
             window.location.href = this.href;
         });
 
-        // Reset button state when modal is hidden
         deleteReviewModal.addEventListener('hidden.bs.modal', function() {
             btnText.style.display = 'inline';
             btnLoading.style.display = 'none';
@@ -95,21 +101,19 @@
         });
     });
 
-    // Function to open delete modal with review data
     function openDeleteReviewModal(reviewId, reviewData) {
-        // Set user name
-        document.getElementById('deleteReviewUserName').textContent = reviewData.user_name || 'Unknown User';
-        
-        // Set delete URL
-        const deleteBtn = document.getElementById('deleteConfirmDeleteReviewBtn');
+        document.getElementById('deleteReviewIdToDelete').textContent = reviewId;
+        const deleteBtn = document.getElementById('deleteConfirmReviewBtn');
         deleteBtn.href = `{{ route('review.delete', ['id' => '__ID__']) }}`.replace('__ID__', reviewId);
-        
-        // Populate review preview
-        document.getElementById('deleteReviewProduct').textContent = reviewData.product_name || 'N/A';
-        document.getElementById('deleteReviewRating').textContent = reviewData.rating ? reviewData.rating + '/5' : 'N/A';
-        document.getElementById('deleteReviewComment').textContent = reviewData.comment || 'No comment';
-        
-        // Show modal
+
+        // Populate review info
+        document.getElementById('deleteReviewUserId').textContent = reviewData.userid || 'N/A';
+        document.getElementById('deleteReviewProductId').textContent = reviewData.productid || 'N/A';
+        document.getElementById('deleteReviewOrderId').textContent = reviewData.orderid || 'N/A';
+        document.getElementById('deleteReviewRating').textContent = reviewData.rating || 'N/A';
+        document.getElementById('deleteReviewContent').textContent = reviewData.content || 'N/A';
+        document.getElementById('deleteReviewStatus').textContent = reviewData.status || 'N/A';
+
         const deleteModal = new bootstrap.Modal(document.getElementById('deleteReviewModal'));
         deleteModal.show();
     }

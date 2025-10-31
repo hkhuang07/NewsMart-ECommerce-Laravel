@@ -14,11 +14,11 @@
             <div class="header-content">
                 <div class="header-left">
                     <h1 class="page-title">
-                        <i class="fas fa-cogs"></i>
+                        <i class="fas fa-cog"></i>
                         Configuration Management
                     </h1>
                     <p class="page-subtitle">
-                        Manage and customize system configurations
+                        Manage and customize your system settings
                     </p>
                 </div>
                 <div class="header-right">
@@ -40,7 +40,7 @@
             <p class="loading-text">Loading configurations...</p>
         </div>
 
-        <div class="items-grid" id="configsGrid">
+        <div class="items-grid" id="configurationsGrid">
             @forelse($configurations as $config)
             <div class="item-card" data-config-key="{{ $config->settingkey }}">
                 <div class="item-image-container">
@@ -57,12 +57,12 @@
                     <div class="action-overlay">
                         <div class="action-buttons">
                             <button type="button" class="action-btn edit-btn" title="Edit Configuration"
-                                onclick="openEditConfigModal('{{ $config->settingkey }}', {{ json_encode($config) }})">
+                                onclick="openEditConfigurationModal('{{ $config->settingkey }}', {{ json_encode($config) }})">
                                 <i class="fas fa-edit"></i>
                                 <span>Edit</span>
                             </button>
-                            <button type="button" class="action-btn delete-btn" title="Delete Configuration"
-                                onclick="openDeleteConfigModal('{{ $config->settingkey }}', {{ json_encode($config) }})">
+                            <button type="button" class="action-btn delete-btn"
+                                onclick="openDeleteConfigurationModalWrapper('{{ $config->settingkey }}', {{ json_encode($config) }})">
                                 <i class="fas fa-trash-alt"></i>
                                 <span>Delete</span>
                             </button>
@@ -79,10 +79,10 @@
                     <div class="item-info">
                         @if($config->settingvalue)
                         <div class="info-item">
-                            <i class="fas fa-database"></i>
+                            <i class="fas fa-align-left"></i>
                             <span class="info-label">Value:</span>
                             <span class="info-value" title="{{ $config->settingvalue }}">
-                                {{ Str::limit($config->settingvalue, 50) }}
+                                {{ Str::limit($config->settingvalue, 80) }}
                             </span>
                         </div>
                         @endif
@@ -97,7 +97,7 @@
                     <div class="item-footer">
                         <div class="created-date">
                             <i class="fas fa-calendar-alt"></i>
-                            Created {{ $config->created_at->diffForHumans() }}
+                            Created {{ $config->created_at ? $config->created_at->diffForHumans() : 'N/A' }}
                         </div>
                     </div>
                 </div>
@@ -105,10 +105,11 @@
             @empty
             <div class="empty-state">
                 <div class="empty-content">
-                    <i class="fas fa-cogs empty-icon"></i>
+                    <i class="fas fa-cog empty-icon"></i>
                     <h3 class="empty-title">No Configurations Found</h3>
                     <p class="empty-text">
-                        You haven't added any configurations yet. Start by creating your first system setting.
+                        You haven't added any configurations yet. Start customizing your system by creating your first
+                        setting.
                     </p>
                     @if(canManageConfigurations())
                     <button type="button" class="btn-add-first" data-bs-toggle="modal"
@@ -139,65 +140,60 @@
             card.addEventListener('mouseenter', function() {
                 this.style.transform = 'translateY(-8px) scale(1.02)';
             });
+
             card.addEventListener('mouseleave', function() {
                 this.style.transform = 'translateY(0) scale(1)';
             });
+
+            card.addEventListener('click', function(e) {
+                if (!e.target.closest('.action-btn') && !e.target.closest('.action-overlay')) {
+                    console.log('Configuration clicked:', this.dataset.configKey);
+                }
+            });
         });
 
-        // Ctrl + N shortcut
         document.addEventListener('keydown', function(e) {
             if ((e.ctrlKey || e.metaKey) && e.key === 'n' && !e.shiftKey) {
                 e.preventDefault();
-                const addConfigModal = new bootstrap.Modal(document.getElementById('addConfigModal'));
+                const addConfigModal = new bootstrap.Modal(document.getElementById('addConfigurationModal'));
                 addConfigModal.show();
             }
         });
     });
 
-    function openEditConfigModal(key, data) {
-        openUpdateModal(key, data);
+    // Edit Configuration Modal
+    function openEditConfigurationModal(settingkey, configData) {
+        openUpdateConfigurationModal(settingkey, configData);
     }
 
-    // function openDeleteConfigModal(key, data) {
-    //     openDeleteModal(key, data);
-    // }
-
-    function openDeleteConfigModal(key, data) {
-    // Gọi đúng hàm trong file delete.blade.php
-    document.getElementById('deleteConfigKeyToDelete').textContent = key;
-
-    const deleteBtn = document.getElementById('deleteConfirmDeleteConfigBtn');
-    deleteBtn.href = `{{ route('configuration.delete', ['settingkey' => '__KEY__']) }}`.replace('__KEY__', key);
-
-    document.getElementById('deleteConfigValue').textContent = data.settingvalue || 'N/A';
-    document.getElementById('deleteConfigDescription').textContent = data.description || 'N/A';
-    document.getElementById('deleteConfigCreatedAt').textContent = data.created_at || 'N/A';
-    document.getElementById('deleteConfigUpdatedAt').textContent = data.updated_at || 'N/A';
-
-    const deleteModal = new bootstrap.Modal(document.getElementById('deleteConfigurationModal'));
-    deleteModal.show();
+    // Delete Configuration Modal
+    function openDeleteConfigurationModalWrapper(settingkey, configData) {
+        openDeleteConfigurationModal(settingkey, configData);
 }
 
-
+    // Loading functions
     function showLoading() {
         const loadingState = document.getElementById('loadingState');
-        const grid = document.getElementById('configsGrid');
-        if (loadingState && grid) {
+        const configurationsGrid = document.getElementById('configurationsGrid');
+
+        if (loadingState && configurationsGrid) {
             loadingState.classList.remove('d-none');
-            grid.style.opacity = '0.3';
+            configurationsGrid.style.opacity = '0.3';
         }
     }
 
     function hideLoading() {
         const loadingState = document.getElementById('loadingState');
-        const grid = document.getElementById('configsGrid');
-        if (loadingState && grid) {
+        const configurationsGrid = document.getElementById('configurationsGrid');
+
+        if (loadingState && configurationsGrid) {
             loadingState.classList.add('d-none');
-            grid.style.opacity = '1';
+            configurationsGrid.style.opacity = '1';
         }
     }
 
-    function filterConfigs(searchTerm) {
+    // Search function
+    function filterConfigurations(searchTerm) {
         const cards = document.querySelectorAll('.item-card');
         let visibleCount = 0;
 
@@ -206,24 +202,39 @@
             const value = card.querySelector('.info-value')?.textContent.toLowerCase() || '';
             const desc = card.querySelector('.item-description')?.textContent.toLowerCase() || '';
 
-            const visible = key.includes(searchTerm.toLowerCase()) ||
-                value.includes(searchTerm.toLowerCase()) ||
-                desc.includes(searchTerm.toLowerCase());
+            const isVisible = key.includes(searchTerm.toLowerCase()) ||
+                              value.includes(searchTerm.toLowerCase()) ||
+                              desc.includes(searchTerm.toLowerCase());
 
-            card.style.display = visible ? 'block' : 'none';
-            if (visible) visibleCount++;
+            if (isVisible) {
+                card.style.display = 'block';
+                visibleCount++;
+            } else {
+                card.style.display = 'none';
+            }
         });
 
         const emptyState = document.querySelector('.empty-state');
-        if (emptyState) emptyState.style.display = visibleCount === 0 ? 'block' : 'none';
+        if (emptyState) {
+            emptyState.style.display = visibleCount === 0 ? 'block' : 'none';
+        }
     }
 </script>
 
 @if ($errors->any() && !session('update_errors') && !session('delete_errors'))
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-    const addModal = new bootstrap.Modal(document.getElementById('addConfigModal'));
-    addModal.show();
+    const addConfigModal = new bootstrap.Modal(document.getElementById('addConfigurationModal'));
+    addConfigModal.show();
+
+    const errorMessage = document.getElementById('errorMessage');
+    const modalMessages = document.getElementById('modalMessages');
+
+    if (errorMessage && modalMessages) {
+        errorMessage.innerHTML = '<strong>Please fix the following errors:</strong><ul>@foreach ($errors->all() as $error)<li>{{ $error }}</li>@endforeach</ul>';
+        errorMessage.style.display = 'block';
+        modalMessages.style.display = 'block';
+    }
 });
 </script>
 @endif
@@ -231,8 +242,17 @@
 @if (session('update_errors'))
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-    const updateModal = new bootstrap.Modal(document.getElementById('updateConfigModal'));
-    updateModal.show();
+    const updateConfigModal = new bootstrap.Modal(document.getElementById('updateConfigurationModal'));
+    updateConfigModal.show();
+
+    const errorMessage = document.getElementById('updateErrorMessage');
+    const modalMessages = document.getElementById('updateModalMessages');
+
+    if (errorMessage && modalMessages) {
+        errorMessage.innerHTML = '<strong>Please fix the following errors:</strong><ul>@foreach (session('update_errors')->all() as $error)<li>{{ $error }}</li>@endforeach</ul>';
+        errorMessage.style.display = 'block';
+        modalMessages.style.display = 'block';
+    }
 });
 </script>
 @endif
@@ -240,7 +260,21 @@
 @if (session('success'))
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-    alert('{{ session('success') }}');
+    const successMessage = document.getElementById('successMessage');
+    const modalMessages = document.getElementById('modalMessages');
+
+    if (successMessage && modalMessages) {
+        successMessage.innerHTML = '<strong>{{ session('success') }}</strong>';
+        successMessage.style.display = 'block';
+        modalMessages.style.display = 'block';
+
+        setTimeout(function() {
+            successMessage.style.display = 'none';
+            modalMessages.style.display = 'none';
+        }, 3000);
+    } else {
+        alert('{{ session('success') }}');
+    }
 });
 </script>
 @endif

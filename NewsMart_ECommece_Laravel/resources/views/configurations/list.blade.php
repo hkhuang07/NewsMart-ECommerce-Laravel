@@ -14,10 +14,9 @@
             <thead>
                 <tr>
                     <th width="5%">#</th>
-                    <th width="20%">Setting Key</th>
-                    <th width="35%">Setting Value</th>
-                    <th width="25%">Description</th>
-                    <th width="10%">Updated At</th>
+                    <th width="25%">Setting Key</th>
+                    <th width="45%">Setting Value</th>
+                    <th width="20%">Description</th>
                     <th width="5%">Edit</th>
                     <th width="5%">Delete</th>
                 </tr>
@@ -27,11 +26,10 @@
                 <tr>
                     <td>{{ $loop->iteration }}</td>
                     <td>{{ $config->settingkey }}</td>
-                    <td class="text-break">{{ Str::limit($config->settingvalue, 80) }}</td>
-                    <td>{{ $config->description }}</td>
-                    <td>{{ $config->updated_at ? $config->updated_at->format('Y-m-d H:i') : '-' }}</td>
+                    <td>{{ Str::limit($config->settingvalue, 80) }}</td>
+                    <td>{{ Str::limit($config->description, 50) }}</td>
                     <td class="text-center">
-                        <a href="{{ route('configuration.edit', ['settingkey' => $config->settingkey]) }}">
+                        <a href="{{ route('configuration.update', ['settingkey' => $config->settingkey]) }}">
                             <i class="fa-light fa-edit"></i>
                         </a>
                     </td>
@@ -44,7 +42,7 @@
                 </tr>
                 @empty
                 <tr>
-                    <td colspan="7" class="text-center text-muted">No configurations found.</td>
+                    <td colspan="6" class="text-center text-muted">No configurations found.</td>
                 </tr>
                 @endforelse
             </tbody>

@@ -4,22 +4,34 @@ namespace App\Http\Controllers;
 
 use App\Models\Review;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\RedirectResponse;
 
 class ReviewController extends Controller
 {
-    // Danh sách review
+    // ======================
+    //  LIST ALL REVIEWS
+    // ======================
     public function getList()
     {
         if (!$this->canManageReviews()) {
             abort(403, 'You do not have permission to access review management.');
         }
 
+<<<<<<< HEAD
+        $reviews = Review::with(['user', 'product'])
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        return view('reviews.index', compact('reviews'));
+=======
         $reviews = Review::with(['user', 'product'])->orderBy('id', 'desc')->get();
         return view('<reviews></reviews>.index', compact('reviews'));
+>>>>>>> 1679f750720f54699398b3e923803854f3198352
     }
 
-    // Form thêm review
+    // ======================
+    //  ADD REVIEW (GET FORM)
+    // ======================
     public function getAdd()
     {
         if (!$this->canManageReviews()) {
@@ -29,20 +41,22 @@ class ReviewController extends Controller
         return view('reviews.add');
     }
 
-    // Xử lý thêm review
-    public function postAdd(Request $request)
+    // ======================
+    //  ADD REVIEW (POST)
+    // ======================
+    public function postAdd(Request $request): RedirectResponse
     {
         if (!$this->canManageReviews()) {
             abort(403, 'You do not have permission to add reviews.');
         }
 
         $request->validate([
-            'userid' => 'required|integer|exists:users,id',
-            'productid' => 'required|integer|exists:products,id',
-            'orderid' => 'nullable|integer|exists:orders,id',
-            'rating' => 'required|integer|min:1|max:5',
-            'content' => 'nullable|string|max:1000',
-            'status' => 'nullable|string|in:Pending,Approved,Rejected',
+            'userid' => ['required', 'integer', 'exists:users,id'],
+            'productid' => ['required', 'integer', 'exists:products,id'],
+            'orderid' => ['nullable', 'integer', 'exists:orders,id'],
+            'rating' => ['required', 'integer', 'between:1,5'],
+            'content' => ['nullable', 'string'],
+            'status' => ['required', 'string', 'in:Pending,Approved,Rejected'],
         ]);
 
         $review = new Review();
@@ -52,12 +66,15 @@ class ReviewController extends Controller
         $review->rating = $request->rating;
         $review->content = $request->content;
         $review->status = $request->status ?? 'Pending';
+
         $review->save();
 
-        return redirect()->route('reviews')->with('success', 'Review created successfully!');
+        return redirect()->route('review')->with('success', 'Review created successfully!');
     }
 
-    // Cập nhật review
+    // ======================
+    //  UPDATE REVIEW
+    // ======================
     public function postUpdate(Request $request, $id)
     {
         if (!$this->canManageReviews()) {
@@ -67,20 +84,29 @@ class ReviewController extends Controller
         $review = Review::findOrFail($id);
 
         $request->validate([
-            'rating' => 'required|integer|min:1|max:5',
-            'content' => 'nullable|string|max:1000',
-            'status' => 'nullable|string|in:Pending,Approved,Rejected',
+            'userid' => ['required', 'integer', 'exists:users,id'],
+            'productid' => ['required', 'integer', 'exists:products,id'],
+            'orderid' => ['nullable', 'integer', 'exists:orders,id'],
+            'rating' => ['required', 'integer', 'between:1,5'],
+            'content' => ['nullable', 'string'],
+            'status' => ['required', 'string', 'in:Pending,Approved,Rejected'],
         ]);
 
+        $review->userid = $request->userid;
+        $review->productid = $request->productid;
+        $review->orderid = $request->orderid;
         $review->rating = $request->rating;
         $review->content = $request->content;
-        $review->status = $request->status ?? $review->status;
+        $review->status = $request->status;
+
         $review->save();
 
-        return redirect()->route('reviews')->with('success', 'Review updated successfully!');
+        return redirect()->route('review')->with('success', 'Review updated successfully!');
     }
 
-    // Xóa review
+    // ======================
+    //  DELETE REVIEW
+    // ======================
     public function getDelete($id)
     {
         if (!$this->canManageReviews()) {
@@ -90,23 +116,29 @@ class ReviewController extends Controller
         $review = Review::findOrFail($id);
         $review->delete();
 
-        return redirect()->route('reviews')->with('success', 'Review deleted successfully!');
+        return redirect()->route('review')->with('success', 'Review deleted successfully!');
     }
 
-    // Kiểm tra quyền quản lý
+    // ======================
+    //  CHECK PERMISSION
+    // ======================
     private function canManageReviews()
     {
-        if (!Auth::check()) return false;
+        if (!auth()->check()) {
+            return false;
+        }
 
         try {
-            $role = strtolower(Auth::user()->role->name ?? 'user');
-            return in_array($role, ['admin', 'manager', 'saler']);
+            $userRole = auth()->user()->role->name ?? 'User';
+            return in_array(strtolower($userRole), ['admin', 'manager', 'saler']);
         } catch (\Exception $e) {
             return false;
         }
     }
 
-    // API lấy dữ liệu review
+    // ======================
+    //  JSON DATA API
+    // ======================
     public function getReviewsData()
     {
         if (!$this->canManageReviews()) {
@@ -129,7 +161,9 @@ class ReviewController extends Controller
         return response()->json($reviews);
     }
 
-    // Tìm kiếm review
+    // ======================
+    //  SEARCH REVIEWS
+    // ======================
     public function searchReviews(Request $request)
     {
         if (!$this->canManageReviews()) {
@@ -138,8 +172,10 @@ class ReviewController extends Controller
 
         $query = $request->get('q', '');
 
-        $reviews = Review::where('content', 'LIKE', "%{$query}%")
-            ->orWhere('status', 'LIKE', "%{$query}%")
+        $reviews = Review::where(function ($q) use ($query) {
+            $q->where('content', 'LIKE', "%{$query}%")
+                ->orWhere('status', 'LIKE', "%{$query}%");
+        })
             ->orderBy('created_at', 'desc')
             ->get();
 
