@@ -127,12 +127,12 @@ Route::post('/post/update/{id}', [PostController::class, 'postUpdate'])->name('p
 Route::get('/post/delete/{id}', [PostController::class, 'getDelete'])->name('post.delete');
 
 //Post Status Management
-Route::get('/poststatus', [PostStatusController::class, 'getList'])->name('post_status');
-Route::get('/poststatus/add', [PostStatusController::class, 'getAdd'])->name('post_status.add');
+Route::get('/poststatus', [PostStatusController::class, 'getList'])->name('poststatus');
+Route::get('/poststatus/add', [PostStatusController::class, 'getAdd'])->name('poststatus.add');
 Route::post('/poststatus/add', [PostStatusController::class, 'postAdd'])->name('poststatus.add');
-Route::get('/poststatus/update/{id}', [PostStatusController::class, 'getUpdate'])->name('post_status.update');
-Route::post('/poststatus/update/{id}', [PostStatusController::class, 'postUpdate'])->name('post_status.update');
-Route::get('/poststatus/delete/{id}', [PostStatusController::class, 'getDelete'])->name('post_status.delete');
+Route::get('/poststatus/update/{id}', [PostStatusController::class, 'getUpdate'])->name('poststatus.update');
+Route::post('/poststatus/update/{id}', [PostStatusController::class, 'postUpdate'])->name('poststatus.update');
+Route::get('/poststatus/delete/{id}', [PostStatusController::class, 'getDelete'])->name('poststatus.delete');
 
 //Post Interaction Management
 Route::get('/postinteraction', [PostInteractionController::class, 'getList'])->name('postinteraction');
@@ -143,12 +143,12 @@ Route::post('/postinteraction/update/{id}', [PostInteractionController::class, '
 Route::get('/postinteraction/delete/{id}', [PostInteractionController::class, 'getDelete'])->name('postinteraction.delete');
 
 //Post Type Management
-Route::get('/posttype', [PostTypeController::class, 'getList'])->name('post_type');
-Route::get('/posttype/add', [PostTypeController::class, 'getAdd'])->name('post_type.add');
-Route::post('/posttype/add', [PostTypeController::class, 'postAdd'])->name('post_type.add');
-Route::get('/posttype/update/{id}', [PostTypeController::class, 'getUpdate'])->name('post_type.update');
-Route::post('/posttype/update/{id}', [PostTypeController::class, 'postUpdate'])->name('post_type.update');
-Route::get('/posttype/delete/{id}', [PostTypeController::class, 'getDelete'])->name('post_type.delete'); 
+Route::get('/posttype', [PostTypeController::class, 'getList'])->name('posttype');
+Route::get('/posttype/add', [PostTypeController::class, 'getAdd'])->name('posttype.add');
+Route::post('/posttype/add', [PostTypeController::class, 'postAdd'])->name('posttype.add');
+Route::get('/posttype/update/{id}', [PostTypeController::class, 'getUpdate'])->name('posttype.update');
+Route::post('/posttype/update/{id}', [PostTypeController::class, 'postUpdate'])->name('posttype.update');
+Route::get('/posttype/delete/{id}', [PostTypeController::class, 'getDelete'])->name('posttype.delete'); 
 
 //Product Management
 Route::get('/product', [ProductController::class, 'getList'])->name('product');
