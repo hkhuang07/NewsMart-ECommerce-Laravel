@@ -6,8 +6,9 @@ use App\Models\Brand;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Http\RedirectResponse; 
 
-class BrandController extends Controller
+class BrandController extends PermissionController 
 {
 
     public function getList()
@@ -16,7 +17,6 @@ class BrandController extends Controller
             abort(403, 'You do not have permission to access brand management.');
         }
 
-        //$brands = Brand::orderBy('id', 'asc')->get();
         $brands = Brand::all();
         return view('brands.index', compact('brands'));
     }
@@ -26,6 +26,7 @@ class BrandController extends Controller
         if (!$this->canManageProducts()) {
             abort(403, 'You do not have permission to add brands.');
         }
+
 
         return view('brands.add');
     }
@@ -92,8 +93,9 @@ class BrandController extends Controller
 
         $path = null;
         if ($request->hasFile('logo')) {
-            $brand = Brand::find($id);
-            if (!empty($orm->hinhanh)) Storage::delete($brand->logo);
+            // Xóa file cũ nếu có
+            if (!empty($brand->logo)) Storage::delete($brand->logo);
+            
             // Upload file mới
             $extension = $request->file('logo')->extension();
             $filename = Str::slug($request->name, '-') . '.' . $extension;
@@ -107,7 +109,7 @@ class BrandController extends Controller
         $brand->email = $request->email;
         $brand->contact = $request->contact;
         $brand->description = $request->description;
-        $brand->logo = $path ?? $brand->logo ?? null;
+        $brand->logo = $path ?? $brand->logo ?? null; 
 
         $brand->save();
 
@@ -121,28 +123,15 @@ class BrandController extends Controller
         }
         $brand = Brand::find($id);
         $brandName = $brand->name;
-        $brand->delete();
-
+        
+        // Xóa file logo trước khi xóa bản ghi
         if(!empty($brand->logo)) Storage::delete($brand->logo);
-
+        
+        $brand->delete();
 
         return redirect()->route('brand')->with('success', "Brand '{$brandName}' deleted successfully!");
     }
 
-    private function canManageProducts()
-    {
-        if (!auth()->check()) {
-            return false;
-        }
-
-        try {
-            $userRole = auth()->user()->role->name ?? 'User';
-
-            return in_array(strtolower($userRole), ['admin', 'manager', 'saler']);
-        } catch (\Exception $e) {
-            return false;
-        }
-    }
 
     public function getBrandsData()
     {

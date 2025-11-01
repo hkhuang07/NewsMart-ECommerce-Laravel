@@ -130,11 +130,9 @@
 @section('scripts')
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        // Item card interactions
         const itemCards = document.querySelectorAll('.item-card');
 
         itemCards.forEach(card => {
-            // Hover effects
             card.addEventListener('mouseenter', function() {
                 this.style.transform = 'translateY(-8px) scale(1.02)';
             });
@@ -143,7 +141,6 @@
                 this.style.transform = 'translateY(0) scale(1)';
             });
 
-            // Click handling
             card.addEventListener('click', function(e) {
                 if (!e.target.closest('.action-btn') && !e.target.closest('.action-overlay')) {
                     console.log('PostType card clicked:', this.dataset.post_typeId);
@@ -151,7 +148,6 @@
             });
         });
 
-        // Keyboard shortcut for adding new post_type
         document.addEventListener('keydown', function(e) {
             if ((e.ctrlKey || e.metaKey) && e.key === 'n' && !e.shiftKey) {
                 e.preventDefault();
@@ -161,19 +157,14 @@
         });
     });
 
-    // Edit PostType Modal Function
     function openEditPostTypeModal(post_typeId, post_typeData) {
-        // Use the function from update.blade.php
         openUpdateModal(post_typeId, post_typeData);
     }
 
-    // Delete PostType Modal Function
     function openDeletePostTypeModal(post_typeId, post_typeData) {
-        // Use the function from delete.blade.php
         openDeleteModal(post_typeId, post_typeData);
     }
 
-    // Loading functions
     function showLoading() {
         const loadingState = document.getElementById('loadingState');
         const post_typesGrid = document.getElementById('post_typesGrid');
@@ -194,7 +185,6 @@
         }
     }
 
-    // Search functionality
     function filterPostTypes(searchTerm) {
         const cards = document.querySelectorAll('.item-card');
         let visibleCount = 0;
@@ -216,7 +206,6 @@
             }
         });
 
-        // Show/hide empty state
         const emptyState = document.querySelector('.empty-state');
         if (emptyState) {
             emptyState.style.display = visibleCount === 0 ? 'block' : 'none';
@@ -227,11 +216,9 @@
 @if ($errors->any() && !session('update_errors') && !session('delete_errors'))
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    // Mở modal nếu có lỗi validation cho add form
     const addPostTypeModal = new bootstrap.Modal(document.getElementById('addPostTypeModal'));
     addPostTypeModal.show();
     
-    // Hiển thị lỗi
     const errorMessage = document.getElementById('errorMessage');
     const modalMessages = document.getElementById('modalMessages');
     
@@ -247,11 +234,9 @@ document.addEventListener('DOMContentLoaded', function() {
 @if (session('update_errors'))
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    // Show update modal with errors
     const updatePostTypeModal = new bootstrap.Modal(document.getElementById('updatePostTypeModal'));
     updatePostTypeModal.show();
     
-    // Display errors
     const errorMessage = document.getElementById('updateErrorMessage');
     const modalMessages = document.getElementById('updateModalMessages');
     
@@ -267,7 +252,6 @@ document.addEventListener('DOMContentLoaded', function() {
 @if (session('success'))
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    // Hiển thị success message
     const successMessage = document.getElementById('successMessage');
     const modalMessages = document.getElementById('modalMessages');
     
@@ -276,13 +260,11 @@ document.addEventListener('DOMContentLoaded', function() {
         successMessage.style.display = 'block';
         modalMessages.style.display = 'block';
         
-        // Auto hide after 3 seconds
         setTimeout(function() {
             successMessage.style.display = 'none';
             modalMessages.style.display = 'none';
         }, 3000);
     } else {
-        // Fallback alert
         alert('{{ session('success') }}');
     }
 });

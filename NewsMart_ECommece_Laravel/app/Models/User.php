@@ -6,6 +6,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -13,21 +14,25 @@ class User extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
-    
-    protected $table = 'users'; 
+
+    protected $table = 'users';
     protected $primaryKey = 'id';
 
     protected $fillable = [
         'name',
         'email',
         'password',
-        'username',      
-        'roleid',        
-        'fullname',     
+        'username',
+        'roleid',
         'address',
         'phone',
         'isactive',
         'email_verified_at',
+        'avatar',
+        'background',
+        'jobs',
+        'school',
+        'company',
     ];
 
     /**
@@ -53,7 +58,7 @@ class User extends Authenticatable
             'isactive' => 'boolean',
         ];
     }
-    
+
     // Quan hệ 1-n: User BELONGS TO Role
     public function role(): BelongsTo
     {
@@ -83,7 +88,7 @@ class User extends Authenticatable
     {
         return $this->hasMany(ShipperAssignment::class, 'shipperid', 'id');
     }
-    
+
     // Quan hệ 1-n: User HAS MANY Posts
     public function posts(): HasMany
     {
@@ -107,13 +112,13 @@ class User extends Authenticatable
     {
         return $this->hasMany(Cart::class, 'userid', 'id');
     }
-    
+
     // Quan hệ 1-n: User HAS MANY Notifications
     public function notifications(): HasMany
     {
         return $this->hasMany(Notification::class, 'userid', 'id');
     }
-    
+
     // Quan hệ 1-n: User HAS MANY UserActivities
     public function userActivities(): HasMany
     {

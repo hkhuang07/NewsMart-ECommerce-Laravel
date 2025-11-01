@@ -177,7 +177,7 @@
 .item-image-container {
     position: relative;
     width: 100%;
-    aspect-ratio: 16/9;
+    aspect-ratio: 16/14;
     overflow: hidden;
     background: var(--bg-accent);
 }

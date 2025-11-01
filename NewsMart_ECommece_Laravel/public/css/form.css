@@ -16,13 +16,16 @@
     --accent-hover: #6495ED;
     --accent-success: #28a745;
     --accent-danger: #dc3545;
-    --btn-cancel-bg: #303233; 
+    --btn-cancel-bg: #303233;
     --btn-cancel-hover: #545b62;
+    --form-check-label-color: #28a745;
+    --form-check-note-color: #104E8B;
 }
 
 /* Item/Main Modal Styles */
 .item-modal,
-.delete-modal .modal-content { /* Áp dụng kiểu dáng cơ bản cho cả 2 loại modal */
+.delete-modal .modal-content {
+    /* Áp dụng kiểu dáng cơ bản cho cả 2 loại modal */
     background: var(--modal-bg);
     border: 2px solid var(--modal-border);
     border-radius: 1rem;
@@ -30,6 +33,7 @@
     transition: all 0.3s ease;
     overflow: hidden;
 }
+
 /* Loại bỏ .delete-modal .modal-content khỏi đây vì nó có kiểu dáng cụ thể riêng ở dưới */
 .item-modal {
     background: var(--modal-bg);
@@ -46,6 +50,7 @@
     padding: 1.5rem 2rem;
     position: relative;
 }
+
 /* Header cho cả 3 modal (add, update, delete) */
 .item-modal-header,
 .delete-modal .modal-header {
@@ -71,6 +76,7 @@
     color: var(--accent-primary);
     font-size: 1.3rem;
 }
+
 /* Màu riêng cho delete icon trong header */
 .delete-modal .modal-title i.text-warning {
     color: var(--accent-warning) !important;
@@ -132,7 +138,8 @@
 
 /* Input Styles */
 .item-input,
-.item-textarea { /* Đã đổi từ .brand-input */
+.item-textarea {
+    /* Đã đổi từ .brand-input */
     width: 100%;
     padding: 0.875rem 1rem;
     border: 2px solid var(--input-border);
@@ -145,7 +152,8 @@
 }
 
 .item-input:focus,
-.item-textarea:focus { /* Đã đổi từ .brand-input:focus */
+.item-textarea:focus {
+    /* Đã đổi từ .brand-input:focus */
     outline: none;
     border-color: var(--input-focus-border);
     box-shadow: 0 0 0 0.2rem var(--input-focus-shadow);
@@ -153,12 +161,14 @@
 }
 
 .item-input::placeholder,
-.item-textarea::placeholder { /* Đã đổi từ .brand-input::placeholder */
+.item-textarea::placeholder {
+    /* Đã đổi từ .brand-input::placeholder */
     color: var(--text-muted);
     opacity: 0.8;
 }
 
-.item-textarea { /* Đã đổi từ .brand-textarea */
+.item-textarea {
+    /* Đã đổi từ .brand-textarea */
     resize: vertical;
     min-height: 100px;
     line-height: 1.5;
@@ -166,16 +176,22 @@
 
 /* Validation Styles */
 .item-input.is-invalid,
-.item-textarea.is-invalid { /* Đã đổi từ .brand-input.is-invalid */
+.item-textarea.is-invalid {
+    /* Đã đổi từ .brand-input.is-invalid */
     border-color: var(--accent-danger);
     box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
 }
+
 /* Fix: Thêm selector cũ nếu form add/update chưa được đổi class của input/textarea */
-.brand-input, .brand-textarea,
-.brand-input:focus, .brand-textarea:focus,
-.brand-input::placeholder, .brand-textarea::placeholder,
+.brand-input,
 .brand-textarea,
-.brand-input.is-invalid, .brand-textarea.is-invalid {
+.brand-input:focus,
+.brand-textarea:focus,
+.brand-input::placeholder,
+.brand-textarea::placeholder,
+.brand-textarea,
+.brand-input.is-invalid,
+.brand-textarea.is-invalid {
     /* Đảm bảo các selector brand cũ vẫn hoạt động trong form.css nếu chưa kịp đổi blade */
     /* Tuy nhiên, do yêu cầu là đổi tên, ta sẽ loại bỏ chúng sau khi xác nhận blade đã đổi */
 }
@@ -292,7 +308,7 @@
 }
 
 .btn-delete:hover {
-    background: linear-gradient(135deg, #500000, #FF3030 , #FFF0F5);
+    background: linear-gradient(135deg, #500000, #FF3030, #FFF0F5);
     color: white;
     border: solid 3px #FF3030;
     text-decoration: none;
@@ -319,7 +335,7 @@
 .delete-modal .modal-content {
     border: none;
     background: linear-gradient(135deg, #E0EEFF 0%, #F0F8FF 50%, #E5E5FF 100%);
-    box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
     border-radius: 15px;
 }
 
@@ -359,14 +375,30 @@
     font-size: 0.875rem;
 }
 
-.item-info-preview { /* Đã đổi từ .brand-info-preview */
+.item-info-preview {
     border: 1px solid #104E8B;
     background-color: #C1CDCD !important;
 }
 
-.dark-mode .item-info-preview { /* Đã đổi từ .dark-mode .brand-info-preview */
+.dark-mode .item-info-preview {
     border: 1px solid #98F5FF;
     background-color: #f9fafb !important;
+}
+
+.user-section-title {
+    /*color: #000020;*/
+    color: var(--section-title-color);
+}
+
+.form-check-label {
+    color: #28a745;
+    color: var(--form-check-label-color);
+}
+
+.form-check-note {
+    color: var(--form-check-note-color);
+    font-size: 0.85rem;
+    margin-top: 5px;
 }
 
 .delete-preview-logo {
@@ -408,8 +440,13 @@
 
 
 @keyframes spin {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
 }
 
 .btn-cancel:focus,
@@ -419,7 +456,8 @@
 }
 
 .item-input:focus,
-.item-textarea:focus { /* Đã đổi từ .brand-input:focus */
+.item-textarea:focus {
+    /* Đã đổi từ .brand-input:focus */
     outline: none;
 }
 
@@ -427,25 +465,25 @@
     .item-modal .modal-body {
         padding: 1.5rem;
     }
-    
+
     .item-modal-header,
     .item-modal-footer,
     .delete-modal .modal-header,
     .delete-modal .modal-footer {
         padding: 1rem 1.5rem;
     }
-    
+
     .item-modal-header .modal-title,
     .delete-modal .modal-title {
         font-size: 1.3rem;
     }
-    
+
     .item-modal-footer,
     .delete-modal .modal-footer {
         flex-direction: column;
         gap: 0.75rem;
     }
-    
+
     .btn-cancel,
     .btn-action {
         width: 100%;
@@ -491,12 +529,17 @@
     --input-focus-shadow: rgba(152, 245, 255, 0.25);
     --label-color: #ADD8E6;
     --accent-primary: #98F5FF;
-    --accent-hover: #87CEEB;       
+    --accent-hover: #87CEEB;
     --accent-success: #4ade80;
     --accent-danger: #590606;
-    --btn-cancel-bg: #595b5b; 
+    --btn-cancel-bg: #595b5b;
     --btn-cancel-hover: #b8b8bf;
-}s
+    --section-title-color: #E6E6FA;
+    --form-check-label-color: #4ade80;
+    --form-check-note-color: #B0C4DE;
+}
+
+s
 
 /* Dark mode specific adjustments */
 .dark-mode .item-modal,
@@ -517,10 +560,25 @@
     color: #E6E6FA;
 }
 
+.dark-mode .user-section-title {
+    color: var(--section-title-color);
+    /* E6E6FA */
+}
+
+.dark-mode .form-check-label {
+    /*color: #28a745;*/
+    color: var(--form-check-label-color);
+}
+
+.dark-mode .form-check-note {
+    color: var(--form-check-note-color); 
+}
+
 .dark-mode .item-modal-header .modal-title i,
 .dark-mode .delete-modal .modal-title i {
     color: var(--accent-primary);
 }
+
 .dark-mode .delete-modal .modal-title i.text-warning {
     color: var(--accent-warning) !important;
 }
@@ -635,7 +693,7 @@
 }
 
 .dark-mode .btn-delete:hover {
-    background:linear-gradient(135deg, #500000 0%, #FF3030 50%, #FFF0F5 100%);      
+    background: linear-gradient(135deg, #500000 0%, #FF3030 50%, #FFF0F5 100%);
     border-color: #f8f9fa;
     color: #ffffff;
     transition: all 0.3s ease;
@@ -657,6 +715,7 @@
         opacity: 0;
         transform: scale(0.8) translateY(-50px);
     }
+
     to {
         opacity: 1;
         transform: scale(1) translateY(0);
@@ -669,12 +728,13 @@
 }
 
 @media print {
+
     .item-modal,
     .delete-modal .modal-content {
         box-shadow: none;
         border: 1px solid #000;
     }
-    
+
     .item-modal-header,
     .item-modal-footer,
     .delete-modal .modal-header,
