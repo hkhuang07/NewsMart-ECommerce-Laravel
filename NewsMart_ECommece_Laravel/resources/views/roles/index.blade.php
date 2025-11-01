@@ -22,7 +22,7 @@
                     </p>
                 </div>
                 <div class="header-right">
-                    @if(canManageProducts())
+                    @if(canManageRoles())
                     <button type="button" class="btn-add-new" data-bs-toggle="modal" data-bs-target="#addRoleModal">
                         <i class="fa-light fa-plus"></i>
                         Add New Role
@@ -42,17 +42,30 @@
         <div class="items-grid" id="rolesGrid">
             @forelse($roles as $role)
             <div class="item-card" data-role-id="{{ $role->id }}">
-                <div class="item-image-container">
-                    <div class="item-image-placeholder">
-                        <i class="fas fa-user-tag"></i>
+
+                {{-- LOẠI BỎ: item-image-container (không cần ảnh) --}}
+
+                <div class="status-badge">
+                    <i class="fas fa-check-circle"></i>
+                    Active
+                </div>
+
+
+                <div class="item-content">
+                    <h3 class="item-title" title="{{ $role->name }}">
+                        {{ $role->name }}
+                    </h3>
+
+                    <div class="item-info">
+                        @if($role->description)
+                        <div class="item-description">
+                            {{ Str::limit($role->description, 100) }}
+                        </div>
+                        @endif
                     </div>
 
-                    <div class="status-badge">
-                        <i class="fas fa-check-circle"></i>
-                        Active
-                    </div>
-
-                    @if(canManageProducts())
+                    {{-- Action Overlay --}}
+                    @if(canManageRoles())
                     <div class="action-overlay">
                         <div class="action-buttons">
                             <button type="button"
@@ -72,18 +85,7 @@
                         </div>
                     </div>
                     @endif
-                </div>
-
-                <div class="item-content">
-                    <h3 class="item-title" title="{{ $role->name }}">
-                        {{ $role->name }}
-                    </h3>
-
-                    @if($role->description)
-                    <div class="item-description">
-                        {{ Str::limit($role->description, 100) }}
-                    </div>
-                    @endif
+                    {{-- Kết thúc Action Overlay --}}
 
                     <div class="item-footer">
                         <div class="created-date">
@@ -101,7 +103,7 @@
                     <p class="empty-text">
                         You haven't created any roles yet. Start managing permissions by adding your first role.
                     </p>
-                    @if(canManageProducts())
+                    @if(canManageRoles())
                     <button type="button" class="btn-add-first" data-bs-toggle="modal" data-bs-target="#addRoleModal">
                         <i class="fas fa-plus"></i>
                         Create Your First Role
@@ -145,13 +147,16 @@
         });
 
         // Keyboard shortcut for adding new role
-        document.addEventListener('keydown', function(e) {
-            if ((e.ctrlKey || e.metaKey) && e.key === 'n' && !e.shiftKey) {
-                e.preventDefault();
-                const addRoleModal = new bootstrap.Modal(document.getElementById('addRoleModal'));
-                addRoleModal.show();
-            }
-        });
+        const addRoleModalElement = document.getElementById('addRoleModal');
+        if (addRoleModalElement) {
+            document.addEventListener('keydown', function(e) {
+                if ((e.ctrlKey || e.metaKey) && e.key === 'n' && !e.shiftKey) {
+                    e.preventDefault();
+                    const addRoleModal = new bootstrap.Modal(addRoleModalElement);
+                    addRoleModal.show();
+                }
+            });
+        }
     });
 
     // Edit Role Modal Function
@@ -195,7 +200,7 @@
             const roleDescription = card.querySelector('.item-description')?.textContent.toLowerCase() || '';
 
             const isVisible = roleName.includes(searchTerm.toLowerCase()) ||
-                              roleDescription.includes(searchTerm.toLowerCase());
+                roleDescription.includes(searchTerm.toLowerCase());
 
             if (isVisible) {
                 card.style.display = 'block';
@@ -212,29 +217,31 @@
     }
 </script>
 
+{{-- Script hiển thị modal khi có lỗi hoặc thông báo --}}
 @if ($errors->any() && !session('update_errors') && !session('delete_errors'))
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-    const addRoleModal = new bootstrap.Modal(document.getElementById('addRoleModal'));
-    addRoleModal.show();
-});
+    document.addEventListener('DOMContentLoaded', function() {
+        const addRoleModal = new bootstrap.Modal(document.getElementById('addRoleModal'));
+        addRoleModal.show();
+    });
 </script>
 @endif
 
 @if (session('update_errors'))
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-    const updateRoleModal = new bootstrap.Modal(document.getElementById('updateRoleModal'));
-    updateRoleModal.show();
-});
+    document.addEventListener('DOMContentLoaded', function() {
+        const updateRoleModal = new bootstrap.Modal(document.getElementById('updateRoleModal'));
+        updateRoleModal.show();
+    });
 </script>
 @endif
 
 @if (session('success'))
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-    alert('{{ session('success') }}');
-});
+    document.addEventListener('DOMContentLoaded', function() {
+        alert('{{ session('
+            success ') }}');
+    });
 </script>
 @endif
 @endsection

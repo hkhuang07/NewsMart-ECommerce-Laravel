@@ -188,7 +188,7 @@
                     <a class="nav-link" href="{{ route('orderstatus') }}">
                         <i class="fas fa-list-check"></i> Order Status
                     </a>
-                    <a class="nav-link" href="{{ route('reviews') }}">
+                    <a class="nav-link" href="#">
                         <i class="fas fa-star"></i> Reviews Management
                     </a>
                 </div>

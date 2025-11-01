@@ -7,24 +7,23 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
 
-class PostStatusController extends Controller
+class PostStatusController extends PermissionController
 {
 
     public function getList()
     {
-        if (!$this->canManageProducts()) {
-            abort(403, 'You do not have permission to access post_status management.');
+        if (!$this->canManagePosts()) {
+            abort(403, 'You do not have permission to access post status management.');
         }
 
-        //$post_statuses = PostStatus::orderBy('id', 'asc')->get();
         $post_statuses = PostStatus::all();
         return view('post_statuses.index', compact('post_statuses'));
     }
 
     public function getAdd()
     {
-        if (!$this->canManageProducts()) {
-            abort(403, 'You do not have permission to add post_statuses.');
+        if (!$this->canManagePosts()) {
+            abort(403, 'You do not have permission to add post statuses.');
         }
 
         return view('post_statuses.add');
@@ -32,26 +31,19 @@ class PostStatusController extends Controller
 
     public function postAdd(Request $request)
     {
-        if (!$this->canManageProducts()) {
-            abort(403, 'You do not have permission to add post_statuses.');
+        if (!$this->canManagePosts()) {
+            abort(403, 'You do not have permission to add post statuses.');
         }
 
         // 1. Validation
         $request->validate([
             'name' => ['required', 'string', 'max:255', 'unique:post_statuses'],
-            'contact' => ['nullable', 'string', 'max:20'],
             'description' => ['nullable', 'string', 'max:1000'],
         ]);
 
-        $path = null;
-
         $post_status = new PostStatus();
         $post_status->name = $request->name;
-
-
         $post_status->description = $request->description;
-
-
 
         $post_status->save();
 
@@ -60,8 +52,8 @@ class PostStatusController extends Controller
 
     public function postUpdate(Request $request, $id)
     {
-        if (!$this->canManageProducts()) {
-            abort(403, 'You do not have permission to edit post_statuses.');
+        if (!$this->canManagePosts()) {
+            abort(403, 'You do not have permission to edit post statuses.');
         }
 
         $post_status = PostStatus::findOrFail($id);
@@ -71,7 +63,6 @@ class PostStatusController extends Controller
             'name' => ['required', 'string', 'max:255', 'unique:post_statuses,name,' . $id],
             'description' => ['nullable', 'string', 'max:1000'],
         ]);
-
 
         $post_status->name = $request->name;
         $post_status->description = $request->description;
@@ -83,37 +74,20 @@ class PostStatusController extends Controller
 
     public function getDelete($id)
     {
-        if (!$this->canManageProducts()) {
-            abort(403, 'You do not have permission to delete post_statuses.');
+        if (!$this->canManagePosts()) {
+            abort(403, 'You do not have permission to delete post statuses.');
         }
         $post_status = PostStatus::find($id);
         $post_statusName = $post_status->name;
         $post_status->delete();
 
-        if(!empty($post_status->logo)) Storage::delete($post_status->logo);
-
-
         return redirect()->route('post_status')->with('success', "PostStatus '{$post_statusName}' deleted successfully!");
     }
 
-    private function canManageProducts()
-    {
-        if (!auth()->check()) {
-            return false;
-        }
-
-        try {
-            $userRole = auth()->user()->role->name ?? 'User';
-
-            return in_array(strtolower($userRole), ['admin', 'manager', 'saler']);
-        } catch (\Exception $e) {
-            return false;
-        }
-    }
 
     public function getPostStatussData()
     {
-        if (!$this->canManageProducts()) {
+        if (!$this->canManagePosts()) {
             return response()->json(['error' => 'Unauthorized'], 403);
         }
 
@@ -126,17 +100,15 @@ class PostStatusController extends Controller
 
     public function searchPostStatuss(Request $request)
     {
-        if (!$this->canManageProducts()) {
-            abort(403, 'You do not have permission to search post_statuses.');
+        if (!$this->canManagePosts()) {
+            abort(403, 'You do not have permission to search post statuses.');
         }
 
         $query = $request->get('q', '');
 
         $post_statuses = PostStatus::where(function ($q) use ($query) {
             $q->where('name', 'LIKE', "%{$query}%")
-                ->orWhere('description', 'LIKE', "%{$query}%")
-                ->orWhere('email', 'LIKE', "%{$query}%")
-                ->orWhere('address', 'LIKE', "%{$query}%");
+                ->orWhere('description', 'LIKE', "%{$query}%");
         })
             ->orderBy('name', 'asc')
             ->get();

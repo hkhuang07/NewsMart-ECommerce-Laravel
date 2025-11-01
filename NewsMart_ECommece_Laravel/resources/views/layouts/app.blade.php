@@ -12,7 +12,7 @@
     <!-- Favicon -->
     <link rel="preload" href="{{ asset('public/images/favicon.ico') }}" as="image" type="image/x-icon">
     <link rel="icon" type="image/x-icon" href="{{ asset('public/images/favicon.ico') }}">
-    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('public/favicon.ico') }}">
+    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('public/images/favicon.ico') }}">
     <link rel="apple-touch-icon" href="{{ asset('public/images/favicon.ico') }}">
 
     <!-- Stylesheets -->

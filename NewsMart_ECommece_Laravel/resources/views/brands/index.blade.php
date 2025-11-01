@@ -17,7 +17,7 @@
                         <i class="fas fa-tags"></i>
                         Brand Management
                     </h1>
-                    <p class="page-subtitle">
+                    <p clindass="page-subtitle">
                         Manage and organize your product brands
                     </p>
                 </div>
@@ -33,6 +33,8 @@
         </div>
     </div>
 
+
+    
     <div class="container mx-auto px-4 py-8">
         <div id="loadingState" class="loading-container d-none">
             <div class="loading-spinner"></div>

@@ -6,9 +6,8 @@ use App\Models\Role;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
-class RoleController extends Controller
+class RoleController extends PermissionController
 {
-    // ================== DANH SÁCH ROLE ==================
     public function getList()
     {
         if (!$this->canManageRoles()) {
@@ -19,7 +18,6 @@ class RoleController extends Controller
         return view('roles.index', compact('roles'));
     }
 
-    // ================== FORM THÊM ROLE ==================
     public function getAdd()
     {
         if (!$this->canManageRoles()) {
@@ -29,63 +27,58 @@ class RoleController extends Controller
         return view('roles.add');
     }
 
-    // ================== XỬ LÝ THÊM ROLE ==================
     public function postAdd(Request $request)
     {
         if (!$this->canManageRoles()) {
-        abort(403, 'You do not have permission to add roles.');
+            abort(403, 'You do not have permission to add roles.');
         }
 
-        // 1️⃣ Validation
         $request->validate([
             'name' => ['required', 'string', 'max:255', 'unique:roles'],
             'description' => ['nullable', 'string', 'max:1000'],
         ]);
 
-        // 2️⃣ Lưu vào DB
         $role = new Role();
         $role->name = $request->name;
         $role->description = $request->description;
         $role->save();
 
-        // ✅ Không hiển thị thông báo, chỉ load lại trang hiện tại
         return redirect()->back();
     }
 
-    // ================== CẬP NHẬT ROLE ==================
     public function postUpdate(Request $request, $id)
     {
         if (!$this->canManageRoles()) {
-        abort(403, 'You do not have permission to edit roles.');
-    }
+            abort(403, 'You do not have permission to edit roles.');
+        }
 
-    $role = Role::findOrFail($id);
-
-    $request->validate([
-        'name' => ['required', 'string', 'max:255', 'unique:roles,name,' . $id],
-        'description' => ['nullable', 'string', 'max:1000'],
-    ]);
-
-    $role->name = $request->name;
-    $role->description = $request->description;
-    $role->save();
-
-
-    return redirect()->back();
-
-    }
-
-    // ================== XÓA ROLE ==================
-    public function getDelete($id)
-    {
         $role = Role::findOrFail($id);
-        $role->delete();
 
-        // Không cần thông báo, chỉ load lại trang
+        $request->validate([
+            'name' => ['required', 'string', 'max:255', 'unique:roles,name,' . $id],
+            'description' => ['nullable', 'string', 'max:1000'],
+        ]);
+
+        $role->name = $request->name;
+        $role->description = $request->description;
+        $role->save();
+
+
         return redirect()->back();
     }
 
-    // ================== LẤY DỮ LIỆU JSON ==================
+    public function getDelete($id)
+    {
+        if (!$this->canManageRoles()) {
+             abort(403, 'You do not have permission to delete roles.');
+        }
+        
+        $role = Role::findOrFail($id);
+        $role->delete();
+
+        return redirect()->back();
+    }
+
     public function getRolesData()
     {
         if (!$this->canManageRoles()) {
@@ -99,7 +92,6 @@ class RoleController extends Controller
         return response()->json($roles);
     }
 
-    // ================== TÌM KIẾM ROLE ==================
     public function searchRoles(Request $request)
     {
         if (!$this->canManageRoles()) {
@@ -116,18 +108,4 @@ class RoleController extends Controller
         return view('roles.index', compact('roles'));
     }
 
-    // ================== KIỂM TRA QUYỀN ==================
-    private function canManageRoles()
-    {
-        if (!auth()->check()) {
-            return false;
-        }
-
-        try {
-            $userRole = auth()->user()->role->name ?? 'User';
-            return in_array(strtolower($userRole), ['admin', 'manager']);
-        } catch (\Exception $e) {
-            return false;
-        }
-    }
 }

@@ -25,10 +25,7 @@
                         
                         <div class="item-info-preview bg-light p-3 rounded mb-3" id="deleteRolePreview">
                             <div class="text-start">
-                                <div class="preview-item" id="deleteSlugPreview">
-                                    <small class="text-muted">Slug:</small>
-                                    <span id="deleteRoleSlug"></span>
-                                </div>
+                                
                                 <div class="preview-item" id="deleteDescriptionPreview">
                                     <small class="text-muted">Description:</small>
                                     <span id="deleteRoleDescription"></span>
@@ -96,8 +93,7 @@
 
         const deleteBtn = document.getElementById('deleteConfirmDeleteBtn');
         deleteBtn.href = `{{ route('role.delete', ['id' => '__ID__']) }}`.replace('__ID__', roleId);
-
-        document.getElementById('deleteRoleSlug').textContent = roleData.slug || 'N/A';
+        
         document.getElementById('deleteRoleDescription').textContent = roleData.description || 'N/A';
 
         const deleteModal = new bootstrap.Modal(document.getElementById('deleteRoleModal'));
