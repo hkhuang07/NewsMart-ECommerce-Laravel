@@ -173,7 +173,6 @@ class PermissionHelper
         return self::hasAnyRole(['Admin', 'Manager']);
     }
 
-    // Hàm hỗ trợ lấy thông tin user hiện tại
     public static function getCurrentUserName()
     {
         if (!Auth::check()) return 'Guest';
@@ -188,7 +187,6 @@ class PermissionHelper
 
     public static function canManageConfigurations()
     {
-        // Chỉ Admin và Manager được phép quản lý cấu hình hệ thống
-        return self::hasAnyRole(['Admin', 'Manager']);
+        return self::hasAnyRole(['Admin']);
     }
 }

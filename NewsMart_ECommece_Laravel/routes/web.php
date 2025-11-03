@@ -244,8 +244,11 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/user/data', [UserController::class, 'getUsersData'])->name('user.data');
     Route::get('/user/search', [UserController::class, 'searchUsers'])->name('user.search');
 
-    Route::get('/user/changepass/{id}', [UserController::class, 'changePass'])->name('user.changepass');
-    Route::post('/user/changepass/{id}', [UserController::class, 'changePass'])->name('user.changepass');
+    Route::get('/profile', [UserController::class, 'getProfile'])->name('profile');
+    Route::post('/profile/update', [UserController::class, 'postProfileUpdate'])->name('profile.update');
+    
+    Route::get('/profile/change-password', [UserController::class, 'getChangePasswordForm'])->name('profile.change_password_form');
+    Route::post('/profile/change-password', [UserController::class, 'postChangePassword'])->name('profile.change_password');
 });
 
 Auth::routes();

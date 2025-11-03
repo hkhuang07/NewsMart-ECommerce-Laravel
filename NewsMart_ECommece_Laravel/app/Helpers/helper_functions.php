@@ -177,6 +177,12 @@ if (!function_exists('getCurrentUserName')) {
     }
 }
 
+if (!function_exists('canManageConfigurations')) {
+    function canManageConfigurations() {
+        return PermissionHelper::canManageConfigurations();
+    }
+}
+
 if (!function_exists('isUserActive')) {
     function isUserActive() {
         return PermissionHelper::isUserActive();
