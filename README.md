@@ -27,24 +27,49 @@ NewsMart is a robust, multi-role web application designed as an integrated ecosy
 </p>
 
 ### Management
+
 <p align="center">
-  <img src="demo/brands.jpg" alt="Sign In" width="700"/>
+  <img src="demo/roles.jpg" alt="Roles" width="700"/>
+  <br />
+  <em> Roles Management </em>
+</p>
+
+
+<p align="center">
+  <img src="demo/brands.jpg" alt="Brands" width="700"/>
   <br />
   <em>Brands Management </em>
 </p>
 
 <p align="center">
-  <img src="demo/poststatus.jpg" alt="Sign In" width="700"/>
+  <img src="demo/categories.jpg" alt="Categories" width="700"/>
   <br />
-  <em>Post Status Management </em>
+  <em>Categories Management </em>
 </p>
 
 <p align="center">
-  <img src="demo/posttype.jpg" alt="Sign In" width="700"/>
+  <img src="demo/topics.jpg" alt="Topics" width="700"/>
+  <br />
+  <em>Topics Management </em>
+</p>
+
+<p align="center">
+  <img src="demo/poststatus.jpg" alt="Post Status" width="700"/>
+  <br />
+  <em> Post Status Management </em>
+</p>
+
+<p align="center">
+  <img src="demo/posttype.jpg" alt="Post Type" width="700"/>
   <br />
   <em>Post Type Management </em>
 </p>
 
+<p align="center">
+  <img src="demo/orderstatus.jpg" alt="Order Status" width="700"/>
+  <br />
+  <em> Order Status Management </em>
+</p>
 
 
 ## 🌟 Key Features
