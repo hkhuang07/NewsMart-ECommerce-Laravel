@@ -5,13 +5,14 @@ namespace App\Http\Controllers;
 use App\Models\Configuration;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
+use App\Http\Controllers\PermissionController;
 
-
-class ConfigurationController extends Controller
+class ConfigurationController extends PermissionController
 {
+
     public function getList()
     {
-        if (!$this->canManageConfigurations()) {
+        if (!$this->canManageConfigurations()) { 
             abort(403, 'You do not have permission to access configuration management.');
         }
 
@@ -63,7 +64,7 @@ class ConfigurationController extends Controller
     public function postUpdate(Request $request, $settingkey)
     {
         if (!$this->canManageConfigurations()) {
-            abort(403, 'You do not have permission to edit configurations.');
+            abort(403, 'You do not have permission to update this configuration.');
         }
 
         $config = Configuration::findOrFail($settingkey);
@@ -75,7 +76,6 @@ class ConfigurationController extends Controller
             'description' => ['nullable', 'string', 'max:255'],
         ]);
 
-        // Nếu đổi khóa chính
         if ($request->settingkey !== $settingkey) {
             $config->settingkey = $request->settingkey;
         }
@@ -99,21 +99,7 @@ class ConfigurationController extends Controller
 
         return redirect()->route('configuration')->with('success', "Configuration '{$configName}' deleted successfully!");
     }
-
-    private function canManageConfigurations()
-    {
-        if (!auth()->check()) {
-            return false;
-        }
-
-        try {
-            $userRole = auth()->user()->role->name ?? 'User';
-            return in_array(strtolower($userRole), ['admin', 'manager']);
-        } catch (\Exception $e) {
-            return false;
-        }
-    }
-
+    
     public function searchConfigurations(Request $request)
     {
         if (!$this->canManageConfigurations()) {
@@ -132,4 +118,5 @@ class ConfigurationController extends Controller
 
         return view('configurations.index', compact('configurations'));
     }
+    
 }

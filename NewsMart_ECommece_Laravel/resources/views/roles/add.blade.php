@@ -37,26 +37,7 @@
                         </div>
                         @enderror
                     </div>
-
-                    <div class="form-group mb-4">
-                        <label class="form-label" for="slug">
-                            <i class="fa-light fa-link"></i>
-                            Role Slug
-                        </label>
-                        <input
-                            type="text"
-                            class="form-control item-input @error('slug') is-invalid @enderror"
-                            id="slug"
-                            name="slug"
-                            value="{{ old('slug') }}"
-                            placeholder="Enter unique role slug" />
-                        @error('slug')
-                        <div class="invalid-feedback">
-                            <strong>{{ $message }}</strong>
-                        </div>
-                        @enderror
-                    </div>
-
+                    
                     <div class="form-group mb-4">
                         <label class="form-label" for="description">
                             <i class="fa-light fa-file-lines"></i>

@@ -52,6 +52,8 @@
                             placeholder="Enter description (optional)"></textarea>
                         <div class="invalid-feedback"></div>
                     </div>
+                    
+                    {{-- LOẠI BỎ: Các trường logo, address, contact của Brand --}}
                 </form>
             </div>
 
@@ -75,6 +77,9 @@
 
 
 <script>
+    // Định nghĩa template route an toàn (FIX LỖI MISSING PARAMETER)
+    const CONFIG_UPDATE_ROUTE_TEMPLATE = "{{ route('configuration.update', ['settingkey' => 'TEMP_KEY']) }}";
+
     document.addEventListener('DOMContentLoaded', function() {
         const updateConfigurationModal = document.getElementById('updateConfigurationModal');
         const updateConfigurationForm = document.getElementById('updateConfigurationForm');
@@ -116,10 +121,14 @@
         });
     });
 
-    // Open update modal with data
+    /**
+     * Open update modal with data
+     */
     function openUpdateConfigurationModal(settingkey, configData) {
         const updateForm = document.getElementById('updateConfigurationForm');
-        updateForm.action = `{{ route('configuration.update', ['settingkey' => '__KEY__']) }}`.replace('__KEY__', settingkey);
+
+        // GÁN ACTION BẰNG TEMPLATE ĐÃ ĐƯỢC TẠO AN TOÀN TRƯỚC ĐÓ
+        updateForm.action = CONFIG_UPDATE_ROUTE_TEMPLATE.replace('TEMP_KEY', settingkey); 
 
         document.getElementById('updateSettingKeyHidden').value = settingkey;
         document.getElementById('updateSettingKey').value = configData.settingkey || '';

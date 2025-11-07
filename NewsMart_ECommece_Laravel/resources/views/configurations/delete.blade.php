@@ -68,6 +68,9 @@
 </div>
 
 <script>
+    // Định nghĩa template route DELETE an toàn
+    const CONFIG_DELETE_ROUTE_TEMPLATE = "{{ route('configuration.delete', ['settingkey' => 'TEMP_KEY']) }}";
+
     document.addEventListener('DOMContentLoaded', function() {
         const deleteConfigurationModal = document.getElementById('deleteConfigurationModal');
         const deleteConfirmBtn = document.getElementById('deleteConfirmConfigurationBtn');
@@ -100,9 +103,9 @@
         // Set configuration key
         document.getElementById('deleteSettingKeyToDelete').textContent = configurationData.settingkey;
 
-        // Set delete URL
+        // Set delete URL (FIXED: Sử dụng template route an toàn)
         const deleteBtn = document.getElementById('deleteConfirmConfigurationBtn');
-        deleteBtn.href = `{{ route('configuration.delete', ['settingkey' => '__KEY__']) }}`.replace('__KEY__', settingKey);
+        deleteBtn.href = CONFIG_DELETE_ROUTE_TEMPLATE.replace('TEMP_KEY', settingKey);
 
         // Populate configuration preview
         document.getElementById('deleteConfigurationKey').textContent = configurationData.settingkey || 'N/A';

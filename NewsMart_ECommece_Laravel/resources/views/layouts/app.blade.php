@@ -12,17 +12,19 @@
     <!-- Favicon -->
     <link rel="preload" href="{{ asset('public/images/favicon.ico') }}" as="image" type="image/x-icon">
     <link rel="icon" type="image/x-icon" href="{{ asset('public/images/favicon.ico') }}">
-    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('public/favicon.ico') }}">
+    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('public/images/favicon.ico') }}">
     <link rel="apple-touch-icon" href="{{ asset('public/images/favicon.ico') }}">
 
     <!-- Stylesheets -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="{{ asset('public/vendor/font-awesome/css/all.min.css') }}" />
+    
     <link rel="stylesheet" href="{{ asset('public/css/custom.css') }}" />
     <link rel="stylesheet" href="{{ asset('public/css/list.css') }}"/>
     <link rel="stylesheet" href="{{ asset('public/css/form.css') }}">
     <link rel="stylesheet" href="{{ asset('public/css/auth.css') }}">
-    
+    <link rel="stylesheet" href="{{ asset('public/css/profile.css') }}">
+
+    <link rel="stylesheet" href="{{ asset('public/vendor/font-awesome/css/all.min.css') }}" />
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
     @yield('javascript')
 
@@ -58,10 +60,10 @@
             </li>
             @else
             <li class="nav-item">
-                <span class="nav-link">
+                <a class="nav-link" href="{{ route('profile') }}">
                     <i class="fas fa-user-circle"></i> {{ Auth::user()->FullName ?? Auth::user()->name }}
                     <span class="badge-role">{{ getUserRole() }}</span>
-                </span>
+                </a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form-sidebar').submit();">
@@ -319,14 +321,16 @@
 
                 <!-- Brand -->
                 <a class="navbar-brand" href="{{ route('frontend') }}">
-                    <img src="{{ asset('public/images/newsmart_logo.jpg') }}" alt="{{ config('app.name', 'Laravel') }} Logo" class="navbar-logo">
+                    <img src="{{ asset('public/images/newsmart_logo.jpg') }}" alt="u{{ config('app.name', 'Laravel') }} Logo" class="navbar-logo">
                     <!--span class="brand-text">{{ config('app.name', 'Laravel') }}</span-->
                 </a>
 
                 <!-- Mobile Toggle -->
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain">
-                    <span class="navbar-toggler-icon"></span>
+                <button class="sidebar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain">
+                    <i class="fas fa-bars"></i>
                 </button>
+
+                
 
                 <div class="collapse navbar-collapse" id="navbarMain">
                     <!-- Left Navigation -->
@@ -430,7 +434,7 @@
                                 <i class="fas fa-user-circle"></i> {{ Auth::user()->FullName ?? Auth::user()->name }}
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="#">
+                                <li><a class="dropdown-item" href="{{ route('profile') }}">
                                         <i class="fas fa-user"></i> Profile
                                     </a></li>
                                 <li><a class="dropdown-item" href="#">

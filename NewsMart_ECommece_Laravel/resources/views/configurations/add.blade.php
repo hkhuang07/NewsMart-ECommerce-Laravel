@@ -11,6 +11,7 @@
             </div>
 
             <div class="modal-body">
+                {{-- Global messages area (Đồng bộ Brands) --}}
                 <div id="modalMessages" class="mb-3" style="display: none;">
                     <div id="errorMessage" class="alert alert-danger" style="display: none;"></div>
                     <div id="successMessage" class="alert alert-success" style="display: none;"></div>
@@ -19,7 +20,7 @@
                 <form id="addConfigurationForm" action="{{ route('configuration.add') }}" method="post">
                     @csrf
 
-                    {{-- Setting Key --}}
+                    {{-- Setting Key (Tương tự Brand Name) --}}
                     <div class="form-group mb-4">
                         <label class="form-label" for="settingkey">
                             <i class="fa-light fa-key"></i>
@@ -35,7 +36,7 @@
                         @enderror
                     </div>
 
-                    {{-- Setting Value --}}
+                    {{-- Setting Value (Tương tự Brand Description) --}}
                     <div class="form-group mb-4">
                         <label class="form-label" for="settingvalue">
                             <i class="fa-light fa-pen-to-square"></i>
@@ -50,8 +51,8 @@
                         </div>
                         @enderror
                     </div>
-
-                    {{-- Description --}}
+                    
+                    {{-- Description (Tương tự Brand Description) --}}
                     <div class="form-group mb-4">
                         <label class="form-label" for="description">
                             <i class="fa-light fa-file-lines"></i>
@@ -66,6 +67,8 @@
                         </div>
                         @enderror
                     </div>
+                    
+                    {{-- LOẠI BỎ: Các trường logo, address, contact của Brand --}}
                 </form>
             </div>
 
@@ -95,35 +98,32 @@
         const btnText = submitBtn.querySelector('.btn-text');
         const btnLoading = submitBtn.querySelector('.btn-loading');
 
-        // Reset form when modal is hidden
+        // Reset form when modal is hidden (Đã đồng bộ)
         addConfigurationModal.addEventListener('hidden.bs.modal', function() {
             addConfigurationForm.reset();
 
-            // Clear validation errors
             const invalidInputs = addConfigurationForm.querySelectorAll('.is-invalid');
             invalidInputs.forEach(input => input.classList.remove('is-invalid'));
             const feedbacks = addConfigurationForm.querySelectorAll('.invalid-feedback');
             feedbacks.forEach(feedback => feedback.style.display = 'none');
 
-            // Hide messages
             document.getElementById('modalMessages').style.display = 'none';
             document.getElementById('errorMessage').style.display = 'none';
             document.getElementById('successMessage').style.display = 'none';
 
-            // Reset button state
             submitBtn.disabled = false;
             btnText.style.display = 'inline';
             btnLoading.style.display = 'none';
         });
 
-        // Handle form submission
+        // Handle form submission (Đã đồng bộ)
         addConfigurationForm.addEventListener('submit', function() {
             submitBtn.disabled = true;
             btnText.style.display = 'none';
             btnLoading.style.display = 'inline';
         });
 
-        // Focus first input when modal is shown
+        // Focus first input when modal is shown (Đã đồng bộ)
         addConfigurationModal.addEventListener('shown.bs.modal', function() {
             document.getElementById('settingkey').focus();
         });

@@ -22,7 +22,7 @@
                     </p>
                 </div>
                 <div class="header-right">
-                    @if(canManageProducts()) {{-- Bạn có thể cần đổi hàm helper này --}}
+                    @if(canUpdateOrderStatus())
                     <button type="button" class="btn-add-new" data-bs-toggle="modal" data-bs-target="#addOrderStatusModal">
                         <i class="fa-light fa-plus"></i>
                         Add New Status
@@ -42,17 +42,28 @@
         <div class="items-grid" id="statusesGrid">
             @forelse($order_statuses as $status)
             <div class="item-card" data-status-id="{{ $status->id }}">
-                <div class="item-image-container">
-                    <div class="item-image-placeholder">
-                        <i class="fas fa-tag"></i>
+
+                <div class="status-badge">
+                    <i class="fas fa-check-circle"></i>
+                    Active
+                </div>
+
+
+                <div class="item-content">
+                    <h3 class="item-title" title="{{ $status->name }}">
+                        {{ $status->name }}
+                    </h3>
+
+                    <div class="item-info">
+
+                        @if($status->description)
+                        <div class="item-description">
+                            {{ Str::limit($status->description, 100) }}
+                        </div>
+                        @endif
                     </div>
 
-                    <div class="status-badge">
-                        <i class="fas fa-check-circle"></i>
-                        Active
-                    </div>
-
-                    @if(canManageProducts()) {{-- Bạn có thể cần đổi hàm helper này --}}
+                    @if(canUpdateOrderStatus())
                     <div class="action-overlay">
                         <div class="action-buttons">
                             <button type="button"
@@ -72,18 +83,6 @@
                         </div>
                     </div>
                     @endif
-                </div>
-
-                <div class="item-content">
-                    <h3 class="item-title" title="{{ $status->name }}">
-                        {{ $status->name }}
-                    </h3>
-
-                    @if($status->description)
-                    <div class="item-description">
-                        {{ Str::limit($status->description, 100) }}
-                    </div>
-                    @endif
 
                     <div class="item-footer">
                         <div class="created-date">
@@ -101,7 +100,7 @@
                     <p class="empty-text">
                         You haven't created any statuses yet. Start managing statuses by adding your first one.
                     </p>
-                    @if(canManageProducts()) {{-- Bạn có thể cần đổi hàm helper này --}}
+                    @if(canUpdateOrderStatus())
                     <button type="button" class="btn-add-first" data-bs-toggle="modal" data-bs-target="#addOrderStatusModal">
                         <i class="fas fa-plus"></i>
                         Create Your First Status
@@ -123,11 +122,9 @@
 @section('scripts')
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        // Item card interactions
         const itemCards = document.querySelectorAll('.item-card');
 
         itemCards.forEach(card => {
-            // Hover effects
             card.addEventListener('mouseenter', function() {
                 this.style.transform = 'translateY(-8px) scale(1.02)';
             });
@@ -136,7 +133,6 @@
                 this.style.transform = 'translateY(0) scale(1)';
             });
 
-            // Click handling
             card.addEventListener('click', function(e) {
                 if (!e.target.closest('.action-btn') && !e.target.closest('.action-overlay')) {
                     console.log('Status card clicked:', this.dataset.statusId);
@@ -144,7 +140,6 @@
             });
         });
 
-        // Keyboard shortcut for adding new status
         document.addEventListener('keydown', function(e) {
             if ((e.ctrlKey || e.metaKey) && e.key === 'n' && !e.shiftKey) {
                 e.preventDefault();
@@ -154,17 +149,14 @@
         });
     });
 
-    // Edit Status Modal Function
     function openEditOrderStatusModal(statusId, statusData) {
         openUpdateStatusModal(statusId, statusData);
     }
 
-    // Delete Status Modal Function
     function openDeleteOrderStatusModal(statusId, statusData) {
         openDeleteStatusModal(statusId, statusData);
     }
 
-    // Loading functions
     function showLoading() {
         const loadingState = document.getElementById('loadingState');
         const statusesGrid = document.getElementById('statusesGrid');
@@ -185,7 +177,6 @@
         }
     }
 
-    // Search functionality
     function filterStatuses(searchTerm) {
         const cards = document.querySelectorAll('.item-card');
         let visibleCount = 0;
@@ -195,7 +186,7 @@
             const statusDescription = card.querySelector('.item-description')?.textContent.toLowerCase() || '';
 
             const isVisible = statusName.includes(searchTerm.toLowerCase()) ||
-                              statusDescription.includes(searchTerm.toLowerCase());
+                statusDescription.includes(searchTerm.toLowerCase());
 
             if (isVisible) {
                 card.style.display = 'block';
@@ -214,27 +205,28 @@
 
 @if ($errors->any() && !session('update_errors') && !session('delete_errors'))
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-    const addOrderStatusModal = new bootstrap.Modal(document.getElementById('addOrderStatusModal'));
-    addOrderStatusModal.show();
-});
+    document.addEventListener('DOMContentLoaded', function() {
+        const addOrderStatusModal = new bootstrap.Modal(document.getElementById('addOrderStatusModal'));
+        addOrderStatusModal.show();
+    });
 </script>
 @endif
 
 @if (session('update_errors'))
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-    const updateOrderStatusModal = new bootstrap.Modal(document.getElementById('updateOrderStatusModal'));
-    updateOrderStatusModal.show();
-});
+    document.addEventListener('DOMContentLoaded', function() {
+        const updateOrderStatusModal = new bootstrap.Modal(document.getElementById('updateOrderStatusModal'));
+        updateOrderStatusModal.show();
+    });
 </script>
 @endif
 
 @if (session('success'))
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-    alert('{{ session('success') }}');
-});
+    document.addEventListener('DOMContentLoaded', function() {
+        alert('{{ session('
+            success ') }}');
+    });
 </script>
 @endif
 @endsection
