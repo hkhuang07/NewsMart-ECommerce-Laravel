@@ -128,14 +128,6 @@ class PermissionController extends BaseController
     {
         return PermissionHelper::canViewUserActivities();
     }
-<<<<<<< HEAD
-
-    protected function canManageConfigurations()
-    {
-        return PermissionHelper::canManageConfigurations();
-    }
-=======
->>>>>>> 7cc31cbaea9abd61661d3ceb410e020b6f5a9e57
     
     /**
      * @return bool Cho phép truy cập bảng điều khiển Admin (Tất cả trừ User)
@@ -145,10 +137,7 @@ class PermissionController extends BaseController
         return PermissionHelper::canAccessAdminPanel();
     }
 
-<<<<<<< HEAD
-=======
     // --- Phương thức kiểm tra Quyền truy cập chung theo cấp độ ---
->>>>>>> 7cc31cbaea9abd61661d3ceb410e020b6f5a9e57
     
     protected function hasAdminAccess()
     {

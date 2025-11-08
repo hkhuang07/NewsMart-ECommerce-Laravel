@@ -326,7 +326,7 @@
                 </a>
 
                 <!-- Mobile Toggle -->
-                <button class="sidebar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain">
                     <i class="fas fa-bars"></i>
                 </button>
 

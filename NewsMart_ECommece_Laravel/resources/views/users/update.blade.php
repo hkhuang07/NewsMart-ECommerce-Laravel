@@ -19,7 +19,6 @@
                     @csrf
                     <input type="hidden" id="updateUserId" name="user_id" value="">
 
-                    {{-- === ACCOUNT INFO SECTION === --}}
                     <h6 class="user-section-title mb-3 border-bottom pb-2"><i class="fas fa-info-circle me-1"></i> Account Details</h6>
                     <div class="row">
                         <div class="col-md-6">
@@ -38,7 +37,6 @@
                                 <div class="invalid-feedback"></div>
                             </div>
 
-                            {{-- Username (Unique required) --}}
                             <div class="form-group mb-4">
                                 <label class="form-label" for="updateUsername">
                                     <i class="fas fa-user"></i> Username (Login ID)
@@ -53,7 +51,6 @@
                                 <div class="invalid-feedback"></div>
                             </div>
 
-                            {{-- Email (Unique required) --}}
                             <div class="form-group mb-4">
                                 <label class="form-label" for="updateEmail">
                                     <i class="fa-light fa-envelope"></i> Email Address
@@ -70,7 +67,6 @@
                         </div>
 
                         <div class="col-md-6">
-                            {{-- Role Selection (Foreign Key: roleid) --}}
                             <div class="form-group mb-4">
                                 <label class="form-label" for="updateRoleid">
                                     <i class="fas fa-id-badge"></i> User Role
@@ -104,7 +100,6 @@
                                 <div class="invalid-feedback"></div>
                             </div>
 
-                            {{-- Password Confirmation --}}
                             <div class="form-group mb-4">
                                 <label class="form-label" for="updatePasswordConfirmation">
                                     <i class="fas fa-lock-open"></i> Confirm Password
@@ -122,7 +117,6 @@
 
                     <hr class="my-4">
 
-                    {{-- === PROFILE & CONTACT SECTION === --}}
                     <h6 class="user-section-title mb-3 border-bottom pb-2"><i class="fas fa-address-card me-1"></i> Profile & Contact</h6>
                     <div class="row">
                         <div class="col-md-6">
@@ -140,7 +134,6 @@
                                 <small class="form-text text-muted">Leave empty to keep current avatar.</small>
                                 <div class="invalid-feedback"></div>
 
-                                {{-- Current Avatar Preview --}}
                                 <div id="currentAvatarPreview" class="mt-3" style="display: none;">
                                     <label class="form-label">Current:</label>
                                     <div class="current-logo-container">
@@ -149,7 +142,6 @@
                                 </div>
                             </div>
 
-                            {{-- Background (File Upload) --}}
                             <div class="form-group mb-4">
                                 <label class="form-label" for="updateBackground">
                                     <i class="fas fa-camera"></i> Profile Background Image
@@ -163,7 +155,6 @@
                                 <small class="form-text text-muted">Leave empty to keep current background.</small>
                                 <div class="invalid-feedback"></div>
 
-                                {{-- Current Background Preview --}}
                                 <div id="currentBackgroundPreview" class="mt-3" style="display: none;">
                                     <label class="form-label">Current:</label>
                                     <div class="current-logo-container">
@@ -172,7 +163,6 @@
                                 </div>
                             </div>
 
-                            {{-- Job Title --}}
                             <div class="form-group mb-4">
                                 <label class="form-label" for="updateJobs">
                                     <i class="fas fa-briefcase"></i> Job Title
@@ -183,7 +173,6 @@
                         </div>
 
                         <div class="col-md-6">
-                            {{-- Company --}}
                             <div class="form-group mb-4">
                                 <label class="form-label" for="updateCompany">
                                     <i class="fas fa-building"></i> Company
@@ -192,7 +181,6 @@
                                 <div class="invalid-feedback"></div>
                             </div>
 
-                            {{-- School --}}
                             <div class="form-group mb-4">
                                 <label class="form-label" for="updateSchool">
                                     <i class="fas fa-graduation-cap"></i> School/University
@@ -201,7 +189,6 @@
                                 <div class="invalid-feedback"></div>
                             </div>
 
-                            {{-- Phone Number --}}
                             <div class="form-group mb-4">
                                 <label class="form-label" for="updatePhone">
                                     <i class="fa-light fa-phone"></i> Phone Number
@@ -210,7 +197,6 @@
                                 <div class="invalid-feedback"></div>
                             </div>
 
-                            {{-- Address --}}
                             <div class="form-group mb-4">
                                 <label class="form-label" for="updateAddress">
                                     <i class="fa-light fa-location-dot"></i> Address
@@ -223,8 +209,9 @@
 
                     <hr class="my-4">
 
-                    {{-- === STATUS SECTION === --}}
-                    <h6 class="user-section-title mb-3 border-bottom pb-2"><i class="fas fa-toggle-on me-1"></i> Status</h6>
+                    <h6 class="user-section-title mb-3 border-bottom pb-2">
+                        <i class="fas fa-toggle-on me-1"></i> Status
+                    </h6>
                     <div class="form-group mb-4">
                         <div class="form-check form-switch">
                             <input class="user-form-check-input"
@@ -267,7 +254,6 @@
         const btnText = updateSubmitBtn.querySelector('.btn-text');
         const btnLoading = updateSubmitBtn.querySelector('.btn-loading');
 
-        // Reset modal khi đóng
         updateUserModal.addEventListener('hidden.bs.modal', function() {
             updateUserForm.reset();
 
@@ -283,7 +269,6 @@
             document.getElementById('updateErrorMessage').style.display = 'none';
             document.getElementById('updateSuccessMessage').style.display = 'none';
 
-            // Ẩn preview ảnh
             document.getElementById('currentAvatarPreview').style.display = 'none';
             document.getElementById('currentBackgroundPreview').style.display = 'none';
 
@@ -303,137 +288,76 @@
         });
     });
 
-
-    function openUpdateModal(userId, userData) {
+    function openUpdateModal(userId) {
         const selectRole = document.getElementById('updateRoleid');
         const isactiveCheckbox = document.getElementById('updateIsactive');
         const updateForm = document.getElementById('updateUserForm');
 
+        const urlFetch = `{{ route('api.user.get', ['id' => '__ID__']) }}`.replace('__ID__', userId);
+
         updateForm.action = `{{ route('user.update', ['id' => '__ID__']) }}`.replace('__ID__', userId);
         document.getElementById('updateUserId').value = userId;
-
-        document.getElementById('updateName').value = userData.name || '';
-        document.getElementById('updateUsername').value = userData.username || '';
-        document.getElementById('updateEmail').value = userData.email || '';
-        document.getElementById('updatePhone').value = userData.phone || '';
-        document.getElementById('updateAddress').value = userData.address || '';
-        document.getElementById('updateJobs').value = userData.jobs || '';
-        document.getElementById('updateCompany').value = userData.company || '';
-        document.getElementById('updateSchool').value = userData.school || '';
-
-        if (selectRole) {
-            selectRole.value = userData.roleid || '';
-        }
-        if (window.setUpdateToggleState) {
-            window.setUpdateToggleState(userData.isactive);
-        }
-
-        const currentAvatarPreview = document.getElementById('currentAvatarPreview');
-        const currentAvatarImage = document.getElementById('currentAvatarImage');
-        const currentBackgroundPreview = document.getElementById('currentBackgroundPreview');
-        const currentBackgroundImage = document.getElementById('currentBackgroundImage');
 
         const baseStorageUrl = "{{ asset('storage') }}";
 
-        // --- Avatar ---
-        if (userData.avatar) {
-            currentAvatarImage.src = baseStorageUrl + '/app/public/' + userData.avatar;
-            currentAvatarPreview.style.display = 'block';
-        } else {
-            currentAvatarPreview.style.display = 'none';
-            currentAvatarImage.src = '';
-        }
-
-        // --- Background ---
-        if (userData.background) {
-            currentBackgroundImage.src = baseStorageUrl + '/app/public/' + userData.background;
-            currentBackgroundPreview.style.display = 'block';
-        } else {
-            currentBackgroundPreview.style.display = 'none';
-            currentBackgroundImage.src = '';
-        }
-
-        updateForm.querySelectorAll('.is-invalid').forEach(i => i.classList.remove('is-invalid'));
-        updateForm.querySelectorAll('.invalid-feedback').forEach(f => {
-            f.style.display = 'none';
-            f.textContent = '';
-        });
-
         const updateModal = new bootstrap.Modal(document.getElementById('updateUserModal'));
         updateModal.show();
+
+        fetch(urlFetch)
+            .then(response => {
+                if (!response.ok) throw new Error('Failed to fetch user data.');
+                return response.json();
+            })
+            .then(data => {
+                document.getElementById('updateName').value = data.name || '';
+                document.getElementById('updateUsername').value = data.username || '';
+                document.getElementById('updateEmail').value = data.email || '';
+                document.getElementById('updatePhone').value = data.phone || '';
+                document.getElementById('updateAddress').value = data.address || '';
+                document.getElementById('updateJobs').value = data.jobs || '';
+                document.getElementById('updateCompany').value = data.company || '';
+                document.getElementById('updateSchool').value = data.school || '';
+
+                if (selectRole) {
+                    selectRole.value = data.role_id || data.roleid || '';
+                }
+
+                if (isactiveCheckbox) {
+                    isactiveCheckbox.checked = data.is_active;
+                }
+
+                const currentAvatarPreview = document.getElementById('currentAvatarPreview');
+                const currentAvatarImage = document.getElementById('currentAvatarImage');
+                const currentBackgroundPreview = document.getElementById('currentBackgroundPreview');
+                const currentBackgroundImage = document.getElementById('currentBackgroundImage');
+
+                if (data.avatar) {
+                    currentAvatarImage.src = baseStorageUrl + '/' + data.avatar;
+                    currentAvatarPreview.style.display = 'block';
+                } else {
+                    currentAvatarPreview.style.display = 'none';
+                    currentAvatarImage.src = '';
+                }
+                if (data.background) {
+                    currentBackgroundImage.src = baseStorageUrl + '/' + data.background;
+                    currentBackgroundPreview.style.display = 'block';
+                } else {
+                    currentBackgroundPreview.style.display = 'none';
+                    currentBackgroundImage.src = '';
+                }
+
+                updateForm.querySelectorAll('.is-invalid').forEach(i => i.classList.remove('is-invalid'));
+                updateForm.querySelectorAll('.invalid-feedback').forEach(f => {
+                    f.style.display = 'none';
+                    f.textContent = '';
+                });
+
+            })
+            .catch(error => {
+                console.error('Error fetching user data:', error);
+                updateModal.hide();
+            });
     }
-    /*function openUpdateModal(userId, userData) {
-        const selectRole = document.getElementById('updateRoleid');
-        const isactiveCheckbox = document.getElementById('updateIsactive');
-        const updateForm = document.getElementById('updateUserForm');
 
-        // 1. Cập nhật Action URL của form
-        updateForm.action = `{{ route('user.update', ['id' => '__ID__']) }}`.replace('__ID__', userId);
-
-        document.getElementById('updateUserId').value = userId;
-
-        // 2. Đổ dữ liệu text fields
-        document.getElementById('updateName').value = userData.name || '';
-        document.getElementById('updateUsername').value = userData.username || '';
-        document.getElementById('updateEmail').value = userData.email || '';
-        document.getElementById('updatePhone').value = userData.phone || '';
-        document.getElementById('updateAddress').value = userData.address || '';
-        document.getElementById('updateJobs').value = userData.jobs || '';
-        document.getElementById('updateCompany').value = userData.company || '';
-        document.getElementById('updateSchool').value = userData.school || '';
-
-        // 3. Đổ dữ liệu Select Role
-        if (selectRole) {
-            selectRole.value = userData.roleid || '';
-        }
-
-        // 4. Đổ dữ liệu Is Active (Checkbox)
-        if (isactiveCheckbox) {
-            isactiveCheckbox.checked = userData.isactive;
-        }
-
-        // 5. Xử lý Ảnh (Avatar và Background)
-        const currentAvatarPreview = document.getElementById('currentAvatarPreview');
-        const currentAvatarImage = document.getElementById('currentAvatarImage');
-        const currentBackgroundPreview = document.getElementById('currentBackgroundPreview');
-        const currentBackgroundImage = document.getElementById('currentBackgroundImage');
-
-        // Reset ảnh trước khi đổ dữ liệu mới
-        currentAvatarImage.src = '';
-        currentBackgroundPreview.style.display = 'none';
-        currentBackgroundImage.src = '';
-        currentBackgroundPreview.style.display = 'none';
-
-        // Avatar
-        if (userData.avatar) {
-            currentAvatarImage.src = "{{ asset('storage/') }}" + '/' + userData.avatar;
-            currentAvatarPreview.style.display = 'block';
-        } else {
-            currentAvatarPreview.style.display = 'none';
-            currentAvatarImage.src = '';
-        }
-
-        // Background  -- Hình ảnh được lưu trong storage/public/(tên file)
-        if (userData.background) {
-            currentBackgroundImage.src = "{{ asset('storage') }}" + '/' + userData.background;
-            currentBackgroundPreview.style.display = 'block';
-        } else {
-            currentBackgroundPreview.style.display = 'none';
-            currentBackgroundImage.src = '';
-        }
-
-        // 6. Reset trạng thái lỗi
-        updateForm.querySelectorAll('.is-invalid').forEach(i => i.classList.remove('is-invalid'));
-        updateForm.querySelectorAll('.invalid-feedback').forEach(f => {
-            f.style.display = 'none';
-            f.textContent = '';
-        });
-
-        // 7. Mở Modal
-        const updateModal = new bootstrap.Modal(document.getElementById('updateUserModal'));
-        updateModal.show();
-    }*/
-
-    // Export function globally
     window.openUpdateModal = openUpdateModal;
 </script>

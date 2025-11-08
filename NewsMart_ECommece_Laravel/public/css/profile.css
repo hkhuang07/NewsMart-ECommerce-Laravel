@@ -393,12 +393,12 @@
     text-decoration: none;
 }
 
-.btn-password {
+.btn-action .btn-password {
     background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
     border: 2px solid #f59e0b;
 }
 
-.btn-password:hover:not(:disabled) {
+.btn-action .btn-password:hover:not(:disabled) {
     background: linear-gradient(135deg, #d97706 0%, #b45309 100%);
     border-color: #d97706;
     box-shadow: 0 6px 20px rgba(245, 158, 11, 0.4);
@@ -418,16 +418,6 @@
     box-shadow: 0 6px 20px rgba(152, 245, 255, 0.4);
 }
 
-.dark .btn-password {
-    background: linear-gradient(135deg, #b45309 0%, #92400e 100%);
-    border-color: #f59e0b;
-}
-
-.dark .btn-password:hover:not(:disabled) {
-    background: linear-gradient(135deg, #92400e 0%, #78350f 100%);
-    border-color: #d97706;
-    box-shadow: 0 6px 20px rgba(245, 158, 11, 0.4);
-}
 
 /* Grid layout */
 .grid {
@@ -601,10 +591,6 @@
     color: var(--accent-danger);
 }
 
-/* ======================================
-    DARK MODE STYLES
-    ====================================== 
-*/
 
 .dark-mode {
     /* Dark Mode Color Variables */

@@ -242,10 +242,17 @@ class UserController extends PermissionController
         return view('users.profile', compact('user'));
     }
 
+    public function getProfileUpdate(): View
+    {
+        $user = Auth::user();
+        return view('users.profile.update', compact('user'));
+    }
+
     public function postProfileUpdate(Request $request): RedirectResponse
     {
         $user = Auth::user();
-
+        
+        // Validation (Chỉnh sửa để match với trường mới)
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'username' => ['required', 'string', 'max:255', Rule::unique('users', 'username')->ignore($user->id)],
@@ -259,90 +266,31 @@ class UserController extends PermissionController
             'background' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif,webp', 'max:2048'],
         ]);
 
-        $user->name = $request->name;
-        $user->username = $request->username;
-        $user->email = $request->email;
-        $user->address = $request->address;
-        $user->phone = $request->phone;
-        $user->jobs = $request->jobs;
-        $user->school = $request->school;
-        $user->company = $request->company;
-
-        $path_avt = $user->avatar;
+        $request->session()->flash('profile_update_attempt', true);
+        
+        $user->fill($request->only(['name', 'username', 'email', 'address', 'phone', 'id_card', 'jobs', 'school', 'company']));
+        
         if ($request->hasFile('avatar')) {
             if (!empty($user->avatar)) {
                 Storage::disk('public')->delete($user->avatar);
             }
             $extension = $request->file('avatar')->extension();
             $filename = Str::slug($request->username, '-') . '-avt.' . $extension;
-            $path_avt = Storage::disk('public')->putFileAs('avatar', $request->file('avatar'), $filename);
+            $user->avatar = $request->file('avatar')->storeAs('avatar', $filename, 'public'); 
         }
-        $user->avatar = $path_avt;
 
-        $path_bg = $user->background;
         if ($request->hasFile('background')) {
             if (!empty($user->background)) {
                 Storage::disk('public')->delete($user->background);
             }
             $extension = $request->file('background')->extension();
             $filename = Str::slug($request->username, '-') . '-bg.' . $extension;
-            $path_bg = Storage::disk('public')->putFileAs('background', $request->file('background'), $filename);
-        }
-        $user->background = $path_bg;
-
-        $user->save();
-
-        return redirect()->route('profile.view')->with('success', 'Profile updated successfully!');
-    }
-
-    public function getChangePasswordForm(): View
-    {
-        return view('users.change_password');
-    }
-
-    public function getChangePass($id): View
-    {
-        if (!$this->canManageUsers()) {
-            abort(403, 'You do not have permission to view this user.');
-        }
-
-        $user = User::findOrFail($id);
-        $roles = Role::orderBy('id', 'asc')->get();
-
-        return view('users.changepass', compact('user', 'roles'));
-    }
-
-    public function postChangePassword(Request $request, $id): RedirectResponse
-    {
-        if (!$this->canManageUsers()) {
-            abort(403, 'You do not have permission to update this user.');
-        }
-
-        $user = User::findOrFail($id);
-
-        // Validation
-        $request->validate([
-            'password' => ['nullable', 'string', 'min:8', 'confirmed'],
-        ]);
-
-        if (!empty($request->password)) {
-            $user->password = Hash::make($request->password);
+            $user->background = $request->file('background')->storeAs('background', $filename, 'public'); 
         }
 
         $user->save();
+        
+        return redirect()->route('profile')->with('success', 'Profile updated successfully!'); 
+    }  
 
-        return redirect()->route('profile.view')->with('success', 'Password changed successfully!');
-    }
-
-    public function getPublicProfile(User $user): View
-    {
-        // ... logic
-        return view('users.public_profile', compact('user'));
-    }
-
-    public function getPartnerRequests(): View
-    {
-        // ... logic
-        return view('users.partner_requests');
-    }
 }

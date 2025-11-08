@@ -63,6 +63,19 @@ body {
     color: white;
 }
 
+.navbar-toggle {
+    border: solid 2px #E6E6FA;
+    background: #000624;
+    color: #E6E6FA;
+    font-size: 1.2rem;
+    margin-right: 1rem;
+    padding: 0.375rem 0.75rem;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+    display: none;
+}
+
+
 /* Sidebar toggle button */
 .sidebar-toggle {
     background: none;
@@ -645,6 +658,10 @@ footer {
         gap: 8px;
         padding: 0.25rem 0.75rem;
     }
+
+    .navbar-toggle {
+        display: block;
+    }
 }
 
 @media (max-width: 576px) {
@@ -660,6 +677,11 @@ footer {
     .navbar-brand {
         gap: 6px;
     }
+
+    .navbar-toggle {
+        display: block;
+    }
+    
 }
 
 .navbar-brand:active {

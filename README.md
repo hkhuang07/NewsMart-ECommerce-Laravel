@@ -1,6 +1,6 @@
 # NewsMart: An Integrated E-commerce & Content Platform 🚀
 
-**Slogan:** **Igniting Minds, Fueling Markets!**
+**Igniting Minds, Fueling Markets!**
 
 NewsMart is a robust, multi-role web application designed as an integrated ecosystem for e-commerce and content publishing. It is built on the powerful **Laravel** framework, ensuring scalability, security, and clean architecture.
 <p align="center">
