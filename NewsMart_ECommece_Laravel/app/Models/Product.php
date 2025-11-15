@@ -11,6 +11,27 @@ class Product extends Model
     protected $table = 'products';
     protected $primaryKey = 'id';
 
+
+	protected $fillable = [
+        'categoryid', 
+        'brandid',    
+        'salerid',
+		'name',
+        'slug',
+        'sku',
+        'description',
+        'price',
+        'stockquantity',
+        'discount',
+        'averragerate',
+        'favorites',
+        'purchases',
+        'views',
+        'isactive',
+        
+        
+    ];
+
     // Quan hệ n-1: Product BELONGS TO Category
     public function category(): BelongsTo
     {
