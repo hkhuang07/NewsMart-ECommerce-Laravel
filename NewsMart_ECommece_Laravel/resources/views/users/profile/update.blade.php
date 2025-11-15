@@ -10,7 +10,7 @@
             </div>
 
             <div class="modal-body">
-                <form id="updateProfileForm" action="{{ route('users.profile.update') }}" method="post" enctype="multipart/form-data">
+                <form id="updateProfileForm" action="{{ route('profile.update') }}" method="post" enctype="multipart/form-data">
                     @csrf
                     @if (session('profile_update_errors'))
                     <div class="alert alert-danger">Please fix the following errors.</div>

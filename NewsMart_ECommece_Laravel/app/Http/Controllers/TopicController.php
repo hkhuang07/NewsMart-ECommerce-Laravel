@@ -22,7 +22,7 @@ class TopicController extends Controller
 
         //$topics = Topic::orderBy('id', 'asc')->get();
        $topics = Topic::all();
-        return view('topics.index', compact('topics'));
+        return view('admin.topics.index', compact('topics'));
     }
 
     public function getAdd()
@@ -31,7 +31,7 @@ class TopicController extends Controller
             abort(403, 'You do not have permission to add topics.');
         }
 
-        return view('topics.add');
+        return view('admin.topics.add');
     }
 
     public function postAdd(Request $request): RedirectResponse
@@ -65,7 +65,7 @@ class TopicController extends Controller
 
        $topic->save();
 
-        return redirect()->route('topic')->with('success', 'Topic created successfully!');
+        return redirect()->route('admin.topic')->with('success', 'Topic created successfully!');
     }
 
     public function postUpdate(Request $request, $id)
@@ -102,7 +102,7 @@ class TopicController extends Controller
 
        $topic->save();
 
-        return redirect()->route('topic')->with('success', 'Topic updated successfully!');
+        return redirect()->route('admin.topic')->with('success', 'Topic updated successfully!');
     }
 
     public function getDelete($id)
@@ -117,7 +117,7 @@ class TopicController extends Controller
         if(!empty($topic->logo)) Storage::delete($topic->logo);
 
 
-        return redirect()->route('topic')->with('success', "Topic '{$topicName}' deleted successfully!");
+        return redirect()->route('admin.topic')->with('success', "Topic '{$topicName}' deleted successfully!");
     }
 
     private function canManageProducts()
@@ -163,7 +163,7 @@ class TopicController extends Controller
             ->orderBy('name', 'asc')
             ->get();
 
-        return view('topics.index', compact('topics'));
+        return view('admin.topics.index', compact('topics'));
     }
 }
 

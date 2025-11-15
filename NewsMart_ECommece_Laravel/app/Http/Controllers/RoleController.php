@@ -15,7 +15,7 @@ class RoleController extends PermissionController
         }
 
         $roles = Role::orderBy('id', 'asc')->get();
-        return view('roles.index', compact('roles'));
+        return view('admin.roles.index', compact('roles'));
     }
 
     public function getAdd()
@@ -24,7 +24,7 @@ class RoleController extends PermissionController
             abort(403, 'You do not have permission to add roles.');
         }
 
-        return view('roles.add');
+        return view('admin.roles.add');
     }
 
     public function postAdd(Request $request)
