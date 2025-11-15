@@ -16,7 +16,7 @@ class OrderStatusController extends PermissionController
         }
 
         $order_statuses = OrderStatus::orderBy('id', 'asc')->get();
-        return view('order_statuses.index', compact('order_statuses'));
+        return view('admin.order_statuses.index', compact('order_statuses'));
     }
 
     public function getAdd()
@@ -25,7 +25,7 @@ class OrderStatusController extends PermissionController
             abort(403, 'You do not have permission to add order statuses.');
         }
 
-        return view('order_statuses.add');
+        return view('admin.order_statuses.add');
     }
 
     public function postAdd(Request $request)
@@ -109,6 +109,6 @@ class OrderStatusController extends PermissionController
             ->orderBy('id', 'asc')
             ->get();
 
-        return view('order_statuses.index', compact('order_statuses'));
+        return view('admin.order_statuses.index', compact('order_statuses'));
     }
 }

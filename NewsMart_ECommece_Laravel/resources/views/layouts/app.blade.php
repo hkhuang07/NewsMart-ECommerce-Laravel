@@ -80,7 +80,7 @@
                 <h6 class="sidebar-section-title">Main Navigation</h6>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('frontend') }}">
+                <a class="nav-link" href="{{ route('frontend.home') }}">
                     <i class="fas fa-home"></i> Home
                 </a>
             </li>
@@ -107,17 +107,17 @@
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('role') }}">
+                <a class="nav-link" href="{{ route('admin.role') }}">
                     <i class="fas fa-user-tag"></i> Role Management
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('user') }}">
+                <a class="nav-link" href="{{ route('admin.user') }}">
                     <i class="fas fa-users"></i> User Management
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('configuration') }}">
+                <a class="nav-link" href="{{ route('admin.configuration') }}">
                     <i class="fas fa-cog"></i> System Configuration
                 </a>
             </li>
@@ -153,10 +153,10 @@
                     <i class="fas fa-chevron-down dropdown-icon"></i>
                 </button>
                 <div class="collapse sidebar-submenu" id="categoryManagement">
-                    <a class="nav-link" href="{{ route('category') }}">
+                    <a class="nav-link" href="{{ route('frontend.category') }}">
                         <i class="fas fa-list"></i> Product Categories
                     </a>
-                    <a class="nav-link" href="{{ route('brand') }}">
+                    <a class="nav-link" href="{{ route('frontend.brand') }}">
                         <i class="fas fa-copyright"></i> Brands
                     </a>
                 </div>
@@ -168,16 +168,16 @@
                     <i class="fas fa-chevron-down dropdown-icon"></i>
                 </button>
                 <div class="collapse sidebar-submenu" id="contentManagement">
-                    <a class="nav-link" href="{{ route('topic') }}">
+                    <a class="nav-link" href="{{ route('admin.topic') }}">
                         <i class="fas fa-tags"></i> Post Topics
                     </a>
-                    <a class="nav-link" href="{{ route('post_type') }}">
+                    <a class="nav-link" href="{{ route('admin.post_type') }}">
                         <i class="fas fa-file-alt"></i> Post Types
                     </a>
                     <a class="nav-link" href="#">
                         <i class="fas fa-newspaper"></i> Post Moderation
                     </a>
-                    <a class="nav-link" href="#">
+                    <a class="nav-link" href="{{ route('admin.post_status') }}">
                         <i class="fas fa-list"></i> Post Status
                     </a>
                 </div>
@@ -189,10 +189,10 @@
                     <i class="fas fa-chevron-down dropdown-icon"></i>
                 </button>
                 <div class="collapse sidebar-submenu" id="orderSystemManagement">
-                    <a class="nav-link" href="{{ route('orderstatus') }}">
+                    <a class="nav-link" href="{{ route('admin.orderstatus') }}">
                         <i class="fas fa-list-check"></i> Order Status
                     </a>
-                    <a class="nav-link" href="#">
+                    <a class="nav-link" href="{{ route('admin.review') }}">
                         <i class="fas fa-star"></i> Reviews Management
                     </a>
                 </div>
@@ -213,7 +213,7 @@
                     <i class="fas fa-chevron-down dropdown-icon"></i>
                 </button>
                 <div class="collapse sidebar-submenu" id="productManagement">
-                    <a class="nav-link" href="{{ route('product') }}">
+                    <a class="nav-link" href="{{ route('admin.product') }}">
                         <i class="fas fa-cube"></i> @if(isSaler()) My Product List @else All Products @endif
                     </a>
                     @if(!isSaler())
@@ -251,7 +251,7 @@
                     <i class="fas fa-chevron-down dropdown-icon"></i>
                 </button>
                 <div class="collapse sidebar-submenu" id="orderManagement">
-                    <a class="nav-link" href="{{ route('order') }}">
+                    <a class="nav-link" href="{{ route('admin.order') }}">
                         <i class="fas fa-shopping-cart"></i>
                         @if(isSaler()) Sales Orders
                         @elseif(isShipper()) Assigned Orders
@@ -320,7 +320,7 @@
                 </button>
 
                 <!-- Brand -->
-                <a class="navbar-brand" href="{{ route('frontend') }}">
+                <a class="navbar-brand" href="{{ route('frontend.home') }}">
                     <img src="{{ asset('public/images/newsmart_logo.jpg') }}" alt="u{{ config('app.name', 'Laravel') }} Logo" class="navbar-logo">
                     <!--span class="brand-text">{{ config('app.name', 'Laravel') }}</span-->
                 </a>
@@ -336,7 +336,7 @@
                     <!-- Left Navigation -->
                     <ul class="navbar-nav me-auto">
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('frontend') }}">
+                            <a class="nav-link" href="{{ route('frontend.home') }}">
                                 <i class="fas fa-home"></i> Home
                             </a>
                         </li>
@@ -361,10 +361,10 @@
                                 <i class="fas fa-store"></i> Mart
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="{{ route('category') }}">
+                                <li><a class="dropdown-item" href="{{ route('frontend.category') }}">
                                         <i class="fas fa-sitemap"></i> Categories
                                     </a></li>
-                                <li><a class="dropdown-item" href="{{ route('brand') }}">
+                                <li><a class="dropdown-item" href="{{ route('frontend.brand') }}">
                                         <i class="fas fa-copyright"></i> Brands
                                     </a></li>
                             </ul>

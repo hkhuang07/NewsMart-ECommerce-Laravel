@@ -21,7 +21,7 @@ class ReviewController extends Controller
             ->orderBy('created_at', 'desc')
             ->get();
 
-        return view('reviews.index', compact('reviews'));
+        return view('admin.reviews.index', compact('reviews'));
     }
 
     // ======================
@@ -33,7 +33,7 @@ class ReviewController extends Controller
             abort(403, 'You do not have permission to add reviews.');
         }
 
-        return view('reviews.add');
+        return view('admin.reviews.add');
     }
 
     // ======================
@@ -64,7 +64,7 @@ class ReviewController extends Controller
 
         $review->save();
 
-        return redirect()->route('review')->with('success', 'Review created successfully!');
+        return redirect()->route('admin.review')->with('success', 'Review created successfully!');
     }
 
     // ======================
@@ -96,7 +96,7 @@ class ReviewController extends Controller
 
         $review->save();
 
-        return redirect()->route('review')->with('success', 'Review updated successfully!');
+        return redirect()->route('admin.review')->with('success', 'Review updated successfully!');
     }
 
     // ======================
@@ -111,7 +111,7 @@ class ReviewController extends Controller
         $review = Review::findOrFail($id);
         $review->delete();
 
-        return redirect()->route('review')->with('success', 'Review deleted successfully!');
+        return redirect()->route('admin.review')->with('success', 'Review deleted successfully!');
     }
 
     // ======================

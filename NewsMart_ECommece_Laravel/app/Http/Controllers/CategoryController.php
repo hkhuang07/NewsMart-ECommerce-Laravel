@@ -19,7 +19,7 @@ class CategoryController extends PermissionController
         }
         
         $categories = Category::all();
-        return view('categories.index', compact('categories'));
+        return view('admin.categories.index', compact('categories'));
     }
 
     /**
@@ -31,7 +31,7 @@ class CategoryController extends PermissionController
             abort(403, 'You do not have permission to add category.');
         }
 
-        return view('categories.add');
+        return view('admin.categories.add');
     }
 
     /**
@@ -69,7 +69,7 @@ class CategoryController extends PermissionController
 
         $categories->save();
 
-        return redirect()->route('category')->with('success', 'Category created successfully!');
+        return redirect()->route('admin.category')->with('success', 'Category created successfully!');
     }
 
     public function postUpdate(Request $request, $id)
@@ -109,7 +109,7 @@ class CategoryController extends PermissionController
 
         $categories->save();
 
-        return redirect()->route('category')->with('success', 'Category updated successfully!');
+        return redirect()->route('admin.category')->with('success', 'Category updated successfully!');
     }
     
     
@@ -126,7 +126,7 @@ class CategoryController extends PermissionController
 
         $categories->delete();
 
-        return redirect()->route('category')->with('success', "Category '{$categoryName}' deleted successfully!");
+        return redirect()->route('admin.category')->with('success', "Category '{$categoryName}' deleted successfully!");
     }
 
     public function getCategoryData()
@@ -157,6 +157,6 @@ class CategoryController extends PermissionController
             ->orderBy('name', 'asc')
             ->get();
 
-        return view('categories.index', compact('categories'));
+        return view('admin.categories.index', compact('categories'));
     }
 }

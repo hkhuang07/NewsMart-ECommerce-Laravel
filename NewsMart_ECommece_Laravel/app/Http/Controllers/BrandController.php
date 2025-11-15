@@ -18,7 +18,7 @@ class BrandController extends PermissionController
         }
 
         $brands = Brand::all();
-        return view('brands.index', compact('brands'));
+        return view('admin.brands.index', compact('brands'));
     }
 
     public function getAdd()
@@ -28,7 +28,7 @@ class BrandController extends PermissionController
         }
 
 
-        return view('brands.add');
+        return view('admin.brands.add');
     }
 
     public function postAdd(Request $request): RedirectResponse
@@ -69,7 +69,7 @@ class BrandController extends PermissionController
 
         $brand->save();
 
-        return redirect()->route('brand')->with('success', 'Brand created successfully!');
+        return redirect()->route('admin.brand')->with('success', 'Brand created successfully!');
     }
 
     public function postUpdate(Request $request, $id)
@@ -113,7 +113,7 @@ class BrandController extends PermissionController
 
         $brand->save();
 
-        return redirect()->route('brand')->with('success', 'Brand updated successfully!');
+        return redirect()->route('admin.brand')->with('success', 'Brand updated successfully!');
     }
 
     public function getDelete($id)
@@ -129,7 +129,7 @@ class BrandController extends PermissionController
         
         $brand->delete();
 
-        return redirect()->route('brand')->with('success', "Brand '{$brandName}' deleted successfully!");
+        return redirect()->route('admin.brand')->with('success', "Brand '{$brandName}' deleted successfully!");
     }
 
 
@@ -163,6 +163,6 @@ class BrandController extends PermissionController
             ->orderBy('name', 'asc')
             ->get();
 
-        return view('brands.index', compact('brands'));
+        return view('admin.brands.index', compact('brands'));
     }
 }

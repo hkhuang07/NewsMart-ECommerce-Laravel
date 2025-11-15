@@ -17,7 +17,7 @@ class PostController extends PermissionController
         }
 
         $posts = Post::orderBy('created_at', 'desc')->get();
-        return view('posts.index', compact('posts'));
+        return view('admin.posts.index', compact('posts'));
     }
 
     public function getAdd()
@@ -26,7 +26,7 @@ class PostController extends PermissionController
             abort(403, 'You do not have permission to add posts.');
         }
 
-        return view('posts.add');
+        return view('admin.posts.add');
     }
 
     public function postAdd(Request $request): RedirectResponse
@@ -72,7 +72,7 @@ class PostController extends PermissionController
 
         $post->save();
 
-        return redirect()->route('posts')->with('success', 'Post created successfully!');
+        return redirect()->route('admin.posts')->with('success', 'Post created successfully!');
     }
 
     public function getEdit($id)
@@ -82,7 +82,7 @@ class PostController extends PermissionController
         }
 
         $post = Post::findOrFail($id);
-        return view('posts.edit', compact('post'));
+        return view('admin.posts.edit', compact('post'));
     }
 
     public function postUpdate(Request $request, $id)
@@ -119,7 +119,7 @@ class PostController extends PermissionController
         $post->posttypeid = $request->posttypeid;
         $post->topicid = $request->topicid;
         $post->title = $request->title;
-        $post->slug = $request->slug ?: Str::slug($request->title, '-');
+        $post->slug = $request->slug ?: Str::slug($requests->title, '-');
         $post->content = $request->content;
         $post->status = $request->status ?: $post->status;
         $post->image = $path;
@@ -127,7 +127,7 @@ class PostController extends PermissionController
 
         $post->save();
 
-        return redirect()->route('posts')->with('success', 'Post updated successfully!');
+        return redirect()->route('admin.posts')->with('success', 'Post updated successfully!');
     }
 
     public function getDelete($id)
@@ -143,7 +143,7 @@ class PostController extends PermissionController
 
         $post->delete();
 
-        return redirect()->route('posts')->with('success', "Post '{$title}' deleted successfully!");
+        return redirect()->route('admin.posts')->with('success', "Post '{$title}' deleted successfully!");
     }
 
     public function getPostsData()
@@ -187,6 +187,6 @@ class PostController extends PermissionController
             ->orderBy('created_at', 'desc')
             ->get();
 
-        return view('posts.index', compact('posts'));
+        return view('admin.posts.index', compact('posts'));
     }
 }

@@ -17,7 +17,7 @@ class PostTypeController extends PermissionController
         }
 
         $post_types = PostType::all();
-        return view('pvx', compact('post_types'));
+        return view('admin.post_types.index', compact('post_types'));
     }
 
     public function getAdd()
@@ -26,7 +26,7 @@ class PostTypeController extends PermissionController
             abort(403, 'You do not have permission to add post types.');
         }
 
-        return view('post_types.add');
+        return view('admin.post_types.add');
     }
 
     public function postAdd(Request $request)
@@ -49,7 +49,7 @@ class PostTypeController extends PermissionController
 
         $post_type->save();
 
-        return redirect()->route('post_type')->with('success', 'PostType created successfully!');
+        return redirect()->route('admin.post_type')->with('success', 'PostType created successfully!');
     }
 
     public function postUpdate(Request $request, $id)
@@ -75,7 +75,7 @@ class PostTypeController extends PermissionController
 
         $post_type->save();
 
-        return redirect()->route('post_type')->with('success', 'PostType updated successfully!');
+        return redirect()->route('admin.post_type')->with('success', 'PostType updated successfully!');
     }
 
     public function getDelete($id)
@@ -87,7 +87,7 @@ class PostTypeController extends PermissionController
         $post_typeName = $post_type->name;
         $post_type->delete();
 
-        return redirect()->route('post_type')->with('success', "PostType '{$post_typeName}' deleted successfully!");
+        return redirect()->route('admin.post_type')->with('success', "PostType '{$post_typeName}' deleted successfully!");
     }
 
     public function getPostTypesData()
@@ -118,6 +118,6 @@ class PostTypeController extends PermissionController
             ->orderBy('name', 'asc')
             ->get();
 
-        return view('post_types.index', compact('post_types'));
+        return view('admin.post_types.index', compact('post_types'));
     }
 }

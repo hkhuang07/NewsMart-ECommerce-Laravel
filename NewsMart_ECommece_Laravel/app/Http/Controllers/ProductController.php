@@ -23,7 +23,7 @@ class ProductController extends PermissionController
         $brands = Brand::all();    
         $users = User::where('roleid', 3)->get();
         $products = Product::all();
-        return view('products.index', compact('products', 'categories', 'brands', 'users'));
+        return view('admin.products.index', compact('products', 'categories', 'brands', 'users'));
     }
 
     public function getAdd()
@@ -32,7 +32,7 @@ class ProductController extends PermissionController
             abort(403, 'You do not have permission to add products.');
         }
 
-		return view('products.add', compact('categories', 'brands' , 'users'));
+		return view('admin.products.add', compact('categories', 'brands' , 'users'));
        
     }
 
@@ -82,7 +82,7 @@ class ProductController extends PermissionController
 		
         $product->save();
 
-        return redirect()->route('product')->with('success', 'Product created successfully!');
+        return redirect()->route('admin.product')->with('success', 'Product created successfully!');
     }
 
     public function postUpdate(Request $request, $id)
@@ -129,7 +129,7 @@ class ProductController extends PermissionController
         $product->isactive = $request->isactive;
         $product->save();
 
-        return redirect()->route('product')->with('success', 'Product updated successfully!');
+        return redirect()->route('admin.product')->with('success', 'Product updated successfully!');
     }
 
     public function getDelete($id)
@@ -145,7 +145,7 @@ class ProductController extends PermissionController
         
         $product->delete();
 
-        return redirect()->route('product')->with('success', "Product '{$productName}' deleted successfully!");
+        return redirect()->route('admin.product')->with('success', "Product '{$productName}' deleted successfully!");
     }
 
 
@@ -180,6 +180,6 @@ class ProductController extends PermissionController
             ->orderBy('name', 'asc')
             ->get();
 
-        return view('products.index', compact('products'));
+        return view('admin.products.index', compact('products'));
     }
 }

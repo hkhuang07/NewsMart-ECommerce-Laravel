@@ -17,7 +17,7 @@ class PostStatusController extends PermissionController
         }
 
         $post_statuses = PostStatus::all();
-        return view('post_statuses.index', compact('post_statuses'));
+        return view('admin.post_statuses.index', compact('post_statuses'));
     }
 
     public function getAdd()
@@ -26,7 +26,7 @@ class PostStatusController extends PermissionController
             abort(403, 'You do not have permission to add post statuses.');
         }
 
-        return view('post_statuses.add');
+        return view('admin.post_statuses.add');
     }
 
     public function postAdd(Request $request)
@@ -47,7 +47,7 @@ class PostStatusController extends PermissionController
 
         $post_status->save();
 
-        return redirect()->route('post_status')->with('success', 'PostStatus created successfully!');
+        return redirect()->route('admin.post_status')->with('success', 'PostStatus created successfully!');
     }
 
     public function postUpdate(Request $request, $id)
@@ -69,7 +69,7 @@ class PostStatusController extends PermissionController
 
         $post_status->save();
 
-        return redirect()->route('post_status')->with('success', 'PostStatus updated successfully!');
+        return redirect()->route('admin.post_status')->with('success', 'PostStatus updated successfully!');
     }
 
     public function getDelete($id)
@@ -81,7 +81,7 @@ class PostStatusController extends PermissionController
         $post_statusName = $post_status->name;
         $post_status->delete();
 
-        return redirect()->route('post_status')->with('success', "PostStatus '{$post_statusName}' deleted successfully!");
+        return redirect()->route('admin.post_status')->with('success', "PostStatus '{$post_statusName}' deleted successfully!");
     }
 
 
@@ -113,6 +113,6 @@ class PostStatusController extends PermissionController
             ->orderBy('name', 'asc')
             ->get();
 
-        return view('post_statuses.index', compact('post_statuses'));
+        return view('admin.post_statuses.index', compact('post_statuses'));
     }
 }
