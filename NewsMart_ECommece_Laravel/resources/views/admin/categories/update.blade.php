@@ -39,7 +39,7 @@
                             Category Parent
                         </label>
                         <select class="form-select @error('parentid') is-invalid @enderror" id="parentid" name="parentid" >
-                            <option value="">-- Chọn --</option>
+                            <option value="">-- Choose --</option>
                             @foreach($categories as $value)
                             <option value="{{ $value->id }}">{{ $value->name }}</option>
                             @endforeach
