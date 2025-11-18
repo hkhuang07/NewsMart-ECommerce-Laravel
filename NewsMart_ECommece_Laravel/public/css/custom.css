@@ -39,6 +39,7 @@ body {
     font-weight: 500;
     transition: all 0.3s ease;
     padding: 0.5rem 1rem;
+	
 }
 
 .navbar-custom .navbar-nav .nav-link:hover {
@@ -730,4 +731,70 @@ footer {
 
 .navbar-logo {
     animation: logoFadeIn 0.5s ease-out;
+}
+
+/* ===================================
+   FIX FOCUS/ACTIVE OUTLINE CHO NÚT ACCOUNT (THÊM)
+   =================================== */
+
+/* Áp dụng cho nút Account trên Navbar (.nav-link.dropdown-toggle) */
+.navbar-custom .nav-link.dropdown-toggle:focus,
+.navbar-custom .nav-link.dropdown-toggle:active, 
+.navbar-custom .nav-link.dropdown-toggle.show,
+.navbar-custom .nav-link.dropdown-toggle[aria-expanded="true"]
+{
+    /* 1. Loại bỏ viền outline (viền đen/xanh của trình duyệt/CSS cũ) */
+    outline: none !important;
+    
+    /* 2. Loại bỏ box-shadow (thường là viền focus màu xanh của Bootstrap) */
+    box-shadow: none !important; 
+    
+    /* 3. Đảm bảo không bị hiệu ứng nền khi click */
+    background-color: transparent !important;
+}
+/* ===================================
+   FIX GHI ĐÈ DARK MODE CHO SHOPPING CART OFFCANVAS
+   =================================== */
+
+/* 1. NỀN VÀ CHỮ TỔNG THỂ */
+/* Sử dụng !important và selector mạnh hơn (div#shoppingCart) */
+body.dark-mode div#shoppingCart {
+    background-color: #1a1a1a;
+    color: #f0f0f0;
+}
+
+/* 2. VIỀN PHÂN TÁCH (Header và Footer) */
+body.dark-mode div#shoppingCart .offcanvas-header {
+    border-color: var(--primary-dark) !important; 
+}
+
+/* 3. MÀU CHỮ CÁC TIÊU ĐỀ VÀ TEXT */
+body.dark-mode div#shoppingCart h4.offcanvas-title,
+body.dark-mode div#shoppingCart .h6,
+body.dark-mode div#shoppingCart .text-light-emphasis,
+body.dark-mode div#shoppingCart a.animate-target {
+    color: var(--white-smoke) !important;
+}
+
+/* 4. BACKGROUND HÌNH ẢNH (Phần nền xám nhạt) */
+/* Ghi đè class Bootstrap bg-body-tertiary */
+body.dark-mode div#shoppingCart .bg-body-tertiary {
+    background-color: var(--primary-dark) !important;
+}
+
+/* 5. NÚT ĐÓNG OFFCANVAS (X) */
+body.dark-mode div#shoppingCart .btn-close {
+    /* Đảo ngược màu sắc để nút đóng thành màu sáng */
+    filter: invert(1) grayscale(100%) brightness(200%) !important; 
+}
+
+/* 6. NÚT GIO HÀNG/CHECKOUT (btn-lg btn-dark) */
+body.dark-mode div#shoppingCart a.btn-dark {
+    background-color: var(--primary-medium) !important; 
+    border-color: var(--primary-medium) !important;
+    color: var(--white-smoke) !important;
+}
+body.dark-mode div#shoppingCart a.btn-dark:hover {
+    background-color: var(--primary-dark) !important; 
+    border-color: var(--primary-dark) !important;
 }

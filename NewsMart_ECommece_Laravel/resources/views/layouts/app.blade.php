@@ -17,7 +17,7 @@
 
     <!-- Stylesheets -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" />
-    
+	<link rel="stylesheet" href="{{ asset('public/assets/css/theme.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('public/css/custom.css') }}" />
     <link rel="stylesheet" href="{{ asset('public/css/list.css') }}"/>
     <link rel="stylesheet" href="{{ asset('public/css/form.css') }}">
@@ -39,10 +39,11 @@
         <div class="sidebar-header">
             <h5>
                 <img src="{{ asset('public/images/favicon.ico') }}" alt="{{ config('app.name', 'Laravel') }} Logo" class="navbar-logo"> {{ config('app.name', 'Laravel') }}
-            </h5>
-            <button class="sidebar-close" id="sidebarClose">
-                <i class="fas fa-times"></i>
-            </button>
+				<button class="sidebar-close" id="sidebarClose">
+					<i class="fas fa-times"></i>
+				</button>
+			</h5>
+            
         </div>
 
         <ul class="sidebar-nav">
@@ -174,7 +175,7 @@
                     <a class="nav-link" href="{{ route('admin.post_type') }}">
                         <i class="fas fa-file-alt"></i> Post Types
                     </a>
-                    <a class="nav-link" href="#">
+                    <a class="nav-link" href="{{ route('admin.post') }}">
                         <i class="fas fa-newspaper"></i> Post Moderation
                     </a>
                     <a class="nav-link" href="{{ route('admin.post_status') }}">
@@ -309,7 +310,49 @@
             </li>
         </ul>
     </nav>
+	<form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+        @csrf
+    </form>
 
+    <div class="offcanvas offcanvas-end pb-sm-2 px-sm-2" id="shoppingCart" tabindex="-1" style="width:500px">
+        <div class="offcanvas-header flex-column align-items-start py-3 pt-lg-4">
+            <div class="d-flex align-items-center justify-content-between w-100">
+                <h4 class="offcanvas-title" id="shoppingCartLabel">Cart (1)</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+            </div>
+        </div>
+
+        <div class="offcanvas-body d-flex flex-column gap-4 pt-2">
+            <div class="d-flex align-items-center">
+                <a class="flex-sm-shrink-0" href="#" style="width:142px">
+                    <div class="ratio bg-body-tertiary rounded overflow-hidden"	
+                        style="--cz-aspect-ratio:calc(110 / 142 * 100%)">
+                        <img src="{{asset('public/images/favicon.ico') }}" alt="Thumbnail" />
+                    </div>
+                </a>
+                <div class="w-100 min-w-0 ps-3">
+                    <h5 class="d-flex animate-underline mb-2">
+                        <a class="d-block fs-sm fw-medium text-truncate animate-target" href="#">	 iPhone 14 128GB White</a>
+                    </h5>
+                    <div class="d-flex align-items-center justify-content-between gap-1">
+                        <div class="h6 mt-1 mb-0">$27</div>
+                        <button type="button" class="btn btn-icon btn-sm flex-shrink-0 fs-sm" data-bs-toggle="tooltip"
+                            data-bs-custom-class="tooltip-sm" data-bs-title="Remove">
+                            <i class="fas fa-trash-alt fs-base"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            </div>
+
+        <div class="offcanvas-header flex-column align-items-start">
+            <div class="d-flex align-items-center justify-content-between w-100 mb-3 mb-md-4">
+                <span class="text-light-emphasis">Total:</span>
+                <span class="h6 mb-0">$47</span>
+            </div>
+            <a class="btn btn-lg btn-dark w-100 rounded-pill" href="#">Cart</a>
+        </div>
+    </div>
     <div class="container-fluid">
         <!-- Horizontal Navbar -->
         <nav class="navbar navbar-expand-lg navbar-custom">
@@ -393,6 +436,7 @@
                                 <i class="fas fa-question-circle"></i> 
                             </a>
                         </li>
+						 
                     </ul>
 
                     <!-- Search Form -->
@@ -402,18 +446,19 @@
                             <i class="fas fa-search"></i>
                         </button>
                     </form>
-
-                    <!-- Right Navigation -->
-                    <ul class="navbar-nav ms-auto">
-                        <li class="nav-item">
-                            <a class="nav-link position-relative" href="#">
+					<ul class="navbar-nav me-3">
+						<button class="nav-link btn position-relative" type="button" data-bs-toggle="offcanvas" data-bs-target="#shoppingCart" aria-controls="shoppingCart">
                                 <i class="fas fa-shopping-cart"></i>
                                 <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
                                     3
                                 </span>
-                            </a>
-                        </li>
+                            </button>
+					</ul>
+					
 
+                    <!-- Right Navigation -->
+                    <ul class="navbar-nav ms-auto">
+					
                         @guest
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
