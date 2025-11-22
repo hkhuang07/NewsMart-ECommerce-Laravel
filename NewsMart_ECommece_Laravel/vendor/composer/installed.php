@@ -1,15 +1,24 @@
 <?php return array(
     'root' => array(
         'name' => 'laravel/laravel',
-        'pretty_version' => 'dev-main',
-        'version' => 'dev-main',
-        'reference' => 'c2cf65b295f88dbb9db6c27b6a7d43ba4564ab22',
+        'pretty_version' => '1.0.0+no-version-set',
+        'version' => '1.0.0.0',
+        'reference' => null,
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
         'dev' => true,
     ),
     'versions' => array(
+        'anayarojo/shoppingcart' => array(
+            'pretty_version' => '4.2.4',
+            'version' => '4.2.4.0',
+            'reference' => '776023ad546b7b54a680f783b84cc55bc3fa1a77',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../anayarojo/shoppingcart',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
         'brick/math' => array(
             'pretty_version' => '0.14.0',
             'version' => '0.14.0.0',
@@ -392,9 +401,9 @@
             'dev_requirement' => false,
         ),
         'laravel/laravel' => array(
-            'pretty_version' => 'dev-main',
-            'version' => 'dev-main',
-            'reference' => 'c2cf65b295f88dbb9db6c27b6a7d43ba4564ab22',
+            'pretty_version' => '1.0.0+no-version-set',
+            'version' => '1.0.0.0',
+            'reference' => null,
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

@@ -44,21 +44,14 @@ Route::name('frontend.')->group(function () {
 	
 	// Brand Management
 	Route::get('/brand', [BrandController::class, 'getList'])->name('brand');
-	Route::get('/brand/add', [BrandController::class, 'getAdd'])->name('brand.add');
-	Route::post('/brand/add', [BrandController::class, 'postAdd'])->name('brand.add');
-	Route::get('/brand/update/{id}', [BrandController::class, 'getUpdate'])->name('brand.update');
-	Route::post('/brand/update/{id}', [BrandController::class, 'postUpdate'])->name('brand.update');
-	Route::get('/brand/delete/{id}', [BrandController::class, 'getDelete'])->name('brand.delete');
-
-
 	//Category Management
 	Route::get('/category', [CategoryController::class, 'getList'])->name('category');
-	Route::get('/category/add', [CategoryController::class, 'getAdd'])->name('category.add');
-	Route::post('/category/add', [CategoryController::class, 'postAdd'])->name('category.add');
-	Route::get('/category/update/{id}', [CategoryController::class, 'getUpdate'])->name('category.update');
-	Route::post('/category/update/{id}', [CategoryController::class, 'postUpdate'])->name('category.update');
-	Route::get('/category/delete/{id}', [CategoryController::class, 'getDelete'])->name('category.delete');
+
+	//cart
+	Route::get('/cart/add/{slug}', [HomeController::class, 'getCart_Add'])->name('cart.add');
 /*
+
+	
     // Trang sản phẩm
     Route::get('/san-pham', [HomeController::class, 'getSanPham'])->name('sanpham');
     Route::get('/san-pham/{tenloai_slug}', [HomeController::class, 'getSanPham'])->name('sanpham.phanloai');

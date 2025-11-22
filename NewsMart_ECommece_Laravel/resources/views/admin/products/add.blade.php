@@ -157,7 +157,27 @@
 						@enderror
 					</div>
 					
-                   
+                   <div class="form-group mb-4">
+                        <label class="form-label" for="updateLogo">
+                            <i class="fa-light fa-image"></i>
+                            Product Image (Image file only)
+                        </label>
+                        <input
+                            type="file"
+                            class="form-control item-input"
+                            id="updateLogo"
+                            name="logo"
+                            accept="image/*" />
+                        <small class="form-text text-muted">Leave empty to keep current image</small>
+                        <div class="invalid-feedback"></div>
+                        
+                        <div id="currentLogoPreview" class="mt-3" style="display: none;">
+                            <label class="form-label">Current image:</label>
+                            <div class="current-logo-container">
+                                <img id="currentLogoImage" src="" alt="Current Logo" class="current-logo-preview">
+                            </div>
+                        </div>
+                    </div>
 					
 					<div class="form-group mb-4">
 						<div class="form-check form-switch">
