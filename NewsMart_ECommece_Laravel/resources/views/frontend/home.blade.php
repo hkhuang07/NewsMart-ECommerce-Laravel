@@ -1,20 +1,58 @@
 @extends('layouts.app')
 
 @section('content')
-
+<div class="item-header">
+        <div class="container mx-auto px-4">
+            <div class="header-content">
+                <div class="header-left">
+                    <h1 class="page-title">
+                        <i class="fas fa-tags"></i>
+                        Newest Product
+                    </h1>
+                    <p clindass="page-subtitle">
+                        Choose your best choice
+                    </p>
+                </div>
+                
+            </div>
+        </div>
+    </div>
 <div class="container mx-auto px-4 py-8">
     
+<!-- Brands -->
+		<section class="container mb-2">
+			<div class="overflow-auto" data-simplebar data-simplebar-auto-hide="false">
+				<div class="row row-cols-6 g-0" style="min-width:960px">
+				@foreach($brands as $brands)
+					<div class="col">
+						<a class="d-flex justify-content-center py-3 px-2 px-xl-3" href="#">
+							<img src="{{ asset('storage/app/private/' . $brands->logo)}}" class="d-none-dark"  />
+							<img src="{{ asset('storage/app/private/' . $brands->logo)}}" class="d-none d-block-dark"  />
+						</a>
+					</div>
+				@endforeach	
+				</div>
+			</div>
+		</section>
+	
+	
     {{-- Vòng lặp NGOÀI: Lặp qua TỪNG DANH MỤC --}}
     @forelse($categories as $category)
     
-        <div class="row mb-5">
+		
+       <div class="row mb-4">
             <div class="col-12">
                 {{-- Hiển thị tên Danh mục --}}
-                   <h2 class="page-title">
+				 <div class="category-header-line d-flex justify-content-between align-items-center pb-2">
+                <h2 class="page-title">
 					<i class="fas fa-tags"></i>
-                    {{-- Ví dụ: Smartphone --}}
-                     {{ $category->name ?? 'Không tên' }}
+    
+					{{ $category->name ?? 'Không tên' }}
                 </h2>
+				<a class="nav-link animate-underline px-0 py-2" href="">
+						<span class="animate-target">Xem tất cả ></span> <i class="ci-chevron-right fs-base ms-1"></i>
+					</a>
+				 </div>
             </div>
         </div>
 
@@ -38,9 +76,25 @@
                     <div class="status-badge">
                         <i class="fas fa-check-circle"></i> Active
                     </div>
-                    {{-- Đã loại bỏ Action Overlay (Edit/Delete) --}}
+					<div class="action-overlay">
+                        <div class="action-buttons">
+                            <button type="button"
+                                class="action-btn edit-btn"
+                                title="Edit Product"
+                                >
+                                <i class="fas fa-heart"></i>
+                            </button>
+							
+                            <a href="{{route('frontend.cart.add',['slug' => $product->slug])}}" 
+                                class="action-btn delete-btn"
+                                title="Delete Product"
+								>
+                                <i class="fas fa-cart-plus"></i>
+                           </a>
+						 </div>
+                 </div>
                 </div>
-
+				
                 <div class="item-content">
                     <h3 class="item-title" title="{{ $product->name }}">
                         {{ $product->name }}
@@ -51,7 +105,7 @@
                         <div class="info-item">
                             <i class="fas fa-money-bill-wave"></i>
                             <span class="info-label">Price:</span>
-                            <span class="info-value" title="{{ $product->price }}">
+                            <span class="info-value" title="{{ number_format($product->price, 0, ',','.') }}">
                                 {{ Str::limit($product->price, 30) }}
                             </span>
                         </div>
@@ -74,6 +128,8 @@
                             Created {{ $product->created_at->diffForHumans() }}
                         </div>
                     </div>
+
+                   
                 </div>
             </div>
             @empty

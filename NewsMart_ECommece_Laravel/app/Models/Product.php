@@ -28,7 +28,7 @@ class Product extends Model
         'purchases',
         'views',
         'isactive',
-        
+		
         
     ];
 
@@ -67,7 +67,13 @@ class Product extends Model
     {
         return $this->hasMany(Review::class, 'productid', 'id');
     }
-
+	public function mainImage()
+    {
+        // hasOne(Model liên quan, 'foreign_key')
+        return $this->hasOne(ProductImage::class, 'productid')
+                    // Thêm điều kiện để đảm bảo chỉ lấy ảnh chính
+                    ->where('ismainimage', true); 
+    }
     // Quan hệ 1-n: Product HAS MANY Carts
     public function carts(): HasMany
     {
