@@ -1,46 +1,36 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="item-header">
-        <div class="container mx-auto px-4">
-            <div class="header-content">
-                <div class="header-left">
-                    <h1 class="page-title">
-                        <i class="fas fa-tags"></i>
-                        Newest Product
-                    </h1>
-                    <p clindass="page-subtitle">
-                        Choose your best choice
-                    </p>
-                </div>
-                
-            </div>
-        </div>
-    </div>
+
 <div class="container mx-auto px-4 py-8">
     
-<!-- Brands -->
-		<section class="container mb-2">
-			<div class="overflow-auto" data-simplebar data-simplebar-auto-hide="false">
-				<div class="row row-cols-6 g-0" style="min-width:960px">
-				@foreach($brands as $brands)
-					<div class="col">
-						<a class="d-flex justify-content-center py-3 px-2 px-xl-3" href="#">
-							<img src="{{ asset('storage/app/private/' . $brands->logo)}}" class="d-none-dark"  />
-							<img src="{{ asset('storage/app/private/' . $brands->logo)}}" class="d-none d-block-dark"  />
-						</a>
-					</div>
-				@endforeach	
-				</div>
-			</div>
-		</section>
-	
-	
     {{-- Vòng lặp NGOÀI: Lặp qua TỪNG DANH MỤC --}}
     @forelse($categories as $category)
     
-		
-       <div class="row mb-4">
+        <div class="row mb-4">
+            <div class="col-12">
+                
+                {{-- KHỐI NỘI DUNG MỚI: Dùng Flexbox và class tùy chỉnh cho đường kẻ --}}
+                <div class="category-header-line d-flex justify-content-between align-items-center pb-2">
+                    
+                    {{-- Hiển thị tên Danh mục (Bên trái) --}}
+                    {{-- Thêm mb-0 để loại bỏ margin dưới của h2 --}}
+                    <h2 class="page-title mb-0">
+                        <i class="fas fa-tags"></i>
+                        {{ $category->name ?? 'Không tên' }}
+                    </h2>
+                    
+                    {{-- Link Xem Tất cả (Bên phải) --}}
+                    <a class="nav-link animate-underline px-0 py-2" href="#">
+                        <span class="animate-target">Xem tất cả</span> <i class="ci-chevron-right fs-base ms-1"></i>
+                    </a>
+                    
+                </div>
+                {{-- Kết thúc KHỐI NỘI DUNG MỚI --}}
+                
+            </div>
+        </div>
+		 <div class="row mb-4">
             <div class="col-12">
                 {{-- Hiển thị tên Danh mục --}}
 				 <div class="category-header-line d-flex justify-content-between align-items-center pb-2">
@@ -49,16 +39,14 @@
     
 					{{ $category->name ?? 'Không tên' }}
                 </h2>
-				<a class="nav-link animate-underline px-0 py-2" href="">
-						<span class="animate-target">Xem tất cả ></span> <i class="ci-chevron-right fs-base ms-1"></i>
+				<a class="nav-link animate-underline px-0 py-2" href="#">
+						<span class="animate-target">Xem tất cả</span> <i class="ci-chevron-right fs-base ms-1"></i>
 					</a>
 				 </div>
             </div>
         </div>
-
         <div class="items-grid" id="productsGrid_{{ $category->id }}">
-            
-            {{-- Vòng lặp TRONG: Lặp qua SẢN PHẨM của DANH MỤC hiện tại --}}
+            {{-- ... Nội dung sản phẩm ... --}}
             @forelse($category->products as $product)
             <div class="item-card" data-product-id="{{ $product->id }}">
                 <div class="item-image-container">
@@ -75,8 +63,7 @@
 
                     <div class="status-badge">
                         <i class="fas fa-check-circle"></i> Active
-                    </div>
-					<div class="action-overlay">
+                    <div class="action-overlay">
                         <div class="action-buttons">
                             <button type="button"
                                 class="action-btn edit-btn"
@@ -85,15 +72,15 @@
                                 <i class="fas fa-heart"></i>
                             </button>
 							
-                            <a href="{{route('frontend.cart.add',['slug' => $product->slug])}}" 
+                            <button type="button"
                                 class="action-btn delete-btn"
                                 title="Delete Product"
-								>
+                                >
                                 <i class="fas fa-cart-plus"></i>
-                           </a>
-						 </div>
+                        </div>
+                           </button>
                  </div>
-                </div>
+                </div>
 				
                 <div class="item-content">
                     <h3 class="item-title" title="{{ $product->name }}">
@@ -105,7 +92,7 @@
                         <div class="info-item">
                             <i class="fas fa-money-bill-wave"></i>
                             <span class="info-label">Price:</span>
-                            <span class="info-value" title="{{ number_format($product->price, 0, ',','.') }}">
+                            <span class="info-value" title="{{ $product->price }}">
                                 {{ Str::limit($product->price, 30) }}
                             </span>
                         </div>
@@ -129,7 +116,6 @@
                         </div>
                     </div>
 
-                   
                 </div>
             </div>
             @empty

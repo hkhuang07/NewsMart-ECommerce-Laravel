@@ -43,18 +43,21 @@
 
         <div class="items-grid" id="productsGrid">
             @forelse($products as $product)
+			
             <div class="item-card" data-product-id="{{ $product->id }}">
                 <div class="item-image-container">
-                    @if(isset($product->logo) && $product->logo)
-                    <img src="{{ asset('storage/app/private/'.$product->logo) }}"
-                        alt="{{ $product->name }}"
-                        class="item-image"
-                        loading="lazy">
-                    @else
-                    <div class="item-image-placeholder">
-                        <i class="fas fa-building"></i>
-                    </div>
-                    @endif
+                    @if($product->mainImage)
+        {{-- 2. Dùng thuộc tính 'url' của đối tượng mainImage (từ bảng product_images) --}}
+					<img src="{{ asset('storage/app/private/'.$product->mainImage->url) }}"
+						 alt="{{ $product->name }}"
+						 class="item-image"
+						 loading="lazy">
+					@else
+						{{-- Nếu không có ảnh chính --}}
+						<div class="item-image-placeholder">
+							<i class="fas fa-box"></i> 
+						</div>
+					@endif
 
                     <div class="status-badge">
                         <i class="fas fa-check-circle"></i>

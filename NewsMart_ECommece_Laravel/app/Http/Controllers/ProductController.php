@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\RedirectResponse; 
+use App\Models\ProductImage;
 
 class ProductController extends PermissionController 
 {
@@ -22,7 +23,8 @@ class ProductController extends PermissionController
 	    $categories = Category::all(); 
         $brands = Brand::all();    
         $users = User::where('roleid', 3)->get();
-        $products = Product::all();
+        
+		$products = Product::with('mainImage')->get();
         return view('admin.products.index', compact('products', 'categories', 'brands', 'users'));
     }
 
@@ -32,7 +34,7 @@ class ProductController extends PermissionController
             abort(403, 'You do not have permission to add products.');
         }
 
-		return view('admin.products.add', compact('categories', 'brands' , 'users'));
+		return view('admin.products.add', compact('categories', 'brands' , 'users','product_imagess'));
        
     }
 
@@ -41,14 +43,14 @@ class ProductController extends PermissionController
         if (!$this->canManageProducts()) {
             abort(403, 'You do not have permission to add products.');
         }
-
+		$id = null;
         // 1. Validation
         $request->validate([
 			'categoryid' => ['required'],
 			'brandid' => ['required'],
 			'salerid' => ['required'],
-            'name' => ['required', 'string', 'max:255', 'unique:products'],
-            'slug' => ['nullable', 'string', 'max:255', 'unique:products'],
+            'name' => ['required', 'string', 'max:255', 'unique:products,name,'. $id],
+            'slug' => ['nullable', 'string', 'max:255', 'unique:products,name,'. $id],
             'sku' => ['nullable', 'string', 'max:50'],
             'description' => ['nullable', 'string', 'max:1000'],
 			'price' => ['required', 'numeric'],
@@ -58,9 +60,16 @@ class ProductController extends PermissionController
 			'favorites' => ['nullable', 'integer', 'min:0'], // integer, default 0
 			'purchases' => ['nullable', 'integer', 'min:0'], // integer, default 0
 			'views' => ['nullable', 'integer', 'min:0'], // integer, default 0
-			'isactive' => ['nullable', 'boolean'], // boolean, default true
-        ]);
-
+			'logo' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif,webp', 'max:2048'],
+			'isactive' => ['nullable', 'boolean'], // boolean, default trues
+			]);
+		$path = null;
+		if ($request->hasFile('logo')) {
+			
+            $extension = $request->file('logo')->extension();
+            $filename = Str::slug($request->name, '-') . '.' . $extension;
+            $path = Storage::putFileAs('product_images', $request->file('logo'), $filename);
+		}
         $product = new Product();
 		$product->categoryid = $request->categoryid;
 		$product->brandid = $request->brandid;
@@ -81,7 +90,14 @@ class ProductController extends PermissionController
         $product->isactive = $request->isactive;
 		
         $product->save();
-
+		// 4. Lưu Hình Ảnh Chính (Logo) vào bảng product_images
+    if ($path) {
+        ProductImage::create([
+            'productid' => $product->id, // Sử dụng ID vừa được tạo
+            'url' => $path, // Sử dụng URL công khai
+            'ismainimage' => true, // Đặt là ảnh chính (logo)
+        ]);
+    }
         return redirect()->route('admin.product')->with('success', 'Product created successfully!');
     }
 
@@ -109,10 +125,27 @@ class ProductController extends PermissionController
 			'favorites' => ['nullable', 'integer', 'min:0'], // integer, default 0
 			'purchases' => ['nullable', 'integer', 'min:0'], // integer, default 0
 			'views' => ['nullable', 'integer', 'min:0'], // integer, default 0
+			'logo' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif,webp', 'max:2048'],
 			'isactive' => ['nullable', 'boolean'], // boolean, default trues
         ]);
 
+		$path = null;
 		
+		if ($request->hasFile('logo')) {
+			
+			$currentMainImage = ProductImage::where('productid', $product->id)
+                                    ->where('ismainimage', true)
+                                    ->first();
+
+			// 2. Xóa file cũ nếu tìm thấy
+			if ($currentMainImage) {
+				// Xóa file trên Storage
+				Storage::delete($currentMainImage->url);
+			}
+            $extension = $request->file('logo')->extension();
+            $filename = Str::slug($request->name, '-') . '.' . $extension;
+            $path = Storage::putFileAs('product_images', $request->file('logo'), $filename);
+        }
         $product->name = $request->name;
         $slug = Str::slug($request->name, '-');
         $product->slug = $request->slug ?: $slug;
@@ -128,7 +161,13 @@ class ProductController extends PermissionController
         $product->views = $request->views ?? 0;
         $product->isactive = $request->isactive;
         $product->save();
-
+		if ($path) {
+        ProductImage::create([
+            'productid' => $product->id, // Sử dụng ID vừa được tạo
+            'url' => $path, // Sử dụng URL công khai
+            'ismainimage' => true, // Đặt là ảnh chính (logo)
+        ]);
+    }
         return redirect()->route('admin.product')->with('success', 'Product updated successfully!');
     }
 
