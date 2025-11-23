@@ -27,7 +27,6 @@ return array(
     'App\\Http\\Controllers\\OrderTransactionController' => $baseDir . '/app/Http/Controllers/OrderTransactionController.php',
     'App\\Http\\Controllers\\PermissionController' => $baseDir . '/app/Http/Controllers/PermissionController.php',
     'App\\Http\\Controllers\\PostController' => $baseDir . '/app/Http/Controllers/PostController.php',
-    'App\\Http\\Controllers\\PostImagesController' => $baseDir . '/app/Http/Controllers/PostImagesController.php',
     'App\\Http\\Controllers\\PostInteractionController' => $baseDir . '/app/Http/Controllers/PostInteractionController.php',
     'App\\Http\\Controllers\\PostStatusController' => $baseDir . '/app/Http/Controllers/PostStatusController.php',
     'App\\Http\\Controllers\\PostTypeController' => $baseDir . '/app/Http/Controllers/PostTypeController.php',

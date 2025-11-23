@@ -570,7 +570,6 @@ class ComposerStaticInit4776810dc1f9cc2ee65b6526f0091af8
         'App\\Http\\Controllers\\OrderTransactionController' => __DIR__ . '/../..' . '/app/Http/Controllers/OrderTransactionController.php',
         'App\\Http\\Controllers\\PermissionController' => __DIR__ . '/../..' . '/app/Http/Controllers/PermissionController.php',
         'App\\Http\\Controllers\\PostController' => __DIR__ . '/../..' . '/app/Http/Controllers/PostController.php',
-        'App\\Http\\Controllers\\PostImagesController' => __DIR__ . '/../..' . '/app/Http/Controllers/PostImagesController.php',
         'App\\Http\\Controllers\\PostInteractionController' => __DIR__ . '/../..' . '/app/Http/Controllers/PostInteractionController.php',
         'App\\Http\\Controllers\\PostStatusController' => __DIR__ . '/../..' . '/app/Http/Controllers/PostStatusController.php',
         'App\\Http\\Controllers\\PostTypeController' => __DIR__ . '/../..' . '/app/Http/Controllers/PostTypeController.php',
