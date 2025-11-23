@@ -317,41 +317,55 @@
     <div class="offcanvas offcanvas-end pb-sm-2 px-sm-2" id="shoppingCart" tabindex="-1" style="width:500px">
         <div class="offcanvas-header flex-column align-items-start py-3 pt-lg-4">
             <div class="d-flex align-items-center justify-content-between w-100">
-                <h4 class="offcanvas-title" id="shoppingCartLabel">Cart (1)</h4>
+                <h4 class="offcanvas-title" id="shoppingCartLabel">Cart ({{ Cart::count() ?? 0 }})</h4>
                 <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
             </div>
         </div>
-
-        <div class="offcanvas-body d-flex flex-column gap-4 pt-2">
-            <div class="d-flex align-items-center">
-                <a class="flex-sm-shrink-0" href="#" style="width:142px">
-                    <div class="ratio bg-body-tertiary rounded overflow-hidden"	
-                        style="--cz-aspect-ratio:calc(110 / 142 * 100%)">
-                        <img src="{{asset('public/images/favicon.ico') }}" alt="Thumbnail" />
-                    </div>
-                </a>
-                <div class="w-100 min-w-0 ps-3">
-                    <h5 class="d-flex animate-underline mb-2">
-                        <a class="d-block fs-sm fw-medium text-truncate animate-target" href="#">	 iPhone 14 128GB White</a>
-                    </h5>
-                    <div class="d-flex align-items-center justify-content-between gap-1">
-                        <div class="h6 mt-1 mb-0">$27</div>
-                        <button type="button" class="btn btn-icon btn-sm flex-shrink-0 fs-sm" data-bs-toggle="tooltip"
-                            data-bs-custom-class="tooltip-sm" data-bs-title="Remove">
-                            <i class="fas fa-trash-alt fs-base"></i>
-                        </button>
-                    </div>
-                </div>
-            </div>
-            </div>
-
-        <div class="offcanvas-header flex-column align-items-start">
-            <div class="d-flex align-items-center justify-content-between w-100 mb-3 mb-md-4">
-                <span class="text-light-emphasis">Total:</span>
-                <span class="h6 mb-0">$47</span>
-            </div>
-            <a class="btn btn-lg btn-dark w-100 rounded-pill" href="#">Cart</a>
-        </div>
+		@if(Cart::count() > 0)
+			<div class="offcanvas-body d-flex flex-column gap-4 pt-2">
+				@foreach(Cart::content() as $value)
+					<div class="d-flex align-items-center">
+						<a class="flex-sm-shrink-0" href="#" style="width:142px">
+							<div class="ratio bg-body-tertiary rounded overflow-hidden"	
+								style="--cz-aspect-ratio:calc(110 / 142 * 100%)">
+								<img src="{{asset('storage/app/private/'. $value->options->image) }}" alt="Thumbnail" />
+							</div>
+						</a>
+						<div class="w-100 min-w-0 ps-3">
+							<h5 class="d-flex animate-underline mb-2">
+								<a class="d-block fs-sm fw-medium text-truncate animate-target" href="#">{{ $value->name }}</a>
+							</h5>
+							<div class="d-flex align-items-center justify-content-between gap-1">
+								<div class="h6 mt-1 mb-0">${{ $value->price }}</div>
+								<button type="button" class="btn btn-icon btn-sm flex-shrink-0 fs-sm" data-bs-toggle="tooltip"
+									data-bs-custom-class="tooltip-sm" data-bs-title="Remove">
+									<i class="fas fa-trash-alt fs-base"></i>
+								</button>
+							</div>
+						</div>
+					</div>
+				@endforeach
+			</div>
+			<div class="offcanvas-header flex-column align-items-start">
+				<div class="d-flex align-items-center justify-content-between w-100 mb-3 mb-md-4">
+					<span class="text-light-emphasis">Total:</span>
+					<span class="h6 mb-0">${{ Cart::priceTotal() }}</span>
+				</div>
+				<a class="btn btn-lg btn-dark w-100 rounded-pill" href="{{ route('frontend.cart') }}">Cart</a>
+			</div>
+		@else
+			<div class="offcanvas-body d-flex flex-column gap-4 pt-2">
+				<div class="pb-4 mb-3 mx-auto" style="max-width:524px">
+					<svg class="d-block mx-auto mb-4" xmlns="http://www.w3.org/2000/svg" width="100" viewBox="0 0 29.5 30"><path class="text-body-tertiary" d="M17.8 4c.4 0 .8-.3.8-.8v-2c0-.4-.3-.8-.8-.8-.4 0-.8.3-.8.8v2c0 .4.3.8.8.8zm3.2.6c.4.2.8 0 1-.4l.4-.9c.2-.4 0-.8-.4-1s-.8 0-1 .4l-.4.9c-.2.4 0 .9.4 1zm-7.5-.4c.2.4.6.6 1 .4s.6-.6.4-1l-.4-.9c-.2-.4-.6-.6-1-.4s-.6.6-.4 1l.4.9z" fill="currentColor" /><path class="text-body-emphasis" d="M10.7 24.5c-1.5 0-2.8 1.2-2.8 2.8S9.2 30 10.7 30s2.8-1.2 2.8-2.8-1.2-2.7-2.8-2.7zm0 4c-.7 0-1.2-.6-1.2-1.2s.6-1.2 1.2-1.2 1.2.6 1.2 1.2-.5 1.2-1.2 1.2zm11.1-4c-1.5 0-2.8 1.2-2.8 2.8a2.73 2.73 0 0 0 2.8 2.8 2.73 2.73 0 0 0 2.8-2.8c0-1.6-1.3-2.8-2.8-2.8zm0 4c-.7 0-1.2-.6-1.2-1.2s.6-1.2 1.2-1.2 1.2.6 1.2 1.2-.6 1.2-1.2 1.2zM8.7 18h16c.3 0 .6-.2.7-.5l4-10c.2-.5-.2-1-.7-1H9.3c-.4 0-.8.3-.8.8s.4.7.8.7h18.3l-3.4 8.5H9.3L5.5 1C5.4.7 5.1.5 4.8.5h-4c-.5 0-.8.3-.8.7s.3.8.8.8h3.4l3.7 14.6a3.24 3.24 0 0 0-2.3 3.1C5.5 21.5 7 23 8.7 23h16c.4 0 .8-.3.8-.8s-.3-.8-.8-.8h-16a1.79 1.79 0 0 1-1.8-1.8c0-1 .9-1.6 1.8-1.6z" fill="currentColor" /></svg>
+				</div>
+				<h5 class="mb-2">Your cart is currently empty!</h5>
+				<p class="fs-sm mb-4">Explore our many items and add products to your cart..</p>
+				<a class="btn btn-dark rounded-pill" href="{{ route('frontend.home') }}">Continue Shopping</a>
+			</div>
+			
+			
+		@endif
+        
     </div>
     <div class="container-fluid">
         <!-- Horizontal Navbar -->
@@ -450,7 +464,7 @@
 						<button class="nav-link btn position-relative" type="button" data-bs-toggle="offcanvas" data-bs-target="#shoppingCart" aria-controls="shoppingCart">
                                 <i class="fas fa-shopping-cart"></i>
                                 <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                                    3
+                                    {{ Cart::count() ?? 0 }}
                                 </span>
                             </button>
 					</ul>
@@ -503,6 +517,8 @@
         <!-- Main Content -->
         <main class="main-content pt-3" id="mainContent">
             @yield('content')
+			@yield('floating-button') 
+			
         </main>
 
         <!-- Footer -->
@@ -704,7 +720,7 @@
     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
         @csrf
     </form>
-
+	
     <!-- JavaScript -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -809,9 +825,15 @@
                 if (langTextNav) langTextNav.textContent = 'English';
             }
         });
+		
     </script>
-
+	
     @yield('scripts')
+	
+	{{-- Vị trí của các script JS (hoặc @yield('scripts')) --}}
+    
+    
+</html>
 </body>
 
 </html>

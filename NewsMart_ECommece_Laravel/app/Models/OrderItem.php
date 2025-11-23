@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class OrderItem extends Model
 {
-    protected $table = 'orderItems';
+    protected $table = 'order_items';
     protected $primaryKey = 'id';
 
     // Quan hệ n-1: OrderItem BELONGS TO Order
