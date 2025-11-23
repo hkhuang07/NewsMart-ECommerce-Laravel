@@ -759,7 +759,7 @@ footer {
 /* 1. NỀN VÀ CHỮ TỔNG THỂ */
 /* Sử dụng !important và selector mạnh hơn (div#shoppingCart) */
 body.dark-mode div#shoppingCart {
-    background-color: #1a1a1a;
+    background-color: #000624;
     color: #f0f0f0;
 }
 
@@ -789,6 +789,398 @@ body.dark-mode div#shoppingCart .btn-close {
 }
 
 /* 6. NÚT GIO HÀNG/CHECKOUT (btn-lg btn-dark) */
+body.dark-mode div#shoppingCart a.btn-dark {
+    background-color: var(--primary-medium) !important; 
+    border-color: var(--primary-medium) !important;
+    color: var(--white-smoke) !important;
+}
+body.dark-mode div#shoppingCart a.btn-dark:hover {
+    background-color: var(--primary-dark) !important; 
+    border-color: var(--primary-dark) !important;
+}
+/* Đảm bảo nền của bảng Giỏ hàng (Cart Table) trùng với màu nền Body */
+/* Buộc bảng Giỏ hàng (Cart Table) có màu nền giống màu nền body #F5F5F5 */
+
+/* 1. Áp dụng nền cho toàn bộ Table (Selector mạnh hơn) */
+.col-lg-8 .table {
+    background-color: var(--white-smoke) !important;
+    --bs-table-bg: var(--white-smoke) !important; 
+    
+    /* Đảm bảo viền trong suốt hoặc viền nhạt để phù hợp với nền */
+    --bs-table-border-color: #E0E0E0;
+}
+
+/* 2. Buộc các hàng (<tr>) và các ô (<td>) không có màu nền trắng */
+.col-lg-8 .table tbody tr,
+.col-lg-8 .table tbody td {
+    background-color: transparent !important;
+    --bs-table-bg: transparent !important; 
+}
+
+/* 3. Tinh chỉnh các hàng (tr) để tránh hiệu ứng hover/striped */
+.col-lg-8 .table tbody tr:nth-child(even) {
+    background-color: transparent !important;
+}
+/* Buộc hàng tiêu đề có màu nền giống màu nền Body */
+.col-lg-8 .table thead, 
+.col-lg-8 .table thead th {
+    background-color: var(--white-smoke) !important;
+    --bs-table-bg: var(--white-smoke) !important;
+    
+    /* Đảm bảo chữ tiêu đề có màu tối để dễ đọc */
+    color: var(--primary-dark) !important; 
+}
+
+/* Đảm bảo không có viền thừa phía trên (nếu có) */
+.col-lg-8 .table thead {
+    border-top: none !important;
+}
+/* ===================================
+   DARK MODE CHO SHOPPING CART TABLE
+   =================================== */
+
+/* Áp dụng nền tối cho toàn bộ bảng */
+body.dark-mode .col-lg-8 .table {
+    background-color: var(--primary-super-dark) !important; /* Màu nền rất tối */
+    color: var(--white-smoke) !important; /* Màu chữ sáng */
+    --bs-table-bg: var(--primary-super-dark) !important;
+    --bs-table-color: var(--white-smoke) !important;
+    --bs-table-border-color: var(--accent-dark); /* Viền đậm hơn */
+}
+
+/* Tiêu đề bảng (Thead) */
+body.dark-mode .col-lg-8 .table thead,
+body.dark-mode .col-lg-8 .table thead th {
+    background-color: var(--primary-super-dark) !important;
+    color: var(--white-smoke) !important; 
+}
+
+/* Nền các hàng (tr) và ô (td) bên trong */
+body.dark-mode .col-lg-8 .table tbody tr,
+body.dark-mode .col-lg-8 .table tbody td {
+    background-color: transparent !important; /* Đảm bảo nền trong suốt */
+    color: var(--white-smoke) !important;
+}
+
+/* Điều chỉnh màu chữ và các chi tiết */
+body.dark-mode .col-lg-8 .table h5 a {
+    color: var(--primary-light) !important; /* Màu xanh nhạt cho tên sản phẩm */
+}
+
+body.dark-mode .col-lg-8 .table .text-body {
+    color: var(--white-smoke) !important; /* Chữ thường */
+}
+
+/* Viền và màu nền của COUNT INPUT (Tăng/Giảm số lượng) */
+body.dark-mode .count-input {
+    border-color: var(--primary-dark) !important; /* Viền tối hơn */
+}
+
+body.dark-mode .count-input .form-control {
+    background-color: transparent !important;
+    border-color: var(--primary-dark) !important; 
+    color: var(--white-smoke) !important; /* Chữ số lượng sáng */
+}
+
+/* Nút Tăng/Giảm */
+body.dark-mode .count-input .btn {
+    color: var(--white-smoke) !important; 
+    border-color: var(--primary-dark) !important;
+}
+
+/* Nút Xóa (Dấu 'x') */
+body.dark-mode .btn-close {
+    /* Đảo ngược màu sắc để dấu 'x' thành màu sáng */
+    filter: invert(1) grayscale(100%);
+    opacity: 0.8; 
+}
+
+/* Buộc body và content-wrapper có nền tối trong Dark Mode */
+body.dark-mode,
+body.dark-mode main.content-wrapper {
+    background-color: var(--primary-super-dark) !important;
+}
+
+/* Fix khối Tóm tắt đơn hàng (Order Summary) */
+/* Ghi đè class Bootstrap bg-body-tertiary */
+body.dark-mode .bg-body-tertiary {
+    background-color: var(--accent-dark) !important; /* Dùng màu tối hơn một chút cho khối này */
+    color: var(--white-smoke) !important;
+}
+
+/* Đảm bảo viền phân tách bên trong khối tóm tắt cũng tối */
+body.dark-mode .bg-body-tertiary .border-bottom,
+body.dark-mode .bg-body-tertiary .border-top {
+    border-color: var(--primary-dark) !important;
+}
+/* Fix chữ và tiêu đề trong khu vực Giỏ hàng và Tóm tắt đơn hàng */
+body.dark-mode .container,
+body.dark-mode .section {
+    color: var(--white-smoke) !important;
+}
+
+/* Fix Tiêu đề trang (Giỏ hàng) */
+body.dark-mode h1.h3,
+body.dark-mode h5 {
+    color: var(--white-smoke) !important;
+}
+
+/* Fix chữ trong Breadcrumb */
+body.dark-mode .breadcrumb .breadcrumb-item,
+body.dark-mode .breadcrumb .breadcrumb-item a {
+    color: var(--primary-light) !important; /* Màu sáng hơn cho liên kết */
+}
+body.dark-mode .breadcrumb .breadcrumb-item.active {
+    color: var(--white-smoke) !important;
+}
+/* Fix chữ trong khối Tóm tắt đơn hàng */
+body.dark-mode .bg-body-tertiary,
+body.dark-mode .bg-body-tertiary ul,
+body.dark-mode .bg-body-tertiary ul li {
+    color: var(--white-smoke) !important;
+}
+
+/* Fix chữ "Tổng ước tính" và số tiền lớn */
+body.dark-mode .bg-body-tertiary .h5,
+body.dark-mode .bg-body-tertiary .fs-sm,
+body.dark-mode .bg-body-tertiary .text-dark-emphasis {
+    color: var(--white-smoke) !important;
+}
+
+/* Fix các lớp màu cụ thể của Cartzilla nếu chúng vẫn hiển thị màu tối */
+body.dark-mode .text-dark-emphasis {
+    color: var(--white-smoke) !important;
+}
+body.dark-mode .text-body-secondary {
+    color: var(--accent-light) !important;
+}
+
+/* Fix màu chữ cho liên kết "Tiếp tục mua hàng" */
+body.dark-mode .nav-link.animate-underline,
+body.dark-mode .nav-link.animate-underline .animate-target {
+    /* Buộc chữ có màu sáng (sử dụng màu primary-light cho liên kết) */
+    color: var(--primary-light) !important; 
+}
+
+/* Fix màu icon (ci-chevron-left) */
+body.dark-mode .nav-link.animate-underline i {
+    color: var(--primary-light) !important; 
+}
+
+/* Fix hiệu ứng gạch chân/hover nếu có */
+body.dark-mode .nav-link.animate-underline:hover {
+    color: var(--white-smoke) !important;
+}
+/* Buộc màu chữ và màu nền cho input số lượng trong Dark Mode */
+body.dark-mode .count-input .form-control {
+    /* MÀU CHỮ: Buộc thành màu sáng */
+    color: var(--white-smoke) !important; 
+    
+    /* MÀU NỀN: Đảm bảo trong suốt để lộ nền bảng tối */
+    background-color: transparent !important;
+    
+    /* MÀU VIỀN: Sáng màu để nhìn rõ hơn */
+    border-color: var(--accent-light) !important; 
+}
+
+/* =================================================================
+   FIX CUỐI CÙNG: Buộc màu chữ input số lượng thành White Smoke
+   ================================================================= */
+
+/* Selector ưu tiên cao nhất cho input số lượng */
+body.dark-mode .col-lg-8 .table .count-input .form-control,
+body.dark-mode .col-lg-8 .table .count-input .form-control:hover,
+body.dark-mode .col-lg-8 .table .count-input .form-control:focus,
+body.dark-mode .col-lg-8 .table .count-input .form-control:active {
+    /* 1. MÀU CHỮ: Áp dụng màu sáng */
+    color: var(--white-smoke) !important;
+    
+    /* 2. MÀU NỀN: Đảm bảo trong suốt */
+    background-color: transparent !important;
+    
+    /* 3. Yêu cầu trình duyệt sử dụng bảng màu tối */
+    color-scheme: dark !important; 
+    
+    /* 4. Ghi đè màu Autofill/Browser Default (dùng cho Chrome/Edge/Safari) */
+    -webkit-text-fill-color: var(--white-smoke) !important;
+    -webkit-box-shadow: 0 0 0 30px var(--primary-super-dark) inset !important;
+}
+/* Buộc màu chữ của icon dấu +/- thành màu sáng */
+body.dark-mode .col-lg-8 .table .count-input .btn i,
+body.dark-mode .col-lg-8 .table .count-input .btn a i {
+    color: var(--white-smoke) !important;
+    
+    /* Đặt filter để buộc nó là màu trắng (ghi đè icon font) */
+    filter: brightness(0) invert(1) !important; 
+}
+/* Buộc màu chữ cho chính thẻ button (để icon kế thừa) */
+body.dark-mode .col-lg-8 .table .count-input .btn {
+    color: var(--white-smoke) !important;
+    background-color: transparent !important; /* Giữ nền trong suốt */
+}
+/* =================================================================
+   FIX DỨT ĐIỂM BẰNG GHI ĐÈ CSS VARIABLE GỐC CỦA THEME
+   ================================================================= */
+
+/* 1. Ghi đè biến màu chữ gốc cho DARK MODE */
+body.dark-mode {
+    /* Đặt màu chữ mặc định của Body và Text thành màu sáng */
+    color: var(--white-smoke) !important;
+    --bs-body-color: var(--white-smoke) !important; /* Ghi đè biến Bootstrap */
+}
+
+/* 2. Ghi đè Màu chữ trong Table (đã có nhưng lặp lại để chắc chắn) */
+body.dark-mode .table,
+body.dark-mode .table td {
+    color: var(--white-smoke) !important;
+    --bs-table-color: var(--white-smoke) !important;
+}
+
+
+/* 3. Ghi đè TUYỆT ĐỐI cho Font Awesome Icon */
+body.dark-mode .count-input .btn i.fas,
+body.dark-mode .count-input .btn a i.fas {
+    /* Buộc màu chữ sáng */
+    color: var(--white-smoke) !important;
+    
+    /* Ghi đè Webkit (Chrome, Edge) */
+    -webkit-text-fill-color: var(--white-smoke) !important;
+    
+    /* Buộc filter để xử lý icon font đen */
+    filter: brightness(0) invert(1) !important; 
+    
+    /* Hack cuối cùng */
+    text-shadow: 0 0 1px var(--white-smoke) !important;
+}
+/* =================================================================
+   GHI ĐÈ BIẾN CSS GỐC CHO DARK MODE (ĐỘ ƯU TIÊN CAO)
+   ================================================================= */
+body.dark-mode {
+    /* 1. Thay đổi màu chữ gốc của body */
+    color: var(--white-smoke) !important;
+    
+    /* 2. Ghi đè biến Bootstrap chính cho màu chữ */
+    --bs-body-color: var(--white-smoke) !important; 
+    
+    /* 3. Ghi đè biến màu văn bản/icon của theme */
+    --cz-text-color: var(--white-smoke) !important;
+    --cz-heading-color: var(--white-smoke) !important;
+    
+    /* 4. Ghi đè màu của các thành phần UI */
+    --cz-component-color: var(--white-smoke) !important;
+    --cz-icon-color: var(--white-smoke) !important;
+}
+
+/* 5. Áp dụng lại các quy tắc ghi đè ICON mạnh nhất (bạn đã có) */
+body.dark-mode .col-lg-8 .table .count-input .btn i.fas, 
+body.dark-mode .col-lg-8 .table .count-input .btn:hover i.fas,
+body.dark-mode .col-lg-8 .table .count-input .btn:focus i.fas {
+    color: #F5F5F5 !important; /* MÃ MÀU CỨNG */
+    -webkit-text-fill-color: #F5F5F5 !important;
+    filter: brightness(0) invert(1) !important; 
+}
+/* =================================================================
+   🔥 FIX TUYỆT ĐỐI CUỐI CÙNG CHO ICON DẤU +/- (Ghi đè mọi thứ)
+   ================================================================= */
+
+/* 1. BUỘC MÀU NÚT CHA (A.btn-icon) VÀ VIỀN: SỬ DỤNG MÀU NỀN TỐI VÀ VIỀN SÁNG */
+/* Áp dụng cho trạng thái Mặc định, Hover, Focus */
+body.dark-mode .col-lg-8 .table .count-input .btn-icon,
+body.dark-mode .col-lg-8 .table .count-input .btn-icon:hover,
+body.dark-mode .col-lg-8 .table .count-input .btn-icon:focus,
+body.dark-mode .col-lg-8 .table .count-input .btn-icon:active {
+    /* MÀU NỀN: Đồng bộ với nền tối */
+    background-color: var(--primary-super-dark) !important; 
+    
+    /* MÀU VIỀN: Màu sáng */
+    border: 1px solid var(--primary-light) !important;
+    
+    /* MÀU CHỮ: Buộc màu sáng */
+    color: #F5F5F5 !important; 
+    
+    /* Ghi đè Webkit cho nút cha */
+    -webkit-text-fill-color: #F5F5F5 !important;
+}
+
+/* 2. BUỘC MÀU ICON CON (I.fas) VÀ PSEUDO-ELEMENT: MÀU SÁNG TUYỆT ĐỐI */
+/* Nhắm mục tiêu I.fas (Icon) và ::before (nội dung thực tế của Font Awesome) ở MỌI TRẠNG THÁI */
+body.dark-mode .col-lg-8 .table .count-input .btn-icon i.fas,
+body.dark-mode .col-lg-8 .table .count-input .btn-icon:hover i.fas,
+body.dark-mode .col-lg-8 .table .count-input .btn-icon:focus i.fas,
+body.dark-mode .col-lg-8 .table .count-input .btn-icon i.fas::before,
+body.dark-mode .col-lg-8 .table .count-input .btn-icon:hover i.fas::before,
+body.dark-mode .col-lg-8 .table .count-input .btn-icon:focus i.fas::before {
+    /* BUỘC MÀU CỨNG TUYỆT ĐỐI */
+    color: #F5F5F5 !important;
+    
+    /* GHI ĐÈ WEB-KIT */
+    -webkit-text-fill-color: #F5F5F5 !important;
+    
+    /* HACK FILTER MẠNH MẼ NHẤT: Đảo ngược màu đen thành trắng */
+    filter: brightness(0) invert(1) !important;
+    
+    /* HACK TEXT-SHADOW: Tạo hào quang trắng để che mờ màu đen */
+    text-shadow: 0 0 1px #F5F5F5 !important;
+}
+/* 1. MÀU NÚT CHA (.btn-icon) VÀ VIỀN KHI HOVER */
+/* SỬ DỤNG MÀU NỀN ÍT TỐI HƠN */
+body.dark-mode .col-lg-8 .table .count-input .btn-icon:hover,
+body.dark-mode .col-lg-8 .table .count-input .btn-icon:focus,
+body.dark-mode .col-lg-8 .table .count-input .btn-icon:active {
+    /* MÀU NỀN HOVER: Chuyển sang màu tối nhưng sáng hơn (Primary Dark) */
+    background-color: var(--primary-dark) !important; 
+    
+    /* MÀU VIỀN HOVER: Viền sáng hơn để nổi bật */
+    border: 1px solid var(--primary-lighter) !important;
+    
+    /* MÀU CHỮ: Buộc màu sáng */
+    color: var(--white-smoke) !important; 
+}
+/* 2. MÀU ICON CON (I.fas) KHI HOVER (Phần này nằm trong khối rộng hơn) */
+body.dark-mode .col-lg-8 .table .count-input .btn-icon:hover i.fas,
+body.dark-mode .col-lg-8 .table .count-input .btn-icon:focus i.fas,
+body.dark-mode .col-lg-8 .table .count-input .btn-icon:hover i.fas::before,
+body.dark-mode .col-lg-8 .table .count-input .btn-icon:focus i.fas::before {
+    /* BUỘC MÀU SÁNG HƠN: Dùng màu trắng tinh (#FFFFFF) */
+    color: #FFFFFF !important;
+    
+    /* GHI ĐÈ WEB-KIT */
+    -webkit-text-fill-color: #FFFFFF !important;
+    
+    /* TĂNG ĐỘ SÁNG BẰNG HACK FILTER (từ invert(1) thành invert(1) và tăng saturation/contrast nếu cần) */
+    /* Chúng ta vẫn phải giữ invert(1) để đổi màu đen sang trắng, nên chỉ cần đảm bảo color là #FFFFFF */
+    filter: brightness(1.2) invert(1) !important; /* Tăng độ sáng (brightness) lên 1.2 lần */
+}
+/* =================================================================
+   FIX ĐỒNG BỘ MÀU NÚT "GO TO CHECKOUT" (GIỐNG NÚT CART)
+   ================================================================= */
+
+/* 1. NÚT CHECKOUT (Nằm trong khối Tóm tắt đơn hàng .bg-body-tertiary) - Trạng thái Mặc định */
+/* Selector cực mạnh nhắm mục tiêu vào nút btn-dark */
+body.dark-mode .bg-body-tertiary a.btn-dark,
+body.dark-mode .bg-body-tertiary .btn-dark {
+    /* MÀU NỀN: Buộc thành ĐEN TUYỆT ĐỐI */
+    background-color: var(--primary-medium) !important; 
+    border-color: var(--primary-medium) !important; 
+    /* MÀU CHỮ: Buộc thành TRẮNG */
+    color: #FFFFFF !important;
+}
+
+/* 2. NÚT CHECKOUT - Trạng thái Hover/Focus (Màu tối hơn/sáng hơn một chút khi di chuột) */
+body.dark-mode .bg-body-tertiary a.btn-dark:hover,
+body.dark-mode .bg-body-tertiary a.btn-dark:focus {
+    /* MÀU NỀN HOVER: Dùng màu tối đã định nghĩa (Primary Dark) để tạo hiệu ứng */
+    background-color: var(--primary-dark) !important; 
+    /* MÀU VIỀN HOVER: Đồng bộ nền hover */
+    border-color: var(--primary-dark) !important;
+    /* MÀU CHỮ HOVER: Buộc thành TRẮNG */
+    color: #FFFFFF !important;
+}
+
+/* 3. Fix Icon bên trong nút Checkout (i.ci-chevron-right) */
+body.dark-mode .bg-body-tertiary a.btn-dark i {
+    color: #FFFFFF !important;
+}
 body.dark-mode div#shoppingCart a.btn-dark {
     background-color: var(--primary-medium) !important; 
     border-color: var(--primary-medium) !important;
