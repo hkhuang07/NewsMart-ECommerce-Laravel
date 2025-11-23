@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Storage;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\BrandController;
 use App\Http\Controllers\CartController;
@@ -26,7 +27,7 @@ use App\Http\Controllers\ShippingInformationController;
 use App\Http\Controllers\TopicController;
 use App\Http\Controllers\UserActivityController;
 use App\Http\Controllers\UserController;
-
+use App\Http\Controllers\KhachHangController;
 
 /*Route::get('/', function () {
     return view('welcome');
@@ -46,9 +47,13 @@ Route::name('frontend.')->group(function () {
 	Route::get('/brand', [BrandController::class, 'getList'])->name('brand');
 	//Category Management
 	Route::get('/category', [CategoryController::class, 'getList'])->name('category');
-
+	
 	//cart
+	Route::get('/cart', [HomeController::class, 'getCart'])->name('cart');
 	Route::get('/cart/add/{slug}', [HomeController::class, 'getCart_Add'])->name('cart.add');
+    Route::get('/cart/delete/{row_id}', [HomeController::class, 'getCart_Delete'])->name('cart.delete');
+    Route::get('/cart/increase/{row_id}', [HomeController::class, 'getCart_Increase'])->name('cart.increase');
+    Route::get('/cart/decrease/{row_id}', [HomeController::class, 'getCart_Decrease'])->name('cart.decrease');
 /*
 
 	
@@ -73,15 +78,16 @@ Route::name('frontend.')->group(function () {
 */
 });
 
-
+Route::get('/user/register', [HomeController::class, 'getRegister'])->name('user.register');
+Route::get('/user/login', [HomeController::class, 'getLogin'])->name('user.login');
 Route::prefix('user')->name('user.')->group(function () {
     // Trang chủ của giao diện khách hàng
     Route::get('/', [KhachHangController::class, 'getHome'])->name('home');
     Route::get('/home', [KhachHangController::class, 'getHome'])->name('home');
     // Đặt hàng
-    Route::get('/dat-hang', [KhachHangController::class, 'getDatHang'])->name('dathang');
-    Route::post('/dat-hang', [KhachHangController::class, 'postDatHang'])->name('dathang');
-    Route::get('/dat-hang-thanh-cong', [KhachHangController::class, 'getDatHangThanhCong'])->name('dathangthanhcong');
+    Route::get('/checkout-payment', [KhachHangController::class, 'getCheckoutPayment'])->name('checkoutpayment');
+    Route::post('/checkout-payment', [KhachHangController::class, 'postCheckoutPayment'])->name('checkoutpayment');
+    Route::get('/checkout-thankyou', [KhachHangController::class, 'getCheckoutThankyou'])->name('checkoutthankyou');
     // Xem và cập nhật trạng thái đơn hàng
     Route::get('/don-hang', [KhachHangController::class, 'getDonHang'])->name('donhang');
     Route::get('/don-hang/{id}', [KhachHangController::class, 'getDonHang'])->name('donhang.chitiet');
@@ -299,6 +305,8 @@ Route::prefix('admin')->name('admin.')->group(function () {
 	Route::get('/user/update/{id}', [UserController::class, 'getUpdate'])->name('user.update');
 	Route::post('/user/update/{id}', [UserController::class, 'postUpdate'])->name('user.update');
 	Route::get('/user/delete/{id}', [UserController::class, 'getDelete'])->name('user.delete');
+	
+	
 
 		// Data routes for better UX
 	Route::get('/user/data', [UserController::class, 'getUsersData'])->name('user.data');
