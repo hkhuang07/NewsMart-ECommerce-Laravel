@@ -1190,3 +1190,90 @@ body.dark-mode div#shoppingCart a.btn-dark:hover {
     background-color: var(--primary-dark) !important; 
     border-color: var(--primary-dark) !important;
 }
+/* =================================================================
+   🔥 FIX DARK MODE CHO NÚT THANH TOÁN (PAY BUTTON)
+   ================================================================= */
+
+/* 1. NÚT THANH TOÁN (Màn hình lớn: btn-dark) */
+body.dark-mode label[for="checkout-form-submit"].btn-dark {
+    /* MÀU NỀN: Đồng bộ với Primary Medium */
+    background-color: var(--primary-medium) !important;
+    border-color: var(--primary-medium) !important;
+    /* MÀU CHỮ: Trắng */
+    color: #FFFFFF !important;
+}
+
+body.dark-mode label[for="checkout-form-submit"].btn-dark:hover,
+body.dark-mode label[for="checkout-form-submit"].btn-dark:focus {
+    /* MÀU NỀN HOVER: Đồng bộ với Primary Dark */
+    background-color: var(--primary-dark) !important;
+    border-color: var(--primary-dark) !important;
+    /* MÀU CHỮ: Trắng */
+    color: #FFFFFF !important;
+}
+
+/* 2. NÚT THANH TOÁN CỐ ĐỊNH (Màn hình nhỏ: fixed-bottom, btn-primary) */
+/* Cần selector mạnh để ghi đè .d-lg-none và .btn-primary */
+body.dark-mode .fixed-bottom.d-lg-none label[for="checkout-form-submit"].btn-primary {
+    /* MÀU NỀN: Đồng bộ với Primary Medium */
+    background-color: var(--primary-medium) !important;
+    border-color: var(--primary-medium) !important;
+    /* MÀU CHỮ: Trắng */
+    color: #FFFFFF !important;
+}
+
+body.dark-mode .fixed-bottom.d-lg-none label[for="checkout-form-submit"].btn-primary:hover,
+body.dark-mode .fixed-bottom.d-lg-none label[for="checkout-form-submit"].btn-primary:focus {
+    /* MÀU NỀN HOVER: Đồng bộ với Primary Dark */
+    background-color: var(--primary-dark) !important;
+    border-color: var(--primary-dark) !important;
+    /* MÀU CHỮ: Trắng */
+    color: #FFFFFF !important;
+}
+
+/* 3. FIX NỀN CỦA KHỐI FIXED-BOTTOM */
+body.dark-mode .fixed-bottom.d-lg-none {
+    /* Buộc nền thành màu tối của Dark Mode */
+    background-color: var(--primary-super-dark) !important; 
+    border-top: 1px solid var(--primary-dark) !important;
+}
+body.dark-mode div#orderPreview {
+    background-color: #000624;
+    color: #f0f0f0;
+}
+
+/* 2. VIỀN PHÂN TÁCH (Header và Footer) */
+body.dark-mode div#orderPreview .offcanvas-header {
+    border-color: var(--primary-dark) !important; 
+}
+
+/* 3. MÀU CHỮ CÁC TIÊU ĐỀ VÀ TEXT */
+body.dark-mode div#orderPreview h4.offcanvas-title,
+body.dark-mode div#orderPreview .h6,
+body.dark-mode div#orderPreview .text-light-emphasis,
+body.dark-mode div#orderPreview a.animate-target {
+    color: var(--white-smoke) !important;
+}
+
+/* 4. BACKGROUND HÌNH ẢNH (Phần nền xám nhạt) */
+/* Ghi đè class Bootstrap bg-body-tertiary */
+body.dark-mode div#orderPreview .bg-body-tertiary {
+    background-color: var(--primary-dark) !important;
+}
+
+/* 5. NÚT ĐÓNG OFFCANVAS (X) */
+body.dark-mode div#orderPreview .btn-close {
+    /* Đảo ngược màu sắc để nút đóng thành màu sáng */
+    filter: invert(1) grayscale(100%) brightness(200%) !important; 
+}
+
+/* 6. NÚT GIO HÀNG/CHECKOUT (btn-lg btn-dark) */
+body.dark-mode div#orderPreview a.btn-dark {
+    background-color: var(--primary-medium) !important; 
+    border-color: var(--primary-medium) !important;
+    color: var(--white-smoke) !important;
+}
+body.dark-mode div#orderPreview a.btn-dark:hover {
+    background-color: var(--primary-dark) !important; 
+    border-color: var(--primary-dark) !important;
+}

@@ -6,7 +6,7 @@
             <div class="header-content">
                 <div class="header-left">
                     <h1 class="page-title">
-                        <i class="fas fa-tags"></i>
+                        <i class=""></i>
                         Newest Product
                     </h1>
                     <p clindass="page-subtitle">
@@ -40,22 +40,22 @@
     {{-- Vòng lặp NGOÀI: Lặp qua TỪNG DANH MỤC --}}
     @forelse($categories as $category)
     
+			
+		   <div class="row mb-4">
+				<div class="col-12">
+					{{-- Hiển thị tên Danh mục --}}
+					 <div class="category-header-line d-flex justify-content-between align-items-center pb-2">
+					<h2 class="page-title">
+						<i class=""></i>
 		
-       <div class="row mb-4">
-            <div class="col-12">
-                {{-- Hiển thị tên Danh mục --}}
-				 <div class="category-header-line d-flex justify-content-between align-items-center pb-2">
-                <h2 class="page-title">
-					<i class="fas fa-tags"></i>
-    
-					{{ $category->name ?? 'Không tên' }}
-                </h2>
-				<a class="nav-link animate-underline px-0 py-2" href="">
-						<span class="animate-target">Xem tất cả ></span> <i class="ci-chevron-right fs-base ms-1"></i>
-					</a>
-				 </div>
-            </div>
-        </div>
+						{{ $category->name ?? 'Không tên' }}
+					</h2>
+					<a class="nav-link animate-underline px-0 py-2" href="">
+							<span class="animate-target">Xem tất cả ></span> <i class="ci-chevron-right fs-base ms-1"></i>
+						</a>
+					 </div>
+				</div>
+			</div>
 
         <div class="items-grid" id="productsGrid_{{ $category->id }}">
             
@@ -110,7 +110,7 @@
                             <i class="fas fa-money-bill-wave"></i>
                             <span class="info-label">Price:</span>
                             <span class="info-value" title="{{ number_format($product->price, 0, ',','.') }}">
-                                {{ Str::limit($product->price, 30) }}
+                                ${{ Str::limit($product->price, 30) }}
                             </span>
                         </div>
                         @endif
@@ -123,14 +123,11 @@
 
                     <div class="item-footer">
                         {{-- Phần views, favorites, purchases --}}
-                        @if($product->views)<div><i class="fas fa-eye"></i><span class="info-label">views:</span><span class="info-value">{{ Str::limit($product->views, 30) }}</span></div>@endif
-                        @if($product->favorites)<div><i class="fas fa-heart"></i><span class="info-label">favorites:</span><span class="info-value">{{ Str::limit($product->favorites, 30) }}</span></div>@endif
-                        @if($product->purchases)<div><i class="fas fa-box-open"></i><span class="info-label">purchases:</span><span class="info-value">{{ Str::limit($product->purchases, 30) }}</span></div>@endif
+                        @if($product->views >= 0)<div><i class="fas fa-eye"></i><span class="info-label">views: </span><span class="info-value">{{ Str::limit($product->views, 30) }}</span></div>@endif
+                        @if($product->favorites >=0)<div><i class="fas fa-heart"></i><span class="info-label">favorites: </span><span class="info-value">{{ Str::limit($product->favorites, 30) }}</span></div>@endif
+                        @if($product->purchases >= 0)<div><i class="fas fa-box-open"></i><span class="info-label">purchases: </span><span class="info-value">{{ Str::limit($product->purchases, 30) }}</span></div>@endif
                         
-                        <div class="created-date">
-                            <i class="fas fa-calendar-alt"></i>
-                            Created {{ $product->created_at->diffForHumans() }}
-                        </div>
+                       
                     </div>
 
                    
