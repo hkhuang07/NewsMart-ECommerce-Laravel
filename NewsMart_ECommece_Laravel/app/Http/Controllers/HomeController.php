@@ -95,7 +95,7 @@ class HomeController extends Controller
     {
         Cart::remove($row_id);
 
-	return redirect()->route('frontend.cart');
+		return redirect()->back()->with('success', 'Sản phẩm đã được xóa khỏi giỏ hàng thành công!');
     }
     public function getCart_Increase($row_id)
     {

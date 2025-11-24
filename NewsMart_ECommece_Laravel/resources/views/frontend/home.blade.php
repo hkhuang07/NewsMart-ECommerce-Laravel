@@ -10,16 +10,16 @@
 				<div class="col-12">
 					<div class="position-relative">
 						<span class="position-absolute top-0 start-0 w-100 h-100 rounded-5 d-none-dark rtl-flip" style="background:linear-gradient(90deg, var(--primary-light) 0%, var(--primary-lighter) 100%)"></span>
-<span class="position-absolute top-0 start-0 w-100 h-100 rounded-5 d-none d-block-dark rtl-flip" style="background:linear-gradient(90deg, var(--accent-dark) 0%, var(--primary-super-dark) 100%)"></span>
+						<span class="position-absolute top-0 start-0 w-100 h-100 rounded-5 d-none d-block-dark rtl-flip" style="background:linear-gradient(90deg, var(--accent-dark) 0%, var(--primary-super-dark) 100%)"></span>
 						<div class="row justify-content-center position-relative z-2">
 							<div class="col-xl-5 col-xxl-4 offset-xxl-1 d-flex align-items-center mt-xl-n3">
 								<!-- Text content master slider -->
 								<div class="swiper px-5 pe-xl-0 ps-xxl-0 me-xl-n5" data-swiper='{"spaceBetween": 64, "loop": true, "speed": 400, "controlSlider": "#sliderImages", "autoplay": {"delay": 5500, "disableOnInteraction": false}, "scrollbar": {"el": ".swiper-scrollbar"}}'>
 									<div class="swiper-wrapper">
 										<div class="swiper-slide text-center text-xl-start pt-5 py-xl-5">
-											<p class="text-body">Cảm nhận âm thanh thực sự</p>
+											<p class="text-body">Feel the True Sound</p>
 											<h2 class="display-4 pb-2 pb-xl-4">Headphones ProMax</h2>
-											<a class="btn btn-lg btn-primary" href="#">
+											<a class="btn btn-lg btn-dark w-100 rounded-pill" href="#">
 												Mua ngay <i class="ci-arrow-up-right fs-lg ms-2 me-n1"></i>
 											</a>
 										</div>
@@ -46,7 +46,32 @@
 			</div>
 		</section>
 	
-	
+	<section class="container mb-2">
+    <div id="brands-wrapper" class="position-relative"> 
+        
+        <button id="scroll-left-btn" type="button" class="scroll-btn scroll-left position-absolute top-50 start-0 translate-middle-y d-none">
+            <i class="ci-arrow-left"></i>
+        </button>
+
+        <div id="brands-scroll-container" class="overflow-auto" data-simplebar data-simplebar-auto-hide="false">
+            <div class="d-flex flex-row flex-nowrap g-0" style="min-width: 960px;"> 
+            @foreach($brands as $brand)
+                <div class="flex-shrink-0" style="width: 160px;"> 
+                    <a class="d-flex justify-content-center py-3 px-2 px-xl-3" href="#">
+                        <img src="{{ asset('storage/app/private/' . $brand->logo)}}" class="d-none-dark"  />
+                        <img src="{{ asset('storage/app/private/' . $brand->logo)}}" class="d-none d-block-dark"  />
+                    </a>
+                </div>
+            @endforeach 
+            </div>
+        </div>
+
+        <button id="scroll-right-btn" type="button" class="scroll-btn scroll-right position-absolute top-50 end-0 translate-middle-y">
+            <i class="ci-arrow-right"></i>
+        </button>
+
+    </div>
+</section>
     {{-- Vòng lặp NGOÀI: Lặp qua TỪNG DANH MỤC --}}
     @forelse($categories as $category)
     
@@ -124,11 +149,7 @@
                             </span>
                         </div>
                         @endif
-                        @if($product->description)
-                        <div class="item-description">
-                            {{ Str::limit($product->description, 100) }}
-                        </div>
-                        @endif
+                        
                     </div>
 
                     <div class="item-footer">

@@ -598,6 +598,7 @@ class ComposerStaticInitf2fc921fe9c75174ce0c0550f7a524a9
     );
 
     public static $classMap = array (
+        'App\\Exports\\BrandExport' => __DIR__ . '/../..' . '/app/Exports/BrandExport.php',
         'App\\Helpers\\PermissionHelper' => __DIR__ . '/../..' . '/app/Helpers/PermissionHelper.php',
         'App\\Http\\Controllers\\Auth\\ConfirmPasswordController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/ConfirmPasswordController.php',
         'App\\Http\\Controllers\\Auth\\ForgotPasswordController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/ForgotPasswordController.php',
@@ -633,6 +634,7 @@ class ComposerStaticInitf2fc921fe9c75174ce0c0550f7a524a9
         'App\\Http\\Controllers\\TopicController' => __DIR__ . '/../..' . '/app/Http/Controllers/TopicController.php',
         'App\\Http\\Controllers\\UserActivityController' => __DIR__ . '/../..' . '/app/Http/Controllers/UserActivityController.php',
         'App\\Http\\Controllers\\UserController' => __DIR__ . '/../..' . '/app/Http/Controllers/UserController.php',
+        'App\\Imports\\BrandImport' => __DIR__ . '/../..' . '/app/Imports/BrandImport.php',
         'App\\Models\\Brand' => __DIR__ . '/../..' . '/app/Models/Brand.php',
         'App\\Models\\Cart' => __DIR__ . '/../..' . '/app/Models/Cart.php',
         'App\\Models\\Category' => __DIR__ . '/../..' . '/app/Models/Category.php',

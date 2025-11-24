@@ -27,6 +27,15 @@
                         <i class="fa-light fa-plus"></i>
                         Add New Product
                     </button>
+					
+					<a href="{{ route('admin.product.import') }}"  class="btn-add-new" data-bs-toggle="modal" data-bs-target="#importModal">
+                        <i class="fa-light fa-plus"></i>
+                        Import Excel
+                    </a>
+					<a href="{{ route('admin.product.export') }}"   class="btn-add-new">
+                        <i class="fa-light fa-plus"></i>
+                        Export Excel
+                    </a>
                     @endif
                 </div>
             </div>
@@ -170,7 +179,29 @@
         </div>
     </div>
 </div>
-
+<form action="{{ route('admin.product.import') }}" method="post" enctype="multipart/form-data">
+	@csrf
+		 <div class="modal fade" id="importModal" tabindex="-1" role="dialog" aria-labelledby="importModalLabel" aria-hidden="true">
+			<div class="modal-dialog modal-lg modal-dialog-centered">
+					 <div class="modal-content">
+						 <div class="modal-header item-modal-header">
+						 <h5 class="modal-title" id="importModalLabel">Import from Excel</h5>
+						 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					 </div>
+					<div class="modal-body">
+						 <div class="mb-0">
+						 <label for="file_excel" class="form-label">Choose file Excel</label>
+						 <input type="file" class="form-control" id="file_excel" name="file_excel" required />
+					 </div>
+					 </div>
+						<div class="modal-footer">
+						 <button type="button" class="btn btn-cancel" data-bs-dismiss="modal"><i class="fa-light fa-times"></i> Cancel</button>
+						 <button type="submit" class="btn btn-action"><i class="fa-light fa-upload"></i> Import Data</button>
+					 </div>
+				 </div>
+			 </div>
+		 </div>
+ </form>
 @include('admin.products.add')
 @include('admin.products.update')
 @include('admin.products.delete')
