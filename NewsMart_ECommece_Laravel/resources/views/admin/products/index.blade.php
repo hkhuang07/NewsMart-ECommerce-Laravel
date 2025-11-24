@@ -96,14 +96,14 @@
 
                         @if($product->price)
                         <div class="info-item">
-                            <i class="fas fa-map-marker-alt"></i>
+                            <i class="fas fa-money-bill-wave"></i>
                             <span class="info-label">Price:</span>
                             <span class="info-value" title="{{ $product->price }}">
-                                {{ Str::limit($product->price, 30) }}
+                                ${{ Str::limit($product->price, 30) }}
                             </span>
                         </div>
                         @endif
-
+						
                         
                         @if($product->description)
                         <div class="item-description">
@@ -113,18 +113,18 @@
                     </div>
 
                     <div class="item-footer">
-						@if($product->views)
+						@if($product->views >= 0)
                         <div>
-                            <i class="fas fa-map-marker-alt"></i>
+                            <i class="fas fa-eye"></i>
                             <span class="info-label">views:</span>
                             <span class="info-value" title="{{ $product->price }}">
                                 {{ Str::limit($product->views, 30) }}
                             </span>
                         </div>
                         @endif
-						@if($product->favorites)
+						@if($product->favorites >= 0)
                         <div>
-                            <i class="fas fa-map-marker-alt"></i>
+                            <i class="fas fa-heart"></i>
                             <span class="info-label">favorites:</span>
                             <span class="info-value" title="{{ $product->price }}">
                                 {{ Str::limit($product->favorites, 30) }}
@@ -136,7 +136,7 @@
                             <i class="fas fa-map-marker-alt"></i>
                             <span class="info-label">purchases:</span>
                             <span class="info-value" title="{{ $product->price }}">
-                                {{ Str::limit($product->purchases, 30) }}
+                                {{ Str::limit($product->purases, 30) }}
                             </span>
                         </div>
                         @endif

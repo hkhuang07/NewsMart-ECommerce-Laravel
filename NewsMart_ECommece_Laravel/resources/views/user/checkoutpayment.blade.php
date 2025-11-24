@@ -16,7 +16,8 @@
 			<div class="row pt-1 pt-sm-3 pt-lg-4 pb-2">
 				<div class="col-lg-8 col-xl-7 position-relative z-2 mb-4 mb-lg-0">
 					<div class="d-flex align-items-start">
-						<div class="d-flex align-items-center justify-content-center bg-primary text-white rounded-circle fs-sm fw-semibold lh-1 flex-shrink-0" style="width:2rem; height:2rem; margin-top:-.125rem">1</div>
+
+						<div class="d-flex align-items-center justify-content-center bg-primary text-white rounded-circle fs-sm fw-semibold lh-1 flex-shrink-0" style="width:2rem; height:2rem; margin-top:-.125rem; background-color: #3B38A0 !important;">1</div>
 						<div class="w-100 ps-3 ps-md-4">
 							<h1 class="h5 mb-md-4">Shipping Information</h1>
 							
@@ -40,7 +41,7 @@
 					</div>
 					
 					<div class="d-flex align-items-start pt-3">
-						<div class="d-flex align-items-center justify-content-center bg-primary text-white rounded-circle fs-sm fw-semibold lh-1 flex-shrink-0" style="width:2rem; height:2rem; margin-top:-.125rem">2</div>
+						<div class="d-flex align-items-center justify-content-center bg-primary text-white rounded-circle fs-sm fw-semibold lh-1 flex-shrink-0" style="width:2rem; height:2rem; margin-top:-.125rem; background-color: #3B38A0 !important;">2</div>
 						<div class="w-100 ps-3 ps-md-4">
 							<h2 class="h5 mb-0">Payment Information</h2>
 							<div class="mb-4" id="paymentMethod" role="list">
@@ -100,7 +101,9 @@
 							</div>
 							
 							<!-- Pay button visible on screens > 991px wide (lg breakpoint) -->
-							<label for="checkout-form-submit" class="btn btn-lg btn-primary w-100 ">Pay ${{ Cart::total() ?? 0 }}</label>
+						<div class="offcanvas-body d-flex flex-column gap-4 pt-2">
+							<label for="checkout-form-submit" class="btn btn-lg btn-dark w-100 rounded-pill">Pay ${{ Cart::total() ?? 0 }}</label>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -157,7 +160,7 @@
 		
 		<!-- Order preview offcanvas -->
 		<div class="offcanvas offcanvas-end pb-sm-2 px-sm-2" id="orderPreview" tabindex="-1" style="width:500px">
-			<div class="offcanvas-header py-3 pt-lg-4">
+			<div class="offcanvas-header flex-column align-items-start py-3 pt-lg-4">
 				<h4 class="offcanvas-title" id="orderPreviewLabel">Your Order</h4>
 				<button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
 			</div>
@@ -180,9 +183,12 @@
 				@endforeach
 				
 			</div>
-			<div class="offcanvas-header">
-				<a class="btn btn-lg btn-outline-secondary w-100" href="{{ route('user.checkoutpayment') }}">Edit Cart</a>
+				<div class="offcanvas-header flex-column align-items-start">
+				
+					<a class="btn btn-lg btn-dark w-100 rounded-pill" href="{{ route('user.checkoutpayment') }}">Edit Cart</a>
 			</div>
+				
+		
 		</div>
 	</main>
 @endsection
