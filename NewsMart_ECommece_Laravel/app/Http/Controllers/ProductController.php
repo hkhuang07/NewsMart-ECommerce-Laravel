@@ -15,6 +15,7 @@ use App\Exports\ProductExport;
 use App\Imports\ProductImport;
 use Maatwebsite\Excel\Facades\Excel;
 
+
 class ProductController extends PermissionController 
 {
 
@@ -234,4 +235,9 @@ class ProductController extends PermissionController
         Excel::import(new ProductImport, $request->file('file_excel'));
         return redirect()->route('admin.product');
     }
+	
+	public function getExport()
+	{
+		return Excel::download(new ProductExport, 'danh-sach-san-pham.xlsx');
+ }
 }
