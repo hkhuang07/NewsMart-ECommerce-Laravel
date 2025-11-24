@@ -7,7 +7,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\RedirectResponse; 
-
+use App\Imports\BrandImport;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\BrandExport;
 class BrandController extends PermissionController 
 {
 
@@ -165,4 +167,20 @@ class BrandController extends PermissionController
 
         return view('admin.brands.index', compact('brands'));
     }
+	
+	public function postImport(Request $request)
+	{
+		
+		 $request->validate([
+            'file_excel' => ['required', 'file', 'mimes:xlsx,xls:255', 'max:2048'], // <--- LỖI
+        ]);
+
+        Excel::import(new BrandImport, $request->file('file_excel'));
+        return redirect()->route('admin.brand');
+	 }
+
+	public function getExport()
+	 {
+		return Excel::download(new BrandExport, 'brand.xlsx');
+	 }
 }

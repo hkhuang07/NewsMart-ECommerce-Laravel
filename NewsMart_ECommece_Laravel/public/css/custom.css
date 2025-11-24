@@ -1277,3 +1277,217 @@ body.dark-mode div#orderPreview a.btn-dark:hover {
     background-color: var(--primary-dark) !important; 
     border-color: var(--primary-dark) !important;
 }
+/* =================================================================
+   ẨN THANH CUỘN CHO KHỐI BRANDS (Giữ chức năng cuộn ngang)
+   ================================================================= */
+
+/* =================================================================
+   🔥 ẨN THANH CUỘN CHO KHỐI CUỘN NGANG (BRANDS)
+   ================================================================= */
+
+/* 1. Ẩn thanh cuộn mặc định (Native Scrollbar) */
+.overflow-auto {
+    /* Cho Firefox */
+    scrollbar-width: none;
+    /* Cho IE/Edge */
+    -ms-overflow-style: none;
+}
+
+/* Cho Chrome, Safari, Opera */
+.overflow-auto::-webkit-scrollbar {
+    display: none !important; 
+    width: 0 !important;
+    height: 0 !important;
+}
+
+/* 2. Ẩn thanh cuộn do Simplebar tạo ra */
+/* [data-simplebar] là selector nhắm vào phần tử bạn đang dùng */
+[data-simplebar] .simplebar-track {
+    /* Buộc ẩn track của Simplebar */
+    display: none !important;
+}
+
+/* Đảm bảo nội dung không bị dịch chuyển khi thanh cuộn biến mất */
+[data-simplebar] {
+    overflow: auto !important; /* Đảm bảo cuộn ngang vẫn hoạt động */
+    padding-right: 0 !important; /* Loại bỏ padding mà Simplebar có thể thêm */
+}
+
+/* =================================================================
+   CSS CHO NÚT CUỘN TRÁI/PHẢI (Brands Scroll Buttons) - THIẾT KẾ MỚI
+   ================================================================= */
+.scroll-btn {
+    /* Vị trí và lớp phủ */
+    z-index: 10;
+    
+    /* Hình dáng */
+    width: 2.2rem; /* Giảm kích thước */
+    height: 2.2rem;
+    border-radius: 50%;
+    
+    /* Màu sắc và hiệu ứng */
+    background-color: var(--white-smoke); /* Nền sáng */
+    color: var(--primary-medium); /* Icon màu xanh đậm */
+    border: 1px solid var(--accent-lighter); /* Viền mỏng, nhẹ */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Bóng mờ nhẹ */
+    
+    /* Trình bày icon */
+    display: flex; /* Dùng flex để căn giữa icon */
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem; /* Kích thước icon */
+
+    /* Chuyển động */
+    cursor: pointer;
+    opacity: 0.8;
+    transition: all 0.3s ease-in-out;
+}
+
+/* Hiệu ứng Hover */
+.scroll-btn:hover {
+    opacity: 1;
+    background-color: var(--primary-medium); /* Chuyển sang màu xanh khi hover */
+    color: #FFFFFF; /* Chữ/icon màu trắng */
+    border-color: var(--primary-medium); /* Viền đồng bộ */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* Bóng sâu hơn */
+    transform: translateY(-50%) scale(1.05);
+}
+
+/* DARK MODE STYLES */
+body.dark-mode .scroll-btn {
+    background-color: var(--accent-dark); /* Nền tối hơn trong Dark Mode */
+    color: var(--primary-light); /* Icon màu xanh nhạt hơn */
+    border-color: var(--accent-medium);
+}
+
+body.dark-mode .scroll-btn:hover {
+    background-color: var(--primary-dark); /* Màu xanh đậm khi hover */
+    color: #FFFFFF;
+    border-color: var(--primary-dark);
+}
+
+/* Định vị nút phải (Đẩy vào trong một chút) */
+.scroll-right {
+    right: 0;
+    margin-right: -1rem; 
+}
+
+/* Định vị nút trái (Đẩy vào trong một chút) */
+.scroll-left {
+    left: 0;
+    margin-left: -1rem;
+}
+/* =================================================================
+   CSS ĐIỀU CHỈNH KÍCH CỠ LOGO BRANDS ĐỒNG BỘ
+   ================================================================= */
+
+/* Container bọc ngoài mỗi logo (cần thêm class này vào HTML) */
+.brand-logo-container {
+    width: 100%;
+    /* Khung hình vuông 1:1, chiều cao bằng chiều rộng của container cha */
+    padding-top: 100%; 
+    position: relative;
+}
+
+/* Áp dụng cho thẻ <a> bọc ngoài logo */
+.brand-link {
+    /* Thiết lập Flexbox để căn giữa logo hoàn hảo */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* Đặt logo ở giữa khung container 1:1 */
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    padding: 10px; /* Thêm padding bên trong link để tạo không gian thở */
+    border-radius: 8px; /* Bo góc nhẹ */
+    transition: background-color 0.3s ease;
+}
+
+/* Ứng dụng cho thẻ <img> thực tế */
+.brand-link img {
+    /* Đảm bảo ảnh vừa với khung, giữ tỉ lệ gốc và không bị cắt */
+    object-fit: contain; 
+    /* Chiều cao và chiều rộng tối đa */
+    max-height: 100%; 
+    max-width: 100%;
+    /* Đảm bảo ảnh luôn ở trạng thái tốt */
+    height: auto !important; 
+    width: auto !important;
+    transition: transform 0.3s ease;
+}
+
+.brand-link:hover img {
+    transform: scale(1.05); /* Hiệu ứng phóng to nhẹ khi di chuột */
+}
+
+/* Hiệu ứng nền khi hover (tuỳ chọn) */
+.brand-link:hover {
+    background-color: var(--accent-lighter);
+}
+
+/* DARK MODE STYLES */
+body.dark-mode .brand-link:hover {
+    background-color: var(--accent-dark);
+}
+/* =================================================================
+   FIX LỖI HIỂN THỊ SLIDER TRÊN HOME PAGE (section.container pt-3 mb-4)
+   ================================================================= */
+
+/* 1. Đảm bảo khối container tổng thể có chiều cao tối thiểu */
+.container.pt-3.mb-4 {
+    min-height: 480px; /* Đặt chiều cao tối thiểu cho toàn bộ khối */
+    overflow: hidden; 
+}
+
+/* 2. Fix chiều cao cho Slider chứa ảnh (ID: sliderImages) */
+#sliderImages {
+    height: 450px; /* Chiều cao cố định */
+    width: 100%;
+}
+
+/* 3. Đảm bảo Swiper Wrapper và Slides chiếm toàn bộ chiều cao */
+#sliderImages .swiper-wrapper,
+#sliderImages .swiper-slide {
+    height: 100%;
+}
+
+/* 4. Căn giữa và đảm bảo ảnh bên trong vừa vặn */
+#sliderImages .swiper-slide {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#sliderImages .swiper-slide img {
+    max-height: 100%;
+    max-width: 100%;
+    object-fit: cover; /* Đảm bảo ảnh lấp đầy khung mà không bị kéo giãn */
+}
+/* =================================================================
+   FIX DARK MODE CHO HERO SLIDER BANNER
+   ================================================================= */
+body.dark-mode .d-block-dark {
+    /* Selector này nhắm vào thẻ span chứa nền tối */
+    background: linear-gradient(90deg, var(--accent-dark) 0%, var(--primary-super-dark) 100%) !important;
+}
+/* =================================================================
+   🔥 FIX TUYỆT ĐỐI DARK MODE CHO HERO SLIDER BANNER (Ghi đè Style Inline)
+   ================================================================= */
+
+/* 1. Ghi đè nền Dark Mode */
+/* Nhắm mục tiêu vào thẻ span có class d-block-dark và ghi đè background inline */
+body.dark-mode .d-block-dark {
+    /* Đảm bảo sử dụng !important để ghi đè style inline */
+    background: linear-gradient(90deg, var(--accent-dark) 0%, var(--primary-super-dark) 100%) !important;
+}
+
+/* 2. Ghi đè nền Light Mode (Nếu cần) */
+/* Nhằm đồng bộ màu nền Light Mode với biến CSS */
+/* Cần đảm bảo rằng d-none-dark hiển thị trong Light Mode (body không có class dark-mode) */
+body:not(.dark-mode) .d-none-dark {
+    /* Sử dụng Light Mode colors: light blue đến primary light */
+    background: linear-gradient(90deg, var(--light-blue) 0%, var(--primary-light) 100%) !important;
+}
