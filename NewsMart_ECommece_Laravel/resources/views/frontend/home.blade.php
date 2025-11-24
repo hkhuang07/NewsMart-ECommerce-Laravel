@@ -20,7 +20,7 @@
 											<p class="text-body">Feel the True Sound</p>
 											<h2 class="display-4 pb-2 pb-xl-4">Headphones ProMax</h2>
 											<a class="btn btn-lg btn-dark w-100 rounded-pill" href="#">
-												Mua ngay <i class="ci-arrow-up-right fs-lg ms-2 me-n1"></i>
+												Buy now <i class="ci-arrow-up-right fs-lg ms-2 me-n1"></i>
 											</a>
 										</div>
 										

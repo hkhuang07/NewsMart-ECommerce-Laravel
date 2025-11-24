@@ -28,11 +28,11 @@
                         Add New Brand
                     </button>
 					<a href="{{ route('admin.brand.import') }}"  class="btn-add-new" data-bs-toggle="modal" data-bs-target="#importModal">
-                        <i class="fa-light fa-plus"></i>
+                        <i class="fa-light fa-upload"></i>
                         Import Excel
                     </a>
 					<a href="{{ route('admin.brand.export') }}"   class="btn-add-new">
-                        <i class="fa-light fa-plus"></i>
+                        <i class="fa-light fa-download"></i>
                         Export Excel
                     </a>
 		
@@ -42,29 +42,52 @@
         </div>
     </div>
 	
-	<form action="{{ route('admin.brand.import') }}" method="post" enctype="multipart/form-data">
-	@csrf
-		 <div class="modal fade" id="importModal" tabindex="-1" role="dialog" aria-labelledby="importModalLabel" aria-hidden="true">
-			<div class="modal-dialog modal-lg modal-dialog-centered">
-					 <div class="modal-content">
-						 <div class="modal-header item-modal-header">
-						 <h5 class="modal-title" id="importModalLabel">Import from Excel</h5>
-						 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-					 </div>
-					<div class="modal-body">
-						 <div class="mb-0">
-						 <label for="file_excel" class="form-label">Choose file Excel</label>
-						 <input type="file" class="form-control" id="file_excel" name="file_excel" required />
-					 </div>
-					 </div>
-						<div class="modal-footer">
-						 <button type="button" class="btn btn-cancel" data-bs-dismiss="modal"><i class="fa-light fa-times"></i> Cancel</button>
-						 <button type="submit" class="btn btn-action"><i class="fa-light fa-upload"></i> Import Data</button>
-					 </div>
-				 </div>
-			 </div>
-		 </div>
- </form>
+<form action="{{ route('admin.brand.import') }}" method="post" enctype="multipart/form-data">
+	       @csrf
+
+<div class="modal fade" id="importModal" tabindex="-1" aria-labelledby="importModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content item-modal">
+            <div class="modal-header item-modal-header">
+                <h5 class="modal-title" id="addBrandModalLabel">
+                    <i class="fa-light fa-plus-circle"></i>
+                    Import from Excel
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+                <div id="modalMessages" class="mb-3" style="display: none;">
+                    <div id="errorMessage" class="alert alert-danger" style="display: none;"></div>
+                    <div id="successMessage" class="alert alert-success" style="display: none;"></div>
+                </div>
+
+                <form id="addBrandForm" action="{{ route('admin.brand.add') }}" method="post" enctype="multipart/form-data">
+             
+                    <div class="form-group mb-4">
+                        <label class="form-label" for="name">
+                            <i class="fa-light fa-upload"></i>
+                            Choose file Excel
+                        </label>
+                         <input type="file" class="form-control" id="file_excel" name="file_excel" required />
+                        
+                    </div>
+
+                  
+                </form>
+            </div>
+				<div class="modal-footer item-modal-footer">
+               
+				<button type="button" class="btn btn-cancel" data-bs-dismiss="modal">
+				<i class="fa-light fa-times"></i> 
+				Cancel</button>
+				<button type="submit" class="btn btn-action"><i class="fa-light fa-upload"></i> Import Data</button>
+            </div>
+           
+        </div>
+    </div>
+</div>
+
 
 
     
