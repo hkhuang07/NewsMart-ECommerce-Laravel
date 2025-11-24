@@ -1,37 +1,47 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="item-header">
-        <div class="container mx-auto px-4">
-            <div class="header-content">
-                <div class="header-left">
-                    <h1 class="page-title">
-                        <i class="fas fa-tags"></i>
-                        Newest Product
-                    </h1>
-                    <p clindass="page-subtitle">
-                        Choose your best choice
-                    </p>
-                </div>
-                
-            </div>
-        </div>
-    </div>
+	
 <div class="container mx-auto px-4 py-8">
-    
-<!-- Brands -->
-		<section class="container mb-2">
-			<div class="overflow-auto" data-simplebar data-simplebar-auto-hide="false">
-				<div class="row row-cols-6 g-0" style="min-width:960px">
-				@foreach($brands as $brands)
-				
-					<div class="col">
-						<a class="d-flex justify-content-center py-3 px-2 px-xl-3" href="#">
-							<img src="{{ asset('storage/app/private/' . $brands->logo)}}" class="d-none-dark"  />
-							<img src="{{ asset('storage/app/private/' . $brands->logo)}}" class="d-none d-block-dark"  />
-						</a>
+<!-- Page content -->
+<!-- Hero slider -->
+		<section class="container pt-3 mb-4">
+			<div class="row">
+				<div class="col-12">
+					<div class="position-relative">
+						<span class="position-absolute top-0 start-0 w-100 h-100 rounded-5 d-none-dark rtl-flip" style="background:linear-gradient(90deg, var(--primary-light) 0%, var(--primary-lighter) 100%)"></span>
+<span class="position-absolute top-0 start-0 w-100 h-100 rounded-5 d-none d-block-dark rtl-flip" style="background:linear-gradient(90deg, var(--accent-dark) 0%, var(--primary-super-dark) 100%)"></span>
+						<div class="row justify-content-center position-relative z-2">
+							<div class="col-xl-5 col-xxl-4 offset-xxl-1 d-flex align-items-center mt-xl-n3">
+								<!-- Text content master slider -->
+								<div class="swiper px-5 pe-xl-0 ps-xxl-0 me-xl-n5" data-swiper='{"spaceBetween": 64, "loop": true, "speed": 400, "controlSlider": "#sliderImages", "autoplay": {"delay": 5500, "disableOnInteraction": false}, "scrollbar": {"el": ".swiper-scrollbar"}}'>
+									<div class="swiper-wrapper">
+										<div class="swiper-slide text-center text-xl-start pt-5 py-xl-5">
+											<p class="text-body">Cảm nhận âm thanh thực sự</p>
+											<h2 class="display-4 pb-2 pb-xl-4">Headphones ProMax</h2>
+											<a class="btn btn-lg btn-primary" href="#">
+												Mua ngay <i class="ci-arrow-up-right fs-lg ms-2 me-n1"></i>
+											</a>
+										</div>
+										
+									</div>
+								</div>
+							</div>
+							<div class="col-9 col-sm-7 col-md-6 col-lg-5 col-xl-7">
+								<!-- Binded images (controlled slider) -->
+								<div class="swiper user-select-none" id="sliderImages" data-swiper='{"allowTouchMove": false, "loop": true, "effect": "fade", "fadeEffect": {"crossFade": true}}'>
+									<div class="swiper-wrapper">
+										<div class="swiper-slide d-flex justify-content-end">
+											<div class="ratio rtl-flip" style="max-width:475px; --cz-aspect-ratio:calc(464 / 495 * 100%)">
+												<img src="public/assets/img/slider/01.png" alt="Image" />
+											</div>
+										</div>
+										
+									</div>
+								</div>
+							</div>
+						</div>
 					</div>
-				@endforeach	
 				</div>
 			</div>
 		</section>
@@ -40,22 +50,22 @@
     {{-- Vòng lặp NGOÀI: Lặp qua TỪNG DANH MỤC --}}
     @forelse($categories as $category)
     
+			
+		   <div class="row mb-4">
+				<div class="col-12">
+					{{-- Hiển thị tên Danh mục --}}
+					 <div class="category-header-line d-flex justify-content-between align-items-center pb-2">
+					<h2 class="page-title">
+						<i class=""></i>
 		
-       <div class="row mb-4">
-            <div class="col-12">
-                {{-- Hiển thị tên Danh mục --}}
-				 <div class="category-header-line d-flex justify-content-between align-items-center pb-2">
-                <h2 class="page-title">
-					<i class="fas fa-tags"></i>
-    
-					{{ $category->name ?? 'Không tên' }}
-                </h2>
-				<a class="nav-link animate-underline px-0 py-2" href="">
-						<span class="animate-target">Xem tất cả ></span> <i class="ci-chevron-right fs-base ms-1"></i>
-					</a>
-				 </div>
-            </div>
-        </div>
+						{{ $category->name ?? 'Không tên' }}
+					</h2>
+					<a class="nav-link animate-underline px-0 py-2" href="">
+							<span class="animate-target">Xem tất cả ></span> <i class="ci-chevron-right fs-base ms-1"></i>
+						</a>
+					 </div>
+				</div>
+			</div>
 
         <div class="items-grid" id="productsGrid_{{ $category->id }}">
             
@@ -110,7 +120,7 @@
                             <i class="fas fa-money-bill-wave"></i>
                             <span class="info-label">Price:</span>
                             <span class="info-value" title="{{ number_format($product->price, 0, ',','.') }}">
-                                {{ Str::limit($product->price, 30) }}
+                                ${{ Str::limit($product->price, 30) }}
                             </span>
                         </div>
                         @endif
@@ -123,14 +133,11 @@
 
                     <div class="item-footer">
                         {{-- Phần views, favorites, purchases --}}
-                        @if($product->views)<div><i class="fas fa-eye"></i><span class="info-label">views:</span><span class="info-value">{{ Str::limit($product->views, 30) }}</span></div>@endif
-                        @if($product->favorites)<div><i class="fas fa-heart"></i><span class="info-label">favorites:</span><span class="info-value">{{ Str::limit($product->favorites, 30) }}</span></div>@endif
-                        @if($product->purchases)<div><i class="fas fa-box-open"></i><span class="info-label">purchases:</span><span class="info-value">{{ Str::limit($product->purchases, 30) }}</span></div>@endif
+                        @if($product->views >= 0)<div><i class="fas fa-eye"></i><span class="info-label">views: </span><span class="info-value">{{ Str::limit($product->views, 30) }}</span></div>@endif
+                        @if($product->favorites >=0)<div><i class="fas fa-heart"></i><span class="info-label">favorites: </span><span class="info-value">{{ Str::limit($product->favorites, 30) }}</span></div>@endif
+                        @if($product->purchases >= 0)<div><i class="fas fa-box-open"></i><span class="info-label">purchases: </span><span class="info-value">{{ Str::limit($product->purchases, 30) }}</span></div>@endif
                         
-                        <div class="created-date">
-                            <i class="fas fa-calendar-alt"></i>
-                            Created {{ $product->created_at->diffForHumans() }}
-                        </div>
+                       
                     </div>
 
                    

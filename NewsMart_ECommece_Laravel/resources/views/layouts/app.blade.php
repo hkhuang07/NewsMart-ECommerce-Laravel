@@ -825,7 +825,49 @@
                 if (langTextNav) langTextNav.textContent = 'English';
             }
         });
-		
+		document.addEventListener('DOMContentLoaded', function() {
+    const scrollContainer = document.getElementById('brands-scroll-container');
+    const scrollLeftBtn = document.getElementById('scroll-left-btn');
+    const scrollRightBtn = document.getElementById('scroll-right-btn');
+    const scrollAmount = 250; // Số pixel cuộn mỗi lần nhấp
+
+    // Hàm kiểm tra vị trí cuộn để ẩn/hiện mũi tên
+    const checkScrollPosition = () => {
+        // Nếu đã cuộn hết sang trái
+        if (scrollContainer.scrollLeft <= 0) {
+            scrollLeftBtn.classList.add('d-none');
+        } else {
+            scrollLeftBtn.classList.remove('d-none');
+        }
+
+        // Nếu đã cuộn hết sang phải
+        if (scrollContainer.scrollLeft + scrollContainer.clientWidth >= scrollContainer.scrollWidth) {
+            scrollRightBtn.classList.add('d-none');
+        } else {
+            scrollRightBtn.classList.remove('d-none');
+        }
+    };
+    
+    // Ban đầu, kiểm tra và ẩn mũi tên trái nếu đang ở đầu
+    checkScrollPosition(); 
+
+    // Xử lý cuộn sang phải
+    scrollRightBtn.addEventListener('click', () => {
+        scrollContainer.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+        // Chờ cuộn xong mới kiểm tra lại vị trí
+        setTimeout(checkScrollPosition, 300); 
+    });
+
+    // Xử lý cuộn sang trái
+    scrollLeftBtn.addEventListener('click', () => {
+        scrollContainer.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+        // Chờ cuộn xong mới kiểm tra lại vị trí
+        setTimeout(checkScrollPosition, 300);
+    });
+
+    // Cập nhật trạng thái mũi tên khi người dùng tự cuộn bằng chuột
+    scrollContainer.addEventListener('scroll', checkScrollPosition);
+});
     </script>
 	
     @yield('scripts')
