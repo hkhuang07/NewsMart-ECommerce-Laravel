@@ -11,7 +11,13 @@ class Brand extends Model
     protected $primaryKey = 'id';
 
     // Quan hệ 1-n: Brand HAS MANY Products
-    public function products(): HasMany
+	
+	protected $fillable = [
+	'name',
+    'slug',
+    'logo',
+	];
+		public function products(): HasMany
     {
         return $this->hasMany(Product::class, 'brandid', 'id');
     }

@@ -118,6 +118,8 @@ Route::prefix('admin')->name('admin.')->group(function () {
 	Route::get('/brand/update/{id}', [BrandController::class, 'getUpdate'])->name('brand.update');
 	Route::post('/brand/update/{id}', [BrandController::class, 'postUpdate'])->name('brand.update');
 	Route::get('/brand/delete/{id}', [BrandController::class, 'getDelete'])->name('brand.delete');
+	Route::post('/brand/import', [BrandController::class, 'postImport'])->name('brand.import');
+	Route::get('/hangsanxuat/export', [BrandController::class, 'getExport'])->name('brand.export');
 
 
 	//Category Management
