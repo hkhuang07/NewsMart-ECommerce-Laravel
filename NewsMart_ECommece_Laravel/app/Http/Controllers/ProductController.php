@@ -11,6 +11,9 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\RedirectResponse; 
 use App\Models\ProductImage;
+use App\Exports\ProductExport;
+use App\Imports\ProductImport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ProductController extends PermissionController 
 {
@@ -220,5 +223,15 @@ class ProductController extends PermissionController
             ->get();
 
         return view('admin.products.index', compact('products'));
+    }
+	
+	public function postImport(Request $request)
+    {
+         $request->validate([
+            'file_excel' => ['required', 'file', 'mimes:xlsx,xls', 'max:2048'],
+        ]);
+
+        Excel::import(new ProductImport, $request->file('file_excel'));
+        return redirect()->route('admin.product');
     }
 }

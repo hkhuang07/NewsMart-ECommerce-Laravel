@@ -109,7 +109,7 @@
 						<div class="nav position-relative z-2 mb-4 mb-lg-0">
 							<a class="nav-link animate-underline px-0" href="#">
 								<i class="ci-chevron-left fs-lg me-1"></i>
-								<span class="animate-target">Tiếp tục mua hàng</span>
+								<span class="animate-target">Continue Shopping</span>
 							</a>
 						</div>
 					</div>

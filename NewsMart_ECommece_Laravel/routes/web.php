@@ -225,6 +225,8 @@ Route::prefix('admin')->name('admin.')->group(function () {
 	Route::get('/product/update/{id}', [ProductController::class, 'getUpdate'])->name('product.update');
 	Route::post('/product/update/{id}', [ProductController::class, 'postUpdate'])->name('product.update');
 	Route::get('/product/delete/{id}', [ProductController::class, 'getDelete'])->name('product.delete');
+	Route::post('/product/import', [ProductController::class, 'postImport'])->name('product.import');
+	Route::get('/product/export', [ProductController::class, 'getExport'])->name('product.export');
 
 	//Product Favorite Management
 	Route::get('/productfavorite', [ProductFavoriteController::class, 'getList'])->name('productfavorite');

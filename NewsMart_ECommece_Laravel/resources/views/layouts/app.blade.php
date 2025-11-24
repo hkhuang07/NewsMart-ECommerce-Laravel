@@ -337,10 +337,10 @@
 							</h5>
 							<div class="d-flex align-items-center justify-content-between gap-1">
 								<div class="h6 mt-1 mb-0">${{ $value->price }}</div>
-								<button type="button" class="btn btn-icon btn-sm flex-shrink-0 fs-sm" data-bs-toggle="tooltip"
+								<a href="{{ route('frontend.cart.delete',['row_id' => $value->rowId]) }}" class="btn btn-icon btn-sm flex-shrink-0 fs-sm" data-bs-toggle="tooltip"
 									data-bs-custom-class="tooltip-sm" data-bs-title="Remove">
 									<i class="fas fa-trash-alt fs-base"></i>
-								</button>
+								</a>
 							</div>
 						</div>
 					</div>
