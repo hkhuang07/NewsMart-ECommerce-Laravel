@@ -254,29 +254,23 @@
         const btnText = updateSubmitBtn.querySelector('.btn-text');
         const btnLoading = updateSubmitBtn.querySelector('.btn-loading');
 
+        // Logic reset form (giữ nguyên)
         updateUserModal.addEventListener('hidden.bs.modal', function() {
             updateUserForm.reset();
-
-            const invalidInputs = updateUserForm.querySelectorAll('.is-invalid');
-            invalidInputs.forEach(i => i.classList.remove('is-invalid'));
-            const feedbacks = updateUserForm.querySelectorAll('.invalid-feedback');
-            feedbacks.forEach(f => {
+            updateUserForm.querySelectorAll('.is-invalid').forEach(i => i.classList.remove('is-invalid'));
+            updateUserForm.querySelectorAll('.invalid-feedback').forEach(f => {
                 f.style.display = 'none';
                 f.textContent = '';
             });
-
             document.getElementById('updateModalMessages').style.display = 'none';
-            document.getElementById('updateErrorMessage').style.display = 'none';
-            document.getElementById('updateSuccessMessage').style.display = 'none';
-
             document.getElementById('currentAvatarPreview').style.display = 'none';
             document.getElementById('currentBackgroundPreview').style.display = 'none';
-
             updateSubmitBtn.disabled = false;
             btnText.style.display = 'inline';
             btnLoading.style.display = 'none';
         });
 
+        // Logic submit form (giữ nguyên)
         updateUserForm.addEventListener('submit', function(e) {
             updateSubmitBtn.disabled = true;
             btnText.style.display = 'none';
@@ -288,75 +282,71 @@
         });
     });
 
-    function openUpdateModal(userId) {
-        const selectRole = document.getElementById('updateRoleid');
-        const isactiveCheckbox = document.getElementById('updateIsactive');
+    /**
+     * Mở modal chỉnh sửa người dùng và điền dữ liệu trực tiếp từ JSON.
+     * Hàm này được gọi từ list view khi nút Edit được click.
+     * @param {object} userData - Đối tượng JSON chứa dữ liệu người dùng (phải bao gồm tất cả các trường cần thiết).
+     */
+    function openUpdateModal(userData) {
+        
         const updateForm = document.getElementById('updateUserForm');
-
-        const urlFetch = `{{ route('api.user.get', ['id' => '__ID__']) }}`.replace('__ID__', userId);
-
-        updateForm.action = `{{ route('user.update', ['id' => '__ID__']) }}`.replace('__ID__', userId);
-        document.getElementById('updateUserId').value = userId;
-
-        const baseStorageUrl = "{{ asset('storage') }}";
-
         const updateModal = new bootstrap.Modal(document.getElementById('updateUserModal'));
+        const baseStorageUrl = "{{ asset('storage') }}";
+        
+        // 1. Cập nhật Form Action URL
+        // Giả định tên route Admin cho POST là 'admin.user.update'
+        updateForm.action = `{{ route('admin.user.update', ['id' => '__ID__']) }}`.replace('__ID__', userData.id); 
+        document.getElementById('updateUserId').value = userData.id;
+
+        // 2. Ánh xạ dữ liệu vào các trường input
+        document.getElementById('updateName').value = userData.name || '';
+        document.getElementById('updateUsername').value = userData.username || '';
+        document.getElementById('updateEmail').value = userData.email || '';
+        document.getElementById('updatePhone').value = userData.phone || '';
+        document.getElementById('updateAddress').value = userData.address || '';
+        document.getElementById('updateJobs').value = userData.jobs || '';
+        document.getElementById('updateCompany').value = userData.company || '';
+        document.getElementById('updateSchool').value = userData.school || '';
+
+        // 3. Xử lý Select Role
+        const selectRole = document.getElementById('updateRoleid');
+        if (selectRole && userData.roleid) {
+            selectRole.value = userData.roleid;
+        }
+
+        // 4. Xử lý Checkbox Active Status
+        const isactiveCheckbox = document.getElementById('updateIsactive');
+        if (isactiveCheckbox) {
+            // Kiểm tra giá trị boolean/integer 1
+            isactiveCheckbox.checked = userData.isactive === 1 || userData.isactive === true;
+        }
+        
+        // 5. Xử lý hiển thị ảnh (Avatar/Background)
+        const currentAvatarPreview = document.getElementById('currentAvatarPreview');
+        const currentAvatarImage = document.getElementById('currentAvatarImage');
+        const currentBackgroundPreview = document.getElementById('currentBackgroundPreview');
+        const currentBackgroundImage = document.getElementById('currentBackgroundImage');
+
+        // Avatar
+        if (userData.avatar) {
+            currentAvatarImage.src = baseStorageUrl + '/' + userData.avatar;
+            currentAvatarPreview.style.display = 'block';
+        } else {
+            currentAvatarPreview.style.display = 'none';
+        }
+        
+        // Background
+        if (userData.background) {
+            currentBackgroundImage.src = baseStorageUrl + '/' + userData.background;
+            currentBackgroundPreview.style.display = 'block';
+        } else {
+            currentBackgroundPreview.style.display = 'none';
+        }
+
+        // 6. Xóa các lỗi validation cũ (được thực hiện trong event 'hidden.bs.modal')
+        
+        // 7. Mở Modal
         updateModal.show();
-
-        fetch(urlFetch)
-            .then(response => {
-                if (!response.ok) throw new Error('Failed to fetch user data.');
-                return response.json();
-            })
-            .then(data => {
-                document.getElementById('updateName').value = data.name || '';
-                document.getElementById('updateUsername').value = data.username || '';
-                document.getElementById('updateEmail').value = data.email || '';
-                document.getElementById('updatePhone').value = data.phone || '';
-                document.getElementById('updateAddress').value = data.address || '';
-                document.getElementById('updateJobs').value = data.jobs || '';
-                document.getElementById('updateCompany').value = data.company || '';
-                document.getElementById('updateSchool').value = data.school || '';
-
-                if (selectRole) {
-                    selectRole.value = data.role_id || data.roleid || '';
-                }
-
-                if (isactiveCheckbox) {
-                    isactiveCheckbox.checked = data.is_active;
-                }
-
-                const currentAvatarPreview = document.getElementById('currentAvatarPreview');
-                const currentAvatarImage = document.getElementById('currentAvatarImage');
-                const currentBackgroundPreview = document.getElementById('currentBackgroundPreview');
-                const currentBackgroundImage = document.getElementById('currentBackgroundImage');
-
-                if (data.avatar) {
-                    currentAvatarImage.src = baseStorageUrl + '/' + data.avatar;
-                    currentAvatarPreview.style.display = 'block';
-                } else {
-                    currentAvatarPreview.style.display = 'none';
-                    currentAvatarImage.src = '';
-                }
-                if (data.background) {
-                    currentBackgroundImage.src = baseStorageUrl + '/' + data.background;
-                    currentBackgroundPreview.style.display = 'block';
-                } else {
-                    currentBackgroundPreview.style.display = 'none';
-                    currentBackgroundImage.src = '';
-                }
-
-                updateForm.querySelectorAll('.is-invalid').forEach(i => i.classList.remove('is-invalid'));
-                updateForm.querySelectorAll('.invalid-feedback').forEach(f => {
-                    f.style.display = 'none';
-                    f.textContent = '';
-                });
-
-            })
-            .catch(error => {
-                console.error('Error fetching user data:', error);
-                updateModal.hide();
-            });
     }
 
     window.openUpdateModal = openUpdateModal;

@@ -397,34 +397,16 @@
                                 <i class="fas fa-home"></i> Home
                             </a>
                         </li>
-                        <!-- News Center Dropdown -->
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('frontend.home') }} ">
                                 <i class="fas fa-newspaper"></i> News 
                             </a>
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="#">
-                                        <i class="fas fa-tags"></i> Topics
-                                    </a></li>
-                                <li><a class="dropdown-item" href="#">
-                                        <i class="fas fa-file-alt"></i> Post Types
-                                    </a></li>
-                            </ul>
                         </li>
 
-                        <!-- Shopping Center Dropdown -->
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
+                        <li class="nav-item ">
+                            <a class="nav-link" href="{{ route('frontend.home') }} ">
                                 <i class="fas fa-store"></i> Mart
                             </a>
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="{{ route('frontend.category') }}">
-                                        <i class="fas fa-sitemap"></i> Categories
-                                    </a></li>
-                                <li><a class="dropdown-item" href="{{ route('frontend.brand') }}">
-                                        <i class="fas fa-copyright"></i> Brands
-                                    </a></li>
-                            </ul>
                         </li>
 
                         <li class="nav-item">
