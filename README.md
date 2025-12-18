@@ -3,6 +3,7 @@
 **Igniting Minds, Fueling Markets!**
 
 NewsMart is a robust, multi-role web application designed as an integrated ecosystem for e-commerce and content publishing. It is built on the powerful **Laravel** framework, ensuring scalability, security, and clean architecture.
+
 <p align="center">
   <img src="https://img.shields.io/badge/PHP-777BB4?style=for-the-badge&logo=php&logoColor=white" alt="PHP Badge" />
   <img src="https://img.shields.io/badge/Laravel-FF2D20?style=for-the-badge&logo=laravel&logoColor=white" alt="Laravel Badge" />
@@ -14,6 +15,7 @@ NewsMart is a robust, multi-role web application designed as an integrated ecosy
 ## 💡 Project Highlights
 
 ### Authentication
+
 <p align="center">
   <img src="demo/login.jpg" alt="Login" width="700"/>
   <br />
@@ -26,6 +28,30 @@ NewsMart is a robust, multi-role web application designed as an integrated ecosy
   <em>Register </em>
 </p>
 
+### Frontend Homepage
+
+<p align="center">
+  <img src="demo/frontend.jpg" alt="Frontend" width="900"/>
+  <img src="demo/frontend01.jpg" alt="Frontend" width="900"/>
+  <img src="demo/frontend02.jpg" alt="Frontend" width="900"/>
+  <img src="demo/frontend03.jpg" alt="Frontend" width="900"/>
+  <img src="demo/frontend04.jpg" alt="Frontend" width="900"/>
+  <br />
+  <em>Home Page </em>
+</p>
+
+### Order & Payment Process 
+
+<p align="center">
+  <img src="demo/cart.jpg" alt="Card" width="900"/>
+  <img src="demo/cartdetails.jpg" alt="Card Details" width="900"/>
+  <img src="demo/checkout.jpg" alt="Check out" width="900"/>
+  <img src="demo/thankyou.jpg" alt="Thank you" width="900"/>
+  <br />
+  <em>Order & Payment Process </em>
+</p>
+
+
 ### Management
 
 <p align="center">
@@ -33,7 +59,6 @@ NewsMart is a robust, multi-role web application designed as an integrated ecosy
   <br />
   <em> Roles Management </em>
 </p>
-
 
 <p align="center">
   <img src="demo/brands.jpg" alt="Brands" width="700"/>
@@ -71,20 +96,20 @@ NewsMart is a robust, multi-role web application designed as an integrated ecosy
   <em> Order Status Management </em>
 </p>
 
-
 ## 🌟 Key Features
 
 This project provides a comprehensive feature set for various user roles (Admin, Manager, Saler, Shipper, User).
 
 ### Core System & Management (CRUD Completed) ⚙️
+
 The foundational management modules are fully implemented, allowing administrators full control over:
 
-* **Authentication:** `Login`/`Register` fully stylized and functional.
-* **Navigation:** Complete `Navbar`/`Sidebar` structure with multi-level menus.
-* **System Entities:** Full **CRUD** operations for:
-    * `Categories` & `Brands` (Product classification)
-    * `Topics` & `PostTypes` (Content classification)
-    * `PostStatus`, `OrderStatus`, `Roles`, `Configurations`, `Reviews` (System control)
+- **Authentication:** `Login`/`Register` fully stylized and functional.
+- **Navigation:** Complete `Navbar`/`Sidebar` structure with multi-level menus.
+- **System Entities:** Full **CRUD** operations for:
+  - `Categories` & `Brands` (Product classification)
+  - `Topics` & `PostTypes` (Content classification)
+  - `PostStatus`, `OrderStatus`, `Roles`, `Configurations`, `Reviews` (System control)
 
 ---
 
@@ -92,11 +117,11 @@ The foundational management modules are fully implemented, allowing administrato
 
 This project leverages the modern PHP ecosystem to deliver a high-performance web application.
 
-| Category | Technology | Icon | Note |
-| :--- | :--- | :--- | :--- |
-| **Backend** | **Laravel** (PHP) |  | The leading PHP framework for web artisans. |
-| **Database** | MySQL/MariaDB |  | Robust and widely used relational database. |
-| **Frontend** | Bootstrap 5, Font Awesome |  | Responsive design and rich icon sets. |
+| Category     | Technology                | Icon | Note                                        |
+| :----------- | :------------------------ | :--- | :------------------------------------------ |
+| **Backend**  | **Laravel** (PHP)         |      | The leading PHP framework for web artisans. |
+| **Database** | MySQL/MariaDB             |      | Robust and widely used relational database. |
+| **Frontend** | Bootstrap 5, Font Awesome |      | Responsive design and rich icon sets.       |
 
 ---
 
@@ -108,10 +133,10 @@ Follow these steps to clone the repository and set up the project locally.
 
 Ensure you have the following software installed on your machine:
 
-* **PHP** (8.1+)
-* **Composer**
-* **Node.js & NPM/Yarn** (for frontend assets, if needed)
-* **MySQL** or another compatible database
+- **PHP** (8.1+)
+- **Composer**
+- **Node.js & NPM/Yarn** (for frontend assets, if needed)
+- **MySQL** or another compatible database
 
 ### 2. Installation Steps
 
@@ -147,6 +172,7 @@ php artisan serve
 ```
 
 ### 3. Frontend Assets (If Applicable)
+
 If the project uses compiled assets (JS/CSS), run the following:
 
 ```bash
