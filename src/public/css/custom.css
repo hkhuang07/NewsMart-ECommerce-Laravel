@@ -1,0 +1,1491 @@
+/* Custom CSS for Navbar and Sidebar */
+:root {
+    --primary-super-dark: #000624;
+    --primary-dark: #1A2A80;
+    --primary-medium: #3B38A0;
+    --primary-light: #7A85C1;
+    --primary-lighter: #B2B0E8;
+    --accent-dark: #19183B;
+    --accent-medium: #708993;
+    --accent-light: #A1C2BD;
+    --accent-lighter: #E7F2EF;
+    --light-blue: #E0EEEE;
+    --white-smoke: #F5F5F5;
+}
+
+/* Body and general styles */
+body {
+    background-color: var(--white-smoke);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Navbar horizontal */
+.navbar-custom {
+    /*background: linear-gradient(90deg, var(--primary-dark) 0%, var(--primary-medium) 100%);  */
+    background:linear-gradient(135deg, var(--accent-dark) 0%, #000624 100%);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    min-height: 60px;
+    white-space: nowrap;
+}
+
+.navbar-custom .navbar-brand {
+    color: white !important;
+    font-weight: bold;
+    font-size: 1.3rem;
+}
+
+.navbar-custom .navbar-nav .nav-link {
+    color: rgba(255,255,255,0.9) !important;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    padding: 0.5rem 1rem;
+	
+}
+
+.navbar-custom .navbar-nav .nav-link:hover {
+    color: white !important;
+    background-color: rgba(255,255,255,0.1);
+    border-radius: 4px;
+}
+
+.navbar-custom .dropdown-menu {
+    background-color: var(--accent-lighter);
+    border: none;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+.navbar-custom .dropdown-item {
+    color: var(--primary-dark);
+    transition: all 0.3s ease;
+}
+
+.navbar-custom .dropdown-item:hover {
+    background-color: var(--primary-light);
+    color: white;
+}
+
+.navbar-toggle {
+    border: solid 2px #E6E6FA;
+    background: #000624;
+    color: #E6E6FA;
+    font-size: 1.2rem;
+    margin-right: 1rem;
+    padding: 0.375rem 0.75rem;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+    display: none;
+}
+
+
+/* Sidebar toggle button */
+.sidebar-toggle {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.2rem;
+    margin-right: 1rem;
+    padding: 0.375rem 0.75rem;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+
+.sidebar-toggle:hover {
+    background-color: rgba(255,255,255,0.1);
+}
+
+/* Search form */
+.search-form {
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+.search-form .form-control {
+    border-radius: 20px 0 0 20px;
+    border: none;
+    background-color: rgba(255,255,255,0.9);
+}
+
+.search-form .btn {
+    border-radius: 0 20px 20px 0;
+    border: none;
+    background-color: var(--accent-light);
+    color: var(--primary-dark);
+}
+
+.search-form .btn:hover {
+    background-color: var(--accent-medium);
+    color: white;
+}
+
+/* Sidebar styles */
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: -280px;
+    width: 280px;
+    height: 100vh;
+    background:linear-gradient(135deg, var(--accent-dark) 0%, #000624 100%);
+    z-index: 1050;
+    transition: all 0.3s ease;
+    overflow-y: auto;
+    box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+}
+
+.sidebar.show {
+    left: 0;
+}
+
+.sidebar-header {
+    padding: 1rem;
+    background-color: rgba(0,0,0,0.1);
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.sidebar-header h5 {
+    color: white;
+    margin: 0;
+    font-weight: bold;
+}
+
+.sidebar-close {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.2rem;
+    float: right;
+    padding: 0;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+}
+
+.sidebar-close:hover {
+    background-color: rgba(255,255,255,0.1);
+}
+
+.sidebar-nav {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+.sidebar-nav .nav-item {
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+.sidebar-nav .nav-link {
+    display: block;
+    padding: 0.75rem 1rem;
+    color: rgba(255,255,255,0.9);
+    text-decoration: none;
+    transition: all 0.3s ease;
+    font-weight: 500;
+}
+
+.sidebar-nav .nav-link:hover {
+    background-color: rgba(255,255,255,0.1);
+    color: white;
+    text-decoration: none;
+}
+
+.sidebar-nav .nav-link i {
+    width: 20px;
+    margin-right: 10px;
+}
+
+/* Sidebar sections */
+.sidebar-section {
+    margin: 1rem 0;
+}
+
+.sidebar-section-title {
+    color: var(--primary-lighter);
+    font-size: 0.85rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    padding: 0.5rem 1rem;
+    margin: 0;
+    letter-spacing: 0.5px;
+}
+
+/* Sidebar dropdowns */
+.sidebar-dropdown {
+    background: none;
+    border: none;
+    width: 100%;
+    text-align: left;
+    padding: 0.75rem 1rem;
+    color: rgba(255,255,255,0.9);
+    transition: all 0.3s ease;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.sidebar-dropdown:hover {
+    background-color: rgba(255,255,255,0.1);
+    color: white;
+}
+
+.sidebar-dropdown i {
+    width: 20px;
+    margin-right: 10px;
+}
+
+.sidebar-dropdown .dropdown-icon {
+    float: right;
+    transition: transform 0.3s ease;
+}
+
+.sidebar-dropdown.collapsed .dropdown-icon {
+    transform: rotate(-90deg);
+}
+
+.sidebar-submenu {
+    background-color: rgba(0,0,0,0.2);
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+}
+
+.sidebar-submenu.show {
+    max-height: 500px;
+}
+
+.sidebar-submenu .nav-link {
+    padding-left: 3rem;
+    font-size: 0.9rem;
+    color: rgba(255,255,255,0.8);
+}
+
+.sidebar-submenu .nav-link:hover {
+    color: white;
+    background-color: rgba(255,255,255,0.05);
+}
+
+/* Overlay */
+.sidebar-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+    z-index: 1040;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+
+.sidebar-overlay.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Theme and language toggles */
+.theme-toggle, .lang-toggle {
+    background: none;
+    border: none;
+    color: rgba(255,255,255,0.9);
+    padding: 0.75rem 1rem;
+    width: 100%;
+    text-align: left;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.theme-toggle:hover, .lang-toggle:hover {
+    background-color: rgba(255,255,255,0.1);
+    color: white;
+}
+
+/* Badge styles */
+.badge-role {
+    background-color: var(--accent-light);
+    color: var(--primary-dark);
+    font-size: 0.7rem;
+    padding: 0.25rem 0.5rem;
+    border-radius: 10px;
+    margin-left: 0.5rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .navbar-nav .nav-item {
+        margin: 0;
+    }
+    
+    .search-form {
+        max-width: 100%;
+        margin: 0.5rem 0;
+    }
+    
+    .sidebar {
+        width: 100%;
+        left: -100%;
+    }
+}
+
+/* Main content adjustment when sidebar is open */
+.main-content {
+    transition: margin-left 0.3s ease;
+}
+
+.main-content.sidebar-open {
+    margin-left: 280px;
+}
+
+@media (max-width: 768px) {
+    .main-content.sidebar-open {
+        margin-left: 0;
+    }
+}
+
+/* Footer */
+footer {
+    background: linear-gradient(135deg, #000624 0%, #3B38A0 50%, #030104 100%);
+    color: #F0F8FF;
+    padding: 0;
+    margin-top: 2rem;
+    border-top: 1px solid var(--primary-medium);
+}
+
+.footer-service-intro {
+    background: linear-gradient(135deg, #030104 0%, var(--accent-dark) 100%);
+    border: 1px solid var(--primary-medium);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+.footer-service-intro h2 {
+    color: #E0FFFF;
+}
+
+.footer-service-intro p {
+    color: #E6E6FA;
+    line-height: 1.6;
+}
+
+.footer-service-intro .highlight {
+    color: #98F5FF;
+    font-weight: 600;
+}
+
+.footer-column {
+    background: linear-gradient(135deg, #030104 0%, var(--accent-dark) 100%);
+    border: 1px solid var(--primary-medium);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+}
+
+.footer-column h3 {
+    color: #98F5FF;
+    font-weight: bold;
+}
+
+.footer-link-item {
+    background-color: #1a1a2e;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    padding: 0 0.75rem;
+    margin-bottom: 2px;
+    border-radius: 2px;
+    transition: all 0.3s ease;
+    color: #d1d5db;
+    text-decoration: none;
+}
+
+.footer-link-item:hover {
+    color: #98F5FF;
+    background-color: rgba(152, 245, 255, 0.1);
+    transform: translateX(2px);
+}
+
+.footer-info-item {
+    background-color: #1a1a2e;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    padding: 0 0.75rem;
+    margin-bottom: 2px;
+    border-radius: 2px;
+    color: #d1d5db;
+}
+
+.footer-app-section {
+    text-align: center;
+}
+
+.footer-qr-placeholder {
+    width: 120px;
+    height: 120px;
+    background: linear-gradient(45deg, var(--primary-light), var(--primary-lighter));
+    border: 2px dashed #98F5FF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1rem;
+    border-radius: 8px;
+    color: var(--primary-dark);
+    font-weight: bold;
+}
+
+.footer-app-button {
+    background: linear-gradient(45deg, var(--primary-medium), var(--primary-light));
+    border: 1px solid #98F5FF;
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    text-decoration: none;
+    display: inline-block;
+    margin: 0.25rem;
+    transition: all 0.3s ease;
+    font-weight: 500;
+}
+
+.footer-app-button:hover {
+    background: linear-gradient(45deg, var(--primary-light), var(--primary-lighter));
+    color: var(--primary-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(152, 245, 255, 0.3);
+}
+
+.footer-bottom {
+    border-top: 1px solid var(--primary-medium);
+    background: rgba(0, 0, 0, 0.3);
+    color: #B0B0C0;
+}
+
+.footer-bottom-links a {
+    color: #98F5FF;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.footer-bottom-links a:hover {
+    text-decoration: underline;
+    color: #E0FFFF;
+}
+
+.footer-company-info {
+    color: white;
+    font-weight: 600;
+}
+
+.footer-highlight {
+    color: #98F5FF;
+    font-weight: 600;
+}
+
+/* Custom scrollbar for sidebar */
+.sidebar::-webkit-scrollbar {
+    width: 5px;
+}
+
+.sidebar::-webkit-scrollbar-track {
+    background: rgba(255,255,255,0.1);
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+    background: rgba(255,255,255,0.3);
+    border-radius: 10px;
+}
+
+.sidebar::-webkit-scrollbar-thumb:hover {
+    background: rgba(255,255,255,0.5);
+}
+
+/* Dark Mode Styles */
+.dark-mode {
+    background-color: #1a1a1a;
+    color: #f0f0f0;
+}
+
+.dark-mode .navbar-custom {
+    background: linear-gradient(90deg, #0f1729 0%, #1a2040 100%);
+}
+
+.dark-mode .sidebar {
+    background: linear-gradient(180deg, #0f1729 0%, #1a1a2e 100%);
+}
+
+.dark-mode .dropdown-menu {
+    background-color: #2a2a2a;
+    border-color: #3a3a3a;
+}
+
+.dark-mode .dropdown-item {
+    color: #f0f0f0;
+}
+
+.dark-mode .dropdown-item:hover {
+    background-color: var(--primary-light);
+    color: white;
+}
+
+.dark-mode .search-form .form-control {
+    background-color: #2a2a2a;
+    border-color: #3a3a3a;
+    color: #f0f0f0;
+}
+
+.dark-mode .search-form .form-control::placeholder {
+    color: #999;
+}
+
+.dark-mode footer {
+    background: linear-gradient(135deg,  #000624 0%, #060f22 50%, #030104 100%);
+    color: #f0f0f0;
+    border-color: #333;
+}
+
+.dark-mode .footer-service-intro {
+    background: linear-gradient(135deg, #000000 0%, #0f0f0f 100%);
+    border-color: #333;
+}
+
+.dark-mode .footer-column {
+    background: linear-gradient(135deg, #000000 0%, #0f0f0f 100%);
+    border-color: #333;
+}
+
+.dark-mode .footer-link-item {
+    background-color: #111;
+    color: #ccc;
+}
+
+.dark-mode .footer-link-item:hover {
+    background-color: rgba(152, 245, 255, 0.2);
+    color: #98F5FF;
+}
+
+.dark-mode .footer-info-item {
+    background-color: #111;
+    color: #ccc;
+}
+
+.dark-mode .footer-bottom {
+    background: rgba(0, 0, 0, 0.6);
+    border-color: #333;
+}
+
+/* Animation improvements */
+.navbar-custom .nav-link,
+.sidebar-nav .nav-link,
+.sidebar-dropdown,
+.theme-toggle,
+.lang-toggle {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.sidebar {
+    transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.sidebar-overlay {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Loading states */
+.nav-link:active,
+.sidebar-dropdown:active {
+    transform: scale(0.98);
+}
+
+/* Focus states for accessibility */
+.sidebar-toggle:focus,
+.sidebar-close:focus,
+.nav-link:focus,
+.sidebar-dropdown:focus {
+    outline: 2px solid var(--primary-lighter);
+    outline-offset: 2px;
+}
+
+/* ===================================
+   NAVBAR LOGO STYLING
+   =================================== */
+
+.navbar-brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    color: white !important;
+}
+
+.navbar-brand:hover {
+    text-decoration: none;
+    color: white !important;
+    transform: scale(1.02);
+}
+
+.navbar-logo {
+    height: 40px;
+    object-fit: contain;
+    border-radius: 4px;
+    background-color: rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+    filter: brightness(1.1);
+}
+
+.navbar-logo:hover {
+    transform: scale(1.1);
+    background-color: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 2px 8px rgba(255, 255, 255, 0.3);
+}
+
+/* Brand Text */
+.brand-text {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: inherit;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsive Design cho Logo */
+@media (max-width: 768px) {
+    .navbar-logo {
+        height: 28px;
+        width: 28px;
+    }
+    
+    .brand-text {
+        font-size: 1.1rem;
+    }
+    
+    .navbar-brand {
+        gap: 8px;
+        padding: 0.25rem 0.75rem;
+    }
+
+    .navbar-toggle {
+        display: block;
+    }
+}
+
+@media (max-width: 576px) {
+    .navbar-logo {
+        height: 24px;
+        width: 24px;
+    }
+    
+    .brand-text {
+        font-size: 1rem;
+    }
+    
+    .navbar-brand {
+        gap: 6px;
+    }
+
+    .navbar-toggle {
+        display: block;
+    }
+    
+}
+
+.navbar-brand:active {
+    transform: scale(0.98);
+}
+
+.navbar-brand:focus {
+    outline: 2px solid rgba(255, 255, 255, 0.5);
+    outline-offset: 2px;
+    border-radius: 4px;
+}
+
+/* Dark Mode adjustments */
+.dark-mode .navbar-logo {
+    filter: brightness(1.2) contrast(1.1);
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.dark-mode .navbar-logo:hover {
+    background-color: rgba(255, 255, 255, 0.15);
+}
+
+.navbar-logo-circle {
+    border-radius: 50%;
+}
+
+.navbar-logo-large {
+    height: 40px;
+    width: 40px;
+}
+
+.navbar-logo-large + .brand-text {
+    font-size: 1.4rem;
+}
+
+@keyframes logoFadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.navbar-logo {
+    animation: logoFadeIn 0.5s ease-out;
+}
+
+/* ===================================
+   FIX FOCUS/ACTIVE OUTLINE CHO NÚT ACCOUNT (THÊM)
+   =================================== */
+
+/* Áp dụng cho nút Account trên Navbar (.nav-link.dropdown-toggle) */
+.navbar-custom .nav-link.dropdown-toggle:focus,
+.navbar-custom .nav-link.dropdown-toggle:active, 
+.navbar-custom .nav-link.dropdown-toggle.show,
+.navbar-custom .nav-link.dropdown-toggle[aria-expanded="true"]
+{
+    /* 1. Loại bỏ viền outline (viền đen/xanh của trình duyệt/CSS cũ) */
+    outline: none !important;
+    
+    /* 2. Loại bỏ box-shadow (thường là viền focus màu xanh của Bootstrap) */
+    box-shadow: none !important; 
+    
+    /* 3. Đảm bảo không bị hiệu ứng nền khi click */
+    background-color: transparent !important;
+}
+/* ===================================
+   FIX GHI ĐÈ DARK MODE CHO SHOPPING CART OFFCANVAS
+   =================================== */
+
+/* 1. NỀN VÀ CHỮ TỔNG THỂ */
+/* Sử dụng !important và selector mạnh hơn (div#shoppingCart) */
+body.dark-mode div#shoppingCart {
+    background-color: #000624;
+    color: #f0f0f0;
+}
+
+/* 2. VIỀN PHÂN TÁCH (Header và Footer) */
+body.dark-mode div#shoppingCart .offcanvas-header {
+    border-color: var(--primary-dark) !important; 
+}
+
+/* 3. MÀU CHỮ CÁC TIÊU ĐỀ VÀ TEXT */
+body.dark-mode div#shoppingCart h4.offcanvas-title,
+body.dark-mode div#shoppingCart .h6,
+body.dark-mode div#shoppingCart .text-light-emphasis,
+body.dark-mode div#shoppingCart a.animate-target {
+    color: var(--white-smoke) !important;
+}
+
+/* 4. BACKGROUND HÌNH ẢNH (Phần nền xám nhạt) */
+/* Ghi đè class Bootstrap bg-body-tertiary */
+body.dark-mode div#shoppingCart .bg-body-tertiary {
+    background-color: var(--primary-dark) !important;
+}
+
+/* 5. NÚT ĐÓNG OFFCANVAS (X) */
+body.dark-mode div#shoppingCart .btn-close {
+    /* Đảo ngược màu sắc để nút đóng thành màu sáng */
+    filter: invert(1) grayscale(100%) brightness(200%) !important; 
+}
+
+/* 6. NÚT GIO HÀNG/CHECKOUT (btn-lg btn-dark) */
+body.dark-mode div#shoppingCart a.btn-dark {
+    background-color: var(--primary-medium) !important; 
+    border-color: var(--primary-medium) !important;
+    color: var(--white-smoke) !important;
+}
+body.dark-mode div#shoppingCart a.btn-dark:hover {
+    background-color: var(--primary-dark) !important; 
+    border-color: var(--primary-dark) !important;
+}
+/* Đảm bảo nền của bảng Giỏ hàng (Cart Table) trùng với màu nền Body */
+/* Buộc bảng Giỏ hàng (Cart Table) có màu nền giống màu nền body #F5F5F5 */
+
+/* 1. Áp dụng nền cho toàn bộ Table (Selector mạnh hơn) */
+.col-lg-8 .table {
+    background-color: var(--white-smoke) !important;
+    --bs-table-bg: var(--white-smoke) !important; 
+    
+    /* Đảm bảo viền trong suốt hoặc viền nhạt để phù hợp với nền */
+    --bs-table-border-color: #E0E0E0;
+}
+
+/* 2. Buộc các hàng (<tr>) và các ô (<td>) không có màu nền trắng */
+.col-lg-8 .table tbody tr,
+.col-lg-8 .table tbody td {
+    background-color: transparent !important;
+    --bs-table-bg: transparent !important; 
+}
+
+/* 3. Tinh chỉnh các hàng (tr) để tránh hiệu ứng hover/striped */
+.col-lg-8 .table tbody tr:nth-child(even) {
+    background-color: transparent !important;
+}
+/* Buộc hàng tiêu đề có màu nền giống màu nền Body */
+.col-lg-8 .table thead, 
+.col-lg-8 .table thead th {
+    background-color: var(--white-smoke) !important;
+    --bs-table-bg: var(--white-smoke) !important;
+    
+    /* Đảm bảo chữ tiêu đề có màu tối để dễ đọc */
+    color: var(--primary-dark) !important; 
+}
+
+/* Đảm bảo không có viền thừa phía trên (nếu có) */
+.col-lg-8 .table thead {
+    border-top: none !important;
+}
+/* ===================================
+   DARK MODE CHO SHOPPING CART TABLE
+   =================================== */
+
+/* Áp dụng nền tối cho toàn bộ bảng */
+body.dark-mode .col-lg-8 .table {
+    background-color: var(--primary-super-dark) !important; /* Màu nền rất tối */
+    color: var(--white-smoke) !important; /* Màu chữ sáng */
+    --bs-table-bg: var(--primary-super-dark) !important;
+    --bs-table-color: var(--white-smoke) !important;
+    --bs-table-border-color: var(--accent-dark); /* Viền đậm hơn */
+}
+
+/* Tiêu đề bảng (Thead) */
+body.dark-mode .col-lg-8 .table thead,
+body.dark-mode .col-lg-8 .table thead th {
+    background-color: var(--primary-super-dark) !important;
+    color: var(--white-smoke) !important; 
+}
+
+/* Nền các hàng (tr) và ô (td) bên trong */
+body.dark-mode .col-lg-8 .table tbody tr,
+body.dark-mode .col-lg-8 .table tbody td {
+    background-color: transparent !important; /* Đảm bảo nền trong suốt */
+    color: var(--white-smoke) !important;
+}
+
+/* Điều chỉnh màu chữ và các chi tiết */
+body.dark-mode .col-lg-8 .table h5 a {
+    color: var(--primary-light) !important; /* Màu xanh nhạt cho tên sản phẩm */
+}
+
+body.dark-mode .col-lg-8 .table .text-body {
+    color: var(--white-smoke) !important; /* Chữ thường */
+}
+
+/* Viền và màu nền của COUNT INPUT (Tăng/Giảm số lượng) */
+body.dark-mode .count-input {
+    border-color: var(--primary-dark) !important; /* Viền tối hơn */
+}
+
+body.dark-mode .count-input .form-control {
+    background-color: transparent !important;
+    border-color: var(--primary-dark) !important; 
+    color: var(--white-smoke) !important; /* Chữ số lượng sáng */
+}
+
+/* Nút Tăng/Giảm */
+body.dark-mode .count-input .btn {
+    color: var(--white-smoke) !important; 
+    border-color: var(--primary-dark) !important;
+}
+
+/* Nút Xóa (Dấu 'x') */
+body.dark-mode .btn-close {
+    /* Đảo ngược màu sắc để dấu 'x' thành màu sáng */
+    filter: invert(1) grayscale(100%);
+    opacity: 0.8; 
+}
+
+/* Buộc body và content-wrapper có nền tối trong Dark Mode */
+body.dark-mode,
+body.dark-mode main.content-wrapper {
+    background-color: #030104 !important;
+}
+
+/* Ghi đè class Bootstrap bg-body-tertiary */
+body.dark-mode .bg-body-tertiary {
+    background-color: var(--accent-dark) !important; /* Dùng màu tối hơn một chút cho khối này */
+    color: var(--white-smoke) !important;
+}
+
+/* Đảm bảo viền phân tách bên trong khối tóm tắt cũng tối */
+body.dark-mode .bg-body-tertiary .border-bottom,
+body.dark-mode .bg-body-tertiary .border-top {
+    border-color: var(--primary-dark) !important;
+}
+/* Fix chữ và tiêu đề trong khu vực Giỏ hàng và Tóm tắt đơn hàng */
+body.dark-mode .container,
+body.dark-mode .section {
+    color: var(--white-smoke) !important;
+}
+
+/* Fix Tiêu đề trang (Giỏ hàng) */
+body.dark-mode h1.h3,
+body.dark-mode h5 {
+    color: var(--white-smoke) !important;
+}
+
+/* Fix chữ trong Breadcrumb */
+body.dark-mode .breadcrumb .breadcrumb-item,
+body.dark-mode .breadcrumb .breadcrumb-item a {
+    color: var(--primary-light) !important; /* Màu sáng hơn cho liên kết */
+}
+body.dark-mode .breadcrumb .breadcrumb-item.active {
+    color: var(--white-smoke) !important;
+}
+/* Fix chữ trong khối Tóm tắt đơn hàng */
+body.dark-mode .bg-body-tertiary,
+body.dark-mode .bg-body-tertiary ul,
+body.dark-mode .bg-body-tertiary ul li {
+    color: var(--white-smoke) !important;
+}
+
+/* Fix chữ "Tổng ước tính" và số tiền lớn */
+body.dark-mode .bg-body-tertiary .h5,
+body.dark-mode .bg-body-tertiary .fs-sm,
+body.dark-mode .bg-body-tertiary .text-dark-emphasis {
+    color: var(--white-smoke) !important;
+}
+
+/* Fix các lớp màu cụ thể của Cartzilla nếu chúng vẫn hiển thị màu tối */
+body.dark-mode .text-dark-emphasis {
+    color: var(--white-smoke) !important;
+}
+body.dark-mode .text-body-secondary {
+    color: var(--accent-light) !important;
+}
+
+/* Fix màu chữ cho liên kết "Tiếp tục mua hàng" */
+body.dark-mode .nav-link.animate-underline,
+body.dark-mode .nav-link.animate-underline .animate-target {
+    /* Buộc chữ có màu sáng (sử dụng màu primary-light cho liên kết) */
+    color: var(--primary-light) !important; 
+}
+
+/* Fix màu icon (ci-chevron-left) */
+body.dark-mode .nav-link.animate-underline i {
+    color: var(--primary-light) !important; 
+}
+
+/* Fix hiệu ứng gạch chân/hover nếu có */
+body.dark-mode .nav-link.animate-underline:hover {
+    color: var(--white-smoke) !important;
+}
+/* Buộc màu chữ và màu nền cho input số lượng trong Dark Mode */
+body.dark-mode .count-input .form-control {
+    /* MÀU CHỮ: Buộc thành màu sáng */
+    color: var(--white-smoke) !important; 
+    
+    /* MÀU NỀN: Đảm bảo trong suốt để lộ nền bảng tối */
+    background-color: transparent !important;
+    
+    /* MÀU VIỀN: Sáng màu để nhìn rõ hơn */
+    border-color: var(--accent-light) !important; 
+}
+
+/* =================================================================
+   FIX CUỐI CÙNG: Buộc màu chữ input số lượng thành White Smoke
+   ================================================================= */
+
+/* Selector ưu tiên cao nhất cho input số lượng */
+body.dark-mode .col-lg-8 .table .count-input .form-control,
+body.dark-mode .col-lg-8 .table .count-input .form-control:hover,
+body.dark-mode .col-lg-8 .table .count-input .form-control:focus,
+body.dark-mode .col-lg-8 .table .count-input .form-control:active {
+    /* 1. MÀU CHỮ: Áp dụng màu sáng */
+    color: var(--white-smoke) !important;
+    
+    /* 2. MÀU NỀN: Đảm bảo trong suốt */
+    background-color: transparent !important;
+    
+    /* 3. Yêu cầu trình duyệt sử dụng bảng màu tối */
+    color-scheme: dark !important; 
+    
+    /* 4. Ghi đè màu Autofill/Browser Default (dùng cho Chrome/Edge/Safari) */
+    -webkit-text-fill-color: var(--white-smoke) !important;
+    -webkit-box-shadow: 0 0 0 30px var(--primary-super-dark) inset !important;
+}
+/* Buộc màu chữ của icon dấu +/- thành màu sáng */
+body.dark-mode .col-lg-8 .table .count-input .btn i,
+body.dark-mode .col-lg-8 .table .count-input .btn a i {
+    color: var(--white-smoke) !important;
+    
+    /* Đặt filter để buộc nó là màu trắng (ghi đè icon font) */
+    filter: brightness(0) invert(1) !important; 
+}
+/* Buộc màu chữ cho chính thẻ button (để icon kế thừa) */
+body.dark-mode .col-lg-8 .table .count-input .btn {
+    color: var(--white-smoke) !important;
+    background-color: transparent !important; /* Giữ nền trong suốt */
+}
+/* =================================================================
+   FIX DỨT ĐIỂM BẰNG GHI ĐÈ CSS VARIABLE GỐC CỦA THEME
+   ================================================================= */
+
+/* 1. Ghi đè biến màu chữ gốc cho DARK MODE */
+body.dark-mode {
+    /* Đặt màu chữ mặc định của Body và Text thành màu sáng */
+    color: var(--white-smoke) !important;
+    --bs-body-color: var(--white-smoke) !important; /* Ghi đè biến Bootstrap */
+}
+
+/* 2. Ghi đè Màu chữ trong Table (đã có nhưng lặp lại để chắc chắn) */
+body.dark-mode .table,
+body.dark-mode .table td {
+    color: var(--white-smoke) !important;
+    --bs-table-color: var(--white-smoke) !important;
+}
+
+
+/* 3. Ghi đè TUYỆT ĐỐI cho Font Awesome Icon */
+body.dark-mode .count-input .btn i.fas,
+body.dark-mode .count-input .btn a i.fas {
+    /* Buộc màu chữ sáng */
+    color: var(--white-smoke) !important;
+    
+    /* Ghi đè Webkit (Chrome, Edge) */
+    -webkit-text-fill-color: var(--white-smoke) !important;
+    
+    /* Buộc filter để xử lý icon font đen */
+    filter: brightness(0) invert(1) !important; 
+    
+    /* Hack cuối cùng */
+    text-shadow: 0 0 1px var(--white-smoke) !important;
+}
+/* =================================================================
+   GHI ĐÈ BIẾN CSS GỐC CHO DARK MODE (ĐỘ ƯU TIÊN CAO)
+   ================================================================= */
+body.dark-mode {
+    /* 1. Thay đổi màu chữ gốc của body */
+    color: var(--white-smoke) !important;
+    
+    /* 2. Ghi đè biến Bootstrap chính cho màu chữ */
+    --bs-body-color: var(--white-smoke) !important; 
+    
+    /* 3. Ghi đè biến màu văn bản/icon của theme */
+    --cz-text-color: var(--white-smoke) !important;
+    --cz-heading-color: var(--white-smoke) !important;
+    
+    /* 4. Ghi đè màu của các thành phần UI */
+    --cz-component-color: var(--white-smoke) !important;
+    --cz-icon-color: var(--white-smoke) !important;
+}
+
+/* 5. Áp dụng lại các quy tắc ghi đè ICON mạnh nhất (bạn đã có) */
+body.dark-mode .col-lg-8 .table .count-input .btn i.fas, 
+body.dark-mode .col-lg-8 .table .count-input .btn:hover i.fas,
+body.dark-mode .col-lg-8 .table .count-input .btn:focus i.fas {
+    color: #F5F5F5 !important; /* MÃ MÀU CỨNG */
+    -webkit-text-fill-color: #F5F5F5 !important;
+    filter: brightness(0) invert(1) !important; 
+}
+/* =================================================================
+   🔥 FIX TUYỆT ĐỐI CUỐI CÙNG CHO ICON DẤU +/- (Ghi đè mọi thứ)
+   ================================================================= */
+
+/* 1. BUỘC MÀU NÚT CHA (A.btn-icon) VÀ VIỀN: SỬ DỤNG MÀU NỀN TỐI VÀ VIỀN SÁNG */
+/* Áp dụng cho trạng thái Mặc định, Hover, Focus */
+body.dark-mode .col-lg-8 .table .count-input .btn-icon,
+body.dark-mode .col-lg-8 .table .count-input .btn-icon:hover,
+body.dark-mode .col-lg-8 .table .count-input .btn-icon:focus,
+body.dark-mode .col-lg-8 .table .count-input .btn-icon:active {
+    /* MÀU NỀN: Đồng bộ với nền tối */
+    background-color: var(--primary-super-dark) !important; 
+    
+    /* MÀU VIỀN: Màu sáng */
+    border: 1px solid var(--primary-light) !important;
+    
+    /* MÀU CHỮ: Buộc màu sáng */
+    color: #F5F5F5 !important; 
+    
+    /* Ghi đè Webkit cho nút cha */
+    -webkit-text-fill-color: #F5F5F5 !important;
+}
+
+/* 2. BUỘC MÀU ICON CON (I.fas) VÀ PSEUDO-ELEMENT: MÀU SÁNG TUYỆT ĐỐI */
+/* Nhắm mục tiêu I.fas (Icon) và ::before (nội dung thực tế của Font Awesome) ở MỌI TRẠNG THÁI */
+body.dark-mode .col-lg-8 .table .count-input .btn-icon i.fas,
+body.dark-mode .col-lg-8 .table .count-input .btn-icon:hover i.fas,
+body.dark-mode .col-lg-8 .table .count-input .btn-icon:focus i.fas,
+body.dark-mode .col-lg-8 .table .count-input .btn-icon i.fas::before,
+body.dark-mode .col-lg-8 .table .count-input .btn-icon:hover i.fas::before,
+body.dark-mode .col-lg-8 .table .count-input .btn-icon:focus i.fas::before {
+    /* BUỘC MÀU CỨNG TUYỆT ĐỐI */
+    color: #F5F5F5 !important;
+    
+    /* GHI ĐÈ WEB-KIT */
+    -webkit-text-fill-color: #F5F5F5 !important;
+    
+    /* HACK FILTER MẠNH MẼ NHẤT: Đảo ngược màu đen thành trắng */
+    filter: brightness(0) invert(1) !important;
+    
+    /* HACK TEXT-SHADOW: Tạo hào quang trắng để che mờ màu đen */
+    text-shadow: 0 0 1px #F5F5F5 !important;
+}
+/* 1. MÀU NÚT CHA (.btn-icon) VÀ VIỀN KHI HOVER */
+/* SỬ DỤNG MÀU NỀN ÍT TỐI HƠN */
+body.dark-mode .col-lg-8 .table .count-input .btn-icon:hover,
+body.dark-mode .col-lg-8 .table .count-input .btn-icon:focus,
+body.dark-mode .col-lg-8 .table .count-input .btn-icon:active {
+    /* MÀU NỀN HOVER: Chuyển sang màu tối nhưng sáng hơn (Primary Dark) */
+    background-color: var(--primary-dark) !important; 
+    
+    /* MÀU VIỀN HOVER: Viền sáng hơn để nổi bật */
+    border: 1px solid var(--primary-lighter) !important;
+    
+    /* MÀU CHỮ: Buộc màu sáng */
+    color: var(--white-smoke) !important; 
+}
+/* 2. MÀU ICON CON (I.fas) KHI HOVER (Phần này nằm trong khối rộng hơn) */
+body.dark-mode .col-lg-8 .table .count-input .btn-icon:hover i.fas,
+body.dark-mode .col-lg-8 .table .count-input .btn-icon:focus i.fas,
+body.dark-mode .col-lg-8 .table .count-input .btn-icon:hover i.fas::before,
+body.dark-mode .col-lg-8 .table .count-input .btn-icon:focus i.fas::before {
+    /* BUỘC MÀU SÁNG HƠN: Dùng màu trắng tinh (#FFFFFF) */
+    color: #FFFFFF !important;
+    
+    /* GHI ĐÈ WEB-KIT */
+    -webkit-text-fill-color: #FFFFFF !important;
+    
+    /* TĂNG ĐỘ SÁNG BẰNG HACK FILTER (từ invert(1) thành invert(1) và tăng saturation/contrast nếu cần) */
+    /* Chúng ta vẫn phải giữ invert(1) để đổi màu đen sang trắng, nên chỉ cần đảm bảo color là #FFFFFF */
+    filter: brightness(1.2) invert(1) !important; /* Tăng độ sáng (brightness) lên 1.2 lần */
+}
+/* =================================================================
+   FIX ĐỒNG BỘ MÀU NÚT "GO TO CHECKOUT" (GIỐNG NÚT CART)
+   ================================================================= */
+
+/* 1. NÚT CHECKOUT (Nằm trong khối Tóm tắt đơn hàng .bg-body-tertiary) - Trạng thái Mặc định */
+/* Selector cực mạnh nhắm mục tiêu vào nút btn-dark */
+body.dark-mode .bg-body-tertiary a.btn-dark,
+body.dark-mode .bg-body-tertiary .btn-dark {
+    /* MÀU NỀN: Buộc thành ĐEN TUYỆT ĐỐI */
+    background-color: var(--primary-medium) !important; 
+    border-color: var(--primary-medium) !important; 
+    /* MÀU CHỮ: Buộc thành TRẮNG */
+    color: #FFFFFF !important;
+}
+
+/* 2. NÚT CHECKOUT - Trạng thái Hover/Focus (Màu tối hơn/sáng hơn một chút khi di chuột) */
+body.dark-mode .bg-body-tertiary a.btn-dark:hover,
+body.dark-mode .bg-body-tertiary a.btn-dark:focus {
+    /* MÀU NỀN HOVER: Dùng màu tối đã định nghĩa (Primary Dark) để tạo hiệu ứng */
+    background-color: var(--primary-dark) !important; 
+    /* MÀU VIỀN HOVER: Đồng bộ nền hover */
+    border-color: var(--primary-dark) !important;
+    /* MÀU CHỮ HOVER: Buộc thành TRẮNG */
+    color: #FFFFFF !important;
+}
+
+/* 3. Fix Icon bên trong nút Checkout (i.ci-chevron-right) */
+body.dark-mode .bg-body-tertiary a.btn-dark i {
+    color: #FFFFFF !important;
+}
+body.dark-mode div#shoppingCart a.btn-dark {
+    background-color: var(--primary-medium) !important; 
+    border-color: var(--primary-medium) !important;
+    color: var(--white-smoke) !important;
+}
+body.dark-mode div#shoppingCart a.btn-dark:hover {
+    background-color: var(--primary-dark) !important; 
+    border-color: var(--primary-dark) !important;
+}
+/* =================================================================
+   🔥 FIX DARK MODE CHO NÚT THANH TOÁN (PAY BUTTON)
+   ================================================================= */
+
+/* 1. NÚT THANH TOÁN (Màn hình lớn: btn-dark) */
+body.dark-mode label[for="checkout-form-submit"].btn-dark {
+    /* MÀU NỀN: Đồng bộ với Primary Medium */
+    background-color: var(--primary-medium) !important;
+    border-color: var(--primary-medium) !important;
+    /* MÀU CHỮ: Trắng */
+    color: #FFFFFF !important;
+}
+
+body.dark-mode label[for="checkout-form-submit"].btn-dark:hover,
+body.dark-mode label[for="checkout-form-submit"].btn-dark:focus {
+    /* MÀU NỀN HOVER: Đồng bộ với Primary Dark */
+    background-color: var(--primary-dark) !important;
+    border-color: var(--primary-dark) !important;
+    /* MÀU CHỮ: Trắng */
+    color: #FFFFFF !important;
+}
+
+/* 2. NÚT THANH TOÁN CỐ ĐỊNH (Màn hình nhỏ: fixed-bottom, btn-primary) */
+/* Cần selector mạnh để ghi đè .d-lg-none và .btn-primary */
+body.dark-mode .fixed-bottom.d-lg-none label[for="checkout-form-submit"].btn-primary {
+    /* MÀU NỀN: Đồng bộ với Primary Medium */
+    background-color: var(--primary-medium) !important;
+    border-color: var(--primary-medium) !important;
+    /* MÀU CHỮ: Trắng */
+    color: #FFFFFF !important;
+}
+
+body.dark-mode .fixed-bottom.d-lg-none label[for="checkout-form-submit"].btn-primary:hover,
+body.dark-mode .fixed-bottom.d-lg-none label[for="checkout-form-submit"].btn-primary:focus {
+    /* MÀU NỀN HOVER: Đồng bộ với Primary Dark */
+    background-color: var(--primary-dark) !important;
+    border-color: var(--primary-dark) !important;
+    /* MÀU CHỮ: Trắng */
+    color: #FFFFFF !important;
+}
+
+body.dark-mode .fixed-bottom.d-lg-none {
+    /* Buộc nền thành màu tối của Dark Mode */
+    background-color: var(--primary-super-dark) !important; 
+    border-top: 1px solid var(--primary-dark) !important;
+}
+body.dark-mode div#orderPreview {
+    background-color: #000624;
+    color: #f0f0f0;
+}
+
+/* 2. VIỀN PHÂN TÁCH (Header và Footer) */
+body.dark-mode div#orderPreview .offcanvas-header {
+    border-color: var(--primary-dark) !important; 
+}
+
+/* 3. MÀU CHỮ CÁC TIÊU ĐỀ VÀ TEXT */
+body.dark-mode div#orderPreview h4.offcanvas-title,
+body.dark-mode div#orderPreview .h6,
+body.dark-mode div#orderPreview .text-light-emphasis,
+body.dark-mode div#orderPreview a.animate-target {
+    color: var(--white-smoke) !important;
+}
+
+/* 4. BACKGROUND HÌNH ẢNH (Phần nền xám nhạt) */
+/* Ghi đè class Bootstrap bg-body-tertiary */
+body.dark-mode div#orderPreview .bg-body-tertiary {
+    background-color: var(--primary-dark) !important;
+}
+
+/* 5. NÚT ĐÓNG OFFCANVAS (X) */
+body.dark-mode div#orderPreview .btn-close {
+    /* Đảo ngược màu sắc để nút đóng thành màu sáng */
+    filter: invert(1) grayscale(100%) brightness(200%) !important; 
+}
+
+/* 6. NÚT GIO HÀNG/CHECKOUT (btn-lg btn-dark) */
+body.dark-mode div#orderPreview a.btn-dark {
+    background-color: var(--primary-medium) !important; 
+    border-color: var(--primary-medium) !important;
+    color: var(--white-smoke) !important;
+}
+body.dark-mode div#orderPreview a.btn-dark:hover {
+    background-color: var(--primary-dark) !important; 
+    border-color: var(--primary-dark) !important;
+}
+/* =================================================================
+   ẨN THANH CUỘN CHO KHỐI BRANDS (Giữ chức năng cuộn ngang)
+   ================================================================= */
+
+/* =================================================================
+   🔥 ẨN THANH CUỘN CHO KHỐI CUỘN NGANG (BRANDS)
+   ================================================================= */
+
+/* 1. Ẩn thanh cuộn mặc định (Native Scrollbar) */
+.overflow-auto {
+    /* Cho Firefox */
+    scrollbar-width: none;
+    /* Cho IE/Edge */
+    -ms-overflow-style: none;
+}
+
+/* Cho Chrome, Safari, Opera */
+.overflow-auto::-webkit-scrollbar {
+    display: none !important; 
+    width: 0 !important;
+    height: 0 !important;
+}
+
+/* 2. Ẩn thanh cuộn do Simplebar tạo ra */
+/* [data-simplebar] là selector nhắm vào phần tử bạn đang dùng */
+[data-simplebar] .simplebar-track {
+    /* Buộc ẩn track của Simplebar */
+    display: none !important;
+}
+
+/* Đảm bảo nội dung không bị dịch chuyển khi thanh cuộn biến mất */
+[data-simplebar] {
+    overflow: auto !important; /* Đảm bảo cuộn ngang vẫn hoạt động */
+    padding-right: 0 !important; /* Loại bỏ padding mà Simplebar có thể thêm */
+}
+
+/* =================================================================
+   CSS CHO NÚT CUỘN TRÁI/PHẢI (Brands Scroll Buttons) - THIẾT KẾ MỚI
+   ================================================================= */
+.scroll-btn {
+    /* Vị trí và lớp phủ */
+    z-index: 10;
+    
+    /* Hình dáng */
+    width: 2.2rem; /* Giảm kích thước */
+    height: 2.2rem;
+    border-radius: 50%;
+    
+    /* Màu sắc và hiệu ứng */
+    background-color: var(--white-smoke); /* Nền sáng */
+    color: var(--primary-medium); /* Icon màu xanh đậm */
+    border: 1px solid var(--accent-lighter); /* Viền mỏng, nhẹ */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Bóng mờ nhẹ */
+    
+    /* Trình bày icon */
+    display: flex; /* Dùng flex để căn giữa icon */
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem; /* Kích thước icon */
+
+    /* Chuyển động */
+    cursor: pointer;
+    opacity: 0.8;
+    transition: all 0.3s ease-in-out;
+}
+
+/* Hiệu ứng Hover */
+.scroll-btn:hover {
+    opacity: 1;
+    background-color: var(--primary-medium); /* Chuyển sang màu xanh khi hover */
+    color: #FFFFFF; /* Chữ/icon màu trắng */
+    border-color: var(--primary-medium); /* Viền đồng bộ */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* Bóng sâu hơn */
+    transform: translateY(-50%) scale(1.05);
+}
+
+/* DARK MODE STYLES */
+body.dark-mode .scroll-btn {
+    background-color: var(--accent-dark); /* Nền tối hơn trong Dark Mode */
+    color: var(--primary-light); /* Icon màu xanh nhạt hơn */
+    border-color: var(--accent-medium);
+}
+
+body.dark-mode .scroll-btn:hover {
+    background-color: var(--primary-dark); /* Màu xanh đậm khi hover */
+    color: #FFFFFF;
+    border-color: var(--primary-dark);
+}
+
+/* Định vị nút phải (Đẩy vào trong một chút) */
+.scroll-right {
+    right: 0;
+    margin-right: -1rem; 
+}
+
+/* Định vị nút trái (Đẩy vào trong một chút) */
+.scroll-left {
+    left: 0;
+    margin-left: -1rem;
+}
+/* =================================================================
+   CSS ĐIỀU CHỈNH KÍCH CỠ LOGO BRANDS ĐỒNG BỘ
+   ================================================================= */
+
+/* Container bọc ngoài mỗi logo (cần thêm class này vào HTML) */
+.brand-logo-container {
+    width: 100%;
+    /* Khung hình vuông 1:1, chiều cao bằng chiều rộng của container cha */
+    padding-top: 100%; 
+    position: relative;
+}
+
+/* Áp dụng cho thẻ <a> bọc ngoài logo */
+.brand-link {
+    /* Thiết lập Flexbox để căn giữa logo hoàn hảo */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* Đặt logo ở giữa khung container 1:1 */
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    padding: 10px; /* Thêm padding bên trong link để tạo không gian thở */
+    border-radius: 8px; /* Bo góc nhẹ */
+    transition: background-color 0.3s ease;
+}
+
+/* Ứng dụng cho thẻ <img> thực tế */
+.brand-link img {
+    /* Đảm bảo ảnh vừa với khung, giữ tỉ lệ gốc và không bị cắt */
+    object-fit: contain; 
+    /* Chiều cao và chiều rộng tối đa */
+    max-height: 100%; 
+    max-width: 100%;
+    /* Đảm bảo ảnh luôn ở trạng thái tốt */
+    height: auto !important; 
+    width: auto !important;
+    transition: transform 0.3s ease;
+}
+
+.brand-link:hover img {
+    transform: scale(1.05); /* Hiệu ứng phóng to nhẹ khi di chuột */
+}
+
+/* Hiệu ứng nền khi hover (tuỳ chọn) */
+.brand-link:hover {
+    background-color: var(--accent-lighter);
+}
+
+/* DARK MODE STYLES */
+body.dark-mode .brand-link:hover {
+    background-color: var(--accent-dark);
+}
+/* =================================================================
+   FIX LỖI HIỂN THỊ SLIDER TRÊN HOME PAGE (section.container pt-3 mb-4)
+   ================================================================= */
+
+/* 1. Đảm bảo khối container tổng thể có chiều cao tối thiểu */
+.container.pt-3.mb-4 {
+    min-height: 480px; /* Đặt chiều cao tối thiểu cho toàn bộ khối */
+    overflow: hidden; 
+}
+
+/* 2. Fix chiều cao cho Slider chứa ảnh (ID: sliderImages) */
+#sliderImages {
+    height: 450px; /* Chiều cao cố định */
+    width: 100%;
+}
+
+/* 3. Đảm bảo Swiper Wrapper và Slides chiếm toàn bộ chiều cao */
+#sliderImages .swiper-wrapper,
+#sliderImages .swiper-slide {
+    height: 100%;
+}
+
+/* 4. Căn giữa và đảm bảo ảnh bên trong vừa vặn */
+#sliderImages .swiper-slide {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#sliderImages .swiper-slide img {
+    max-height: 100%;
+    max-width: 100%;
+    object-fit: cover; /* Đảm bảo ảnh lấp đầy khung mà không bị kéo giãn */
+}
+/* =================================================================
+   FIX DARK MODE CHO HERO SLIDER BANNER
+   ================================================================= */
+body.dark-mode .d-block-dark {
+    /* Selector này nhắm vào thẻ span chứa nền tối */
+    background: linear-gradient(90deg, var(--accent-dark) 0%, var(--primary-super-dark) 100%) !important;
+}
+/* =================================================================
+   🔥 FIX TUYỆT ĐỐI DARK MODE CHO HERO SLIDER BANNER (Ghi đè Style Inline)
+   ================================================================= */
+
+/* 1. Ghi đè nền Dark Mode */
+/* Nhắm mục tiêu vào thẻ span có class d-block-dark và ghi đè background inline */
+body.dark-mode .d-block-dark {
+    /* Đảm bảo sử dụng !important để ghi đè style inline */
+    background: linear-gradient(90deg, var(--accent-dark) 0%, var(--primary-super-dark) 100%) !important;
+}
+
+/* 2. Ghi đè nền Light Mode (Nếu cần) */
+/* Nhằm đồng bộ màu nền Light Mode với biến CSS */
+/* Cần đảm bảo rằng d-none-dark hiển thị trong Light Mode (body không có class dark-mode) */
+body:not(.dark-mode) .d-none-dark {
+    /* Sử dụng Light Mode colors: light blue đến primary light */
+    background: linear-gradient(90deg, var(--light-blue) 0%, var(--primary-light) 100%) !important;
+}
